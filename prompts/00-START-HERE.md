@@ -7,6 +7,10 @@ Welcome. You're about to build your own **open, market-derived pricing model** f
 - `tax.json` — your jurisdiction tax rates.
 - A documented basis for the whole thing, so your estimates hold up under scrutiny.
 
+## What you need
+
+**A Claude Pro subscription (about $17/month).** The free plan can't edit files in a folder, which this workflow relies on.
+
 ## Before you begin
 - Open this `odapm/` folder in **Claude (Cowork)** so Claude can read these files and write your model directly.
 - Have a rough idea of: the types of losses you handle (water, fire, mold, etc.), the region you work in, and your real costs (crew wage, typical material costs, equipment day-rates). Don't worry if some are fuzzy — Claude will help you derive them from public data.
