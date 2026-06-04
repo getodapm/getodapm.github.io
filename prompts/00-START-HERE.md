@@ -23,6 +23,6 @@ Welcome. You're about to build your own **open, market-derived pricing model** f
 Open the prompt file, copy everything under the **"Paste this to Claude"** line, send it to Claude in this session, and answer the questions. When a step is done, move to the next file.
 
 ## The one rule
-Never paste in numbers from a proprietary pricing list (e.g. Xactimate). ODAPM derives prices independently from open public data — that's the entire point, and it's what keeps your model clean and defensible. If you already know your *own* real costs, those are welcome; a competitor's licensed list is not.
+Never paste in numbers from a licensed proprietary pricing platform. ODAPM derives prices independently from open public data — that's the entire point, and it's what keeps your model clean and defensible. If you already know your *own* real costs, those are welcome; a competitor's licensed list is not.
 
 Ready? Open **`01-define-your-trade-and-region.md`**.
