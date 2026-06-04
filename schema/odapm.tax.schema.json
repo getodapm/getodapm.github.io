@@ -1,0 +1,49 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://odapm.org/schema/odapm.tax.schema.json",
+  "title": "ODAPM Tax Model (odapm/v1)",
+  "description": "Jurisdiction tax rates. Separate from pricing. Tax applies to the material portion only.",
+  "type": "object",
+  "required": ["meta", "jurisdictions"],
+  "additionalProperties": true,
+  "properties": {
+    "meta": {
+      "type": "object",
+      "required": ["schema", "state", "tax_applies_to"],
+      "properties": {
+        "schema": { "const": "odapm-tax/v1" },
+        "state": { "type": "string" },
+        "sourcing": { "type": "string", "enum": ["destination", "origin"], "default": "destination" },
+        "tax_applies_to": { "const": "material" },
+        "authoritative_source": { "type": "string" },
+        "source_url": { "type": "string" },
+        "lookup_url": { "type": "string", "description": "State by-address rate lookup for edge cases." },
+        "updated": { "type": "string" }
+      }
+    },
+    "jurisdictions": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["id", "name", "rate"],
+        "properties": {
+          "id": { "type": "string" },
+          "name": { "type": "string" },
+          "rate": { "type": "number", "minimum": 0, "description": "Combined percentage, e.g. 8.0" },
+          "verified": { "type": "boolean" },
+          "components": { "type": "object" },
+          "note": { "type": "string" }
+        }
+      }
+    },
+    "zip_candidates": {
+      "type": "object",
+      "description": "Maps a ZIP to the jurisdiction ids that occur within it (a ZIP can span several). Keys are ZIPs; values are arrays of jurisdiction ids. Underscore-prefixed keys (e.g. _note) are free-text comments.",
+      "patternProperties": {
+        "^[0-9]{5}$": { "type": "array", "items": { "type": "string" } },
+        "^_": { "type": "string" }
+      },
+      "additionalProperties": false
+    }
+  }
+}

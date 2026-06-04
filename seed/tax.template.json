@@ -1,0 +1,20 @@
+{
+  "meta": {
+    "schema": "odapm-tax/v1",
+    "state": "",
+    "sourcing": "destination",
+    "tax_applies_to": "material",
+    "authoritative_source": "",
+    "source_url": "",
+    "lookup_url": "",
+    "updated": "",
+    "note": "Template. Fill from your state's free rate source via prompts/04-set-your-tax.md. Tax applies to the material portion only."
+  },
+  "jurisdictions": [
+    { "id": "example_city", "name": "Example City", "rate": 0.0, "verified": false, "components": {}, "note": "Replace with your jurisdictions and their combined rates." }
+  ],
+  "zip_candidates": {
+    "_note": "Map each service-area ZIP to the jurisdiction ids that can occur within it. A ZIP commonly spans 2+ jurisdictions; list all candidates rather than guessing one.",
+    "00000": ["example_city"]
+  }
+}

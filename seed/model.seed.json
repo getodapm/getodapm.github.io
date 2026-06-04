@@ -1,0 +1,28 @@
+{
+  "meta": {
+    "schema": "odapm/v1",
+    "version": "seed-0.1.0",
+    "model_name": "ODAPM Reference Scope (seed)",
+    "currency": "USD",
+    "region": "",
+    "base_location": "",
+    "labor_basis": {},
+    "margin_target": null,
+    "escalated": null,
+    "note": "Reference scope to start from. Structure + items only; ALL prices null. No proprietary data. Adapt via prompts/02-build-your-scope.md, then price via prompts/03-derive-your-prices.md."
+  },
+  "items": [
+    { "id": "floor_protection", "group": "setup", "name": "Floor Protection", "unit": "LF", "desc": "Protect floors and walkways from entry to the work area.", "price": { "rem": null, "rep": null, "mat": null } },
+    { "id": "containment", "group": "setup", "name": "Containment Barrier", "unit": "SF", "desc": "Build poly containment to control dust and prevent cross-contamination.", "price": { "rem": null, "rep": null, "mat": null } },
+    { "id": "ppe_setup", "group": "setup", "name": "PPE Setup", "unit": "EA", "desc": "Personal protective equipment for the crew.", "price": { "rem": null, "rep": null, "mat": null } },
+    { "id": "drywall_demo", "group": "demolition", "name": "Remove Drywall", "unit": "SF", "categoryPriced": true, "repeatable": true, "desc": "Tear out non-salvageable drywall and dispose.", "estVerb": "Remove", "priceByCategory": { "cat1": { "rem": null, "rep": null, "mat": null }, "cat2": { "rem": null, "rep": null, "mat": null }, "cat3": { "rem": null, "rep": null, "mat": null } } },
+    { "id": "baseboard", "group": "demolition", "name": "Baseboard", "unit": "LF", "repeatable": true, "desc": "Baseboard trim.", "pick": { "label": "Action", "options": [ { "id": "detach", "label": "Detach & Reset" }, { "id": "dispose", "label": "Remove & Dispose" } ] }, "price": { "rem": null, "rep": null, "mat": null } },
+    { "id": "antimicrobial", "group": "cleaning", "name": "Apply Antimicrobial", "unit": "SF", "repeatable": true, "desc": "Apply antimicrobial to exposed framing/affected area (actual affected SF only).", "price": { "rem": null, "rep": null, "mat": null } },
+    { "id": "hepa_vac_light", "group": "cleaning", "name": "HEPA Vacuuming (light)", "unit": "SF", "repeatable": true, "desc": "Initial HEPA vacuum pass.", "price": { "rem": null, "rep": null, "mat": null } },
+    { "id": "air_mover", "group": "equipment", "name": "Air Mover", "unit": "DAY", "repeatable": true, "desc": "Per air mover, per day of operation.", "price": { "rem": null, "rep": null, "mat": null } },
+    { "id": "dehumidifier", "group": "equipment", "name": "Dehumidifier", "unit": "DAY", "repeatable": true, "desc": "Per dehumidifier, per day of operation.", "price": { "rem": null, "rep": null, "mat": null } },
+    { "id": "air_scrubber", "group": "equipment", "name": "Air Scrubber / Negative Air", "unit": "DAY", "repeatable": true, "desc": "Per air scrubber, per day of operation.", "price": { "rem": null, "rep": null, "mat": null } },
+    { "id": "equipment_monitoring", "group": "labor", "name": "Equipment Setup, Takedown & Monitoring", "unit": "HR", "desc": "Labor only. (monitoring visits × 1.5 hr) + (equipment pieces × 0.33 hr).", "price": { "rem": null, "rep": null, "mat": null } },
+    { "id": "equipment_decon", "group": "labor", "name": "Equipment Decontamination", "unit": "EA", "desc": "Per piece. Clean extractor, tank, wand, hoses, tools. Required on Cat 2/3.", "price": { "rem": null, "rep": null, "mat": null } }
+  ]
+}

@@ -1,0 +1,43 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://odapm.org/schema/odapm.scope.schema.json",
+  "title": "ODAPM Scope Item (odapm/v1)",
+  "description": "Vendor-neutral description of a restoration line item. Defines what work exists and how it is structured, independent of any proprietary code set.",
+  "type": "object",
+  "required": ["id", "name", "group", "unit"],
+  "additionalProperties": true,
+  "properties": {
+    "id": { "type": "string", "pattern": "^[a-z0-9_]+$", "description": "Stable slug, unique within the model." },
+    "name": { "type": "string", "description": "Plain-language label. No proprietary codes." },
+    "group": {
+      "type": "string",
+      "enum": ["setup", "demolition", "cleaning", "equipment", "fixtures", "labor", "other"],
+      "description": "Estimate section this item belongs to."
+    },
+    "unit": { "type": "string", "enum": ["SF", "LF", "EA", "HR", "DAY"] },
+    "desc": { "type": "string", "description": "One-line explanation of what the item covers." },
+    "estVerb": { "type": "string", "description": "Optional verb used when rendering the estimate line." },
+    "categoryPriced": { "type": "boolean", "default": false, "description": "True if the unit price varies by water category (cat1/cat2/cat3)." },
+    "repeatable": { "type": "boolean", "default": false, "description": "True if the item can appear per-room/per-area." },
+    "pick": {
+      "type": "object",
+      "description": "Optional choice set (e.g. action detach vs remove & dispose, or material/size).",
+      "required": ["label", "options"],
+      "properties": {
+        "label": { "type": "string" },
+        "options": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "object",
+            "required": ["id", "label"],
+            "properties": {
+              "id": { "type": "string" },
+              "label": { "type": "string" }
+            }
+          }
+        }
+      }
+    }
+  }
+}
