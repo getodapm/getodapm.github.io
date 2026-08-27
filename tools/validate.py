@@ -4,7 +4,7 @@
 Usage:
     python3 tools/validate.py path/to/model.json [path/to/tax.json]
 
-Reports schema errors, unpriced items, and items missing a `basis` note.
+Reports schema errors, unpriced items, and items missing a `basis` note.\nExits non-zero when a model is NOT CONFORMANT: schema errors, or any non-zero-\npriced item lacking a `basis`. Unpriced items warn but pass -- an unpriced model\nis a template, not a violation.
 Falls back to structural checks if the `jsonschema` package isn't installed.
 """
 import json, sys, os
@@ -40,6 +40,9 @@ def check_model(model):
     meta = model.get("meta", {})
     if meta.get("schema") != "odapm/v1":
         notes.append(f"WARN meta.schema is {meta.get('schema')!r}, expected 'odapm/v1'")
+    if meta.get("margin_target") is not None and meta.get("markup_target") is None:
+        notes.append("WARN meta.margin_target is deprecated (it is a markup, not a margin). "
+                     "Use markup_target = m/(1-m); a 20% margin is 0.25.")
     items = model.get("items", [])
     unpriced, no_basis = [], []
     for it in items:
@@ -52,12 +55,15 @@ def check_model(model):
             no_basis.append(iid)
     print(f"  items: {len(items)}")
     if unpriced:
+        # A model may legitimately be unpriced -- that is a template, not a
+        # non-conformant model. Warn, do not fail.
         print(f"  UNPRICED ({len(unpriced)}): {', '.join(unpriced)}")
     if no_basis:
-        print(f"  PRICED BUT NO basis NOTE ({len(no_basis)}): {', '.join(no_basis)}")
+        # SPEC.md Conformance: every non-zero-priced item must carry a basis.
+        print(f"  FAIL - PRICED BUT NO basis NOTE ({len(no_basis)}): {', '.join(no_basis)}")
     if not unpriced and not no_basis:
         print("  all items priced and carry a basis note ✓")
-    return notes
+    return notes, bool(no_basis)
 
 
 def main():
@@ -65,6 +71,7 @@ def main():
         print(__doc__)
         sys.exit(1)
     model_path = sys.argv[1]
+    failed = False
     print(f"Validating model: {model_path}")
     model = load(model_path)
     schema_errs = try_jsonschema(model, os.path.join(SCHEMA_DIR, "odapm.pricing.schema.json"))
@@ -74,9 +81,12 @@ def main():
         print("  SCHEMA ERRORS:")
         for e in schema_errs:
             print("   -", e)
+        failed = True
     else:
         print("  schema: valid ✓")
-    for n in check_model(model):
+    notes, basis_failed = check_model(model)
+    failed = failed or basis_failed
+    for n in notes:
         print("  ", n)
 
     if len(sys.argv) > 2:
@@ -92,7 +102,14 @@ def main():
                 print("   -", e)
         else:
             print("  schema: valid ✓")
+        if terrs:
+            failed = True
         print(f"  jurisdictions: {len(tax.get('jurisdictions', []))}")
+
+    if failed:
+        print("\nNOT CONFORMANT — see failures above.")
+        sys.exit(1)
+    print("\nConformant.")
 
 
 if __name__ == "__main__":

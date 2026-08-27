@@ -30,6 +30,11 @@ Attaches a price to each scope item. The price **shape** is `{rem, rep, mat}`:
 - `rep` — **replace** unit price (install / reset / perform service)
 - `mat` — **material** portion per unit (the *taxable* part; labor is never taxed)
 
+`mat` is **contained within `rep`, not added to it.** For a replace line, `rep` is the full
+unit price and `mat` is the material share of it, so `rep − mat` is the labour share. A line
+total never adds `mat` as a cost term — it appears only as the tax basis. An implementation
+that adds `mat` to the total double-counts materials.
+
 Category-priced items carry a tier set, e.g. `{ "cat1": {...}, "cat2": {...}, "cat3": {...} }`.
 
 Each priced item should carry a `basis` note: the inputs and sources used to derive it (labor hrs, material qty/cost, equipment share, markup, index source). This is what makes a number auditable — the core ODAPM promise.
@@ -55,7 +60,13 @@ For any line: `total = (qty × rem) + (qty × rep) + tax`, where `tax = qty × m
 
 ## Conformance
 
-A **valid ODAPM model** is a `model.json` whose `meta.schema` is `odapm/v1`, whose items validate against the scope schema, and whose prices validate against the pricing schema. An **ODAPM-compatible app** reads such a model (and an optional `tax.json`) without requiring any proprietary data. No app owns the standard; the reference estimator is merely one consumer.
+A **valid ODAPM model** is a `model.json` whose `meta.schema` is `odapm/v1`, whose items
+validate against the scope schema, whose prices validate against the pricing schema, and in
+which **every item carrying a non-zero price also carries a `basis` note**.
+
+That last condition is normative but not expressible in JSON Schema; `tools/validate.py`
+enforces it and exits non-zero when it fails. A model with uncited prices is not conformant,
+however cleanly it validates structurally — auditability is the standard, not a convention. An **ODAPM-compatible app** reads such a model (and an optional `tax.json`) without requiring any proprietary data. No app owns the standard; the reference estimator is merely one consumer.
 
 ## Versioning
 
