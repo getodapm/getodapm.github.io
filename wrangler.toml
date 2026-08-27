@@ -1,0 +1,21 @@
+name = "odapm-site"
+compatibility_date = "2026-08-26"
+
+# Custom domains. Wrangler creates the DNS records in the zone on deploy,
+# so odapm.ai goes live with the first successful deploy rather than
+# sitting on a workers.dev subdomain.
+routes = [
+  { pattern = "odapm.ai", custom_domain = true },
+  { pattern = "www.odapm.ai", custom_domain = true },
+]
+
+# Assets-only Worker: no `main`, and therefore no `binding` key
+# (a binding is only valid alongside a Worker script).
+#
+# `site/` is an explicit allowlist, not the repo root with exclusions.
+# Wrangler's --dry-run does not apply .assetsignore, so a denylist here
+# could not be verified before deploying — and publishing .git to a
+# public origin is not a mistake worth risking to save one directory.
+[assets]
+directory = "./site"
+not_found_handling = "404-page"
