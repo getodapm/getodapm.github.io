@@ -4,9 +4,18 @@ compatibility_date = "2026-08-26"
 # Custom domains. Wrangler creates the DNS records in the zone on deploy,
 # so odapm.ai goes live with the first successful deploy rather than
 # sitting on a workers.dev subdomain.
+# odapm.ai stays a custom domain: the apex cannot collide with *.odapm.ai,
+# because that wildcard requires at least one label.
+#
+# www is a ROUTE, not a custom domain, and that distinction is load-bearing.
+# The odapm-tool Worker holds *.odapm.ai/* to serve tenant subdomains, and a
+# wildcard route was observed to BEAT a custom domain -- www.odapm.ai served
+# the tool's login page until this changed. Route-vs-route is resolved by
+# specificity, so www.odapm.ai/* wins. Any future subdomain on this zone that
+# must not be the tool needs an explicit route here for the same reason.
 routes = [
   { pattern = "odapm.ai", custom_domain = true },
-  { pattern = "www.odapm.ai", custom_domain = true },
+  { pattern = "www.odapm.ai/*", zone_name = "odapm.ai" },
 ]
 
 # Assets-only Worker: no `main`, and therefore no `binding` key
