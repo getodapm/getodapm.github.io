@@ -84,24 +84,90 @@
         },
         "labor_basis": {
           "type": "object",
-          "description": "Local labor cost(s) used to derive prices, with source."
+          "description": "Local labor cost(s) used to derive prices, with source.",
+          "properties": {
+            "rate": {
+              "type": [
+                "number",
+                "null"
+              ],
+              "description": "Fully-burdened hourly labour cost used to derive prices."
+            },
+            "source": {
+              "type": "string",
+              "description": "Cited public wage series and vintage, e.g. 'BLS OEWS Denver-Aurora-Lakewood, May 2025, construction laborers'."
+            },
+            "burden_pct": {
+              "type": [
+                "number",
+                "null"
+              ],
+              "description": "Disclosed burden applied over base wage, as a percentage. A contractor input, not open data."
+            }
+          }
         },
         "margin_target": {
           "type": [
             "number",
             "string",
             "null"
-          ]
+          ],
+          "description": "DEPRECATED - misleading name, kept so existing models still validate. Use markup_target. Where both are present, markup_target wins."
         },
         "escalated": {
           "type": [
             "string",
             "null"
           ],
-          "description": "Date prices were last re-indexed (ISO yyyy-mm-dd). null until first priced."
+          "description": "Date prices were last re-indexed (ISO yyyy-mm-dd). null until first priced. Convenience mirror of the most recent meta.escalations entry."
         },
         "note": {
           "type": "string"
+        },
+        "markup_target": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "minimum": 0,
+          "description": "Markup applied to derived cost, as a fraction (0.25 = cost x 1.25). This is a MARKUP, not a margin: to hit a target margin m use m/(1-m), so a 20% margin is 0.25. A discretionary contractor input, disclosed rather than derived."
+        },
+        "escalations": {
+          "type": "array",
+          "description": "Append-only escalation history. Every run of tools/escalate.py adds an entry so the path from the originally derived price to the current one is auditable.",
+          "items": {
+            "type": "object",
+            "required": [
+              "date",
+              "labor",
+              "labor_series",
+              "materials",
+              "materials_series"
+            ],
+            "properties": {
+              "date": {
+                "type": "string",
+                "description": "ISO yyyy-mm-dd the escalation was applied."
+              },
+              "labor": {
+                "type": "number",
+                "description": "Fractional wage-index change applied, e.g. 0.021."
+              },
+              "labor_series": {
+                "type": "string",
+                "description": "Cited series and vintage, e.g. 'BLS ECI, construction, 2026Q2'."
+              },
+              "materials": {
+                "type": "number",
+                "description": "Fractional materials-index change applied."
+              },
+              "materials_series": {
+                "type": "string",
+                "description": "Cited series and vintage."
+              }
+            },
+            "additionalProperties": true
+          }
         }
       }
     },
@@ -157,7 +223,7 @@
           },
           "basis": {
             "type": "string",
-            "description": "Inputs + sources used to derive the price (labor hrs, material qty/cost, equipment share, markup, index source). Makes the number auditable."
+            "description": "Inputs + sources used to derive the price. REQUIRED for conformance on any item carrying a non-zero price - see the Conformance section of SPEC.md. JSON Schema cannot express that condition; tools/validate.py enforces it."
           }
         }
       }

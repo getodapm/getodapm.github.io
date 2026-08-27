@@ -1,0 +1,5 @@
+# Validation dependency for tools/validate.py.
+#
+# Without it the validator cannot check a model against the schemas, and says
+# so: it exits 2 (UNVERIFIED) rather than claiming conformance it did not test.
+jsonschema>=4.0
