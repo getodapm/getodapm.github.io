@@ -1,6 +1,12 @@
 name = "odapm-site"
 compatibility_date = "2026-08-26"
 
+# Wrangler sends anonymous usage telemetry by default. Off here rather than by
+# `wrangler telemetry disable`, which writes to a global config file outside
+# this repository -- a setting that only exists on one laptop is a coincidence,
+# not a setting. Matches odapm-tool.
+send_metrics = false
+
 # Custom domains. Wrangler creates the DNS records in the zone on deploy,
 # so odapm.ai goes live with the first successful deploy rather than
 # sitting on a workers.dev subdomain.
