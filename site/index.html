@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>ODAPM — Open Data AI Pricing Model</title>
+<meta name="description" content="An open standard for describing and pricing restoration work — derived from public market data, buildable by anyone with an AI assistant, owned by no one.">
+<style>
+:root{--dark:#1f3864;--accent:#2e74b5;--text:#222;--muted:#667;--bg:#fafbfc;--card:#fff;--border:#e3e7ee}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:Georgia,'Times New Roman',serif;color:var(--text);background:var(--bg);line-height:1.65}
+.wrap{max-width:880px;margin:0 auto;padding:0 24px}
+header{background:var(--dark);color:#fff;padding:72px 0 64px;text-align:center}
+header h1{font-size:38px;letter-spacing:1px;margin-bottom:10px;line-height:1.2}
+header .tag{font-size:20px;opacity:.92;max-width:640px;margin:0 auto;font-style:italic}
+header .sub{margin-top:22px;font-size:14px;opacity:.75;font-family:Arial,sans-serif;letter-spacing:1px;text-transform:uppercase}
+section{padding:52px 0}
+h2{font-size:26px;color:var(--dark);margin-bottom:18px}
+p{margin-bottom:14px;font-size:17px}
+.lead{font-size:19px}
+.card{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:26px 28px;margin:18px 0;box-shadow:0 1px 4px rgba(0,0,0,.05)}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:18px;margin-top:22px}
+.grid h3{font-size:17px;color:var(--dark);margin-bottom:8px;font-family:Arial,sans-serif}
+.grid p{font-size:15px;color:#444;margin:0}
+.alt{background:#fff;border-top:1px solid var(--border);border-bottom:1px solid var(--border)}
+blockquote{border-left:4px solid var(--accent);padding:6px 0 6px 20px;margin:22px 0;font-size:19px;font-style:italic;color:var(--dark)}
+.btns{margin-top:28px;display:flex;gap:14px;justify-content:center;flex-wrap:wrap}
+.btn{display:inline-block;padding:13px 26px;border-radius:7px;font-family:Arial,sans-serif;font-size:15px;font-weight:bold;text-decoration:none}
+.btn.primary{background:#fff;color:var(--dark)}
+.btn.ghost{border:2px solid rgba(255,255,255,.7);color:#fff}
+.btn.dark{background:var(--dark);color:#fff}
+a{color:var(--accent)}
+footer{padding:40px 0;text-align:center;font-size:13px;color:var(--muted);font-family:Arial,sans-serif}
+.steps{counter-reset:s;margin-top:10px}
+.steps div{position:relative;padding:10px 0 10px 52px;font-size:16px}
+.steps div:before{counter-increment:s;content:counter(s);position:absolute;left:0;top:8px;width:34px;height:34px;border-radius:50%;background:var(--dark);color:#fff;font-family:Arial,sans-serif;font-weight:bold;display:flex;align-items:center;justify-content:center}
+code{font-family:Menlo,monospace;font-size:14px;background:#eef1f6;padding:1px 6px;border-radius:4px}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap">
+    <h1>Open Data AI Pricing Model</h1>
+    <div class="tag">An open standard for describing and pricing restoration work — derived from public market data, buildable by anyone with an AI assistant, owned by no one.</div>
+    <div class="sub">ODAPM · odapm/v1 · free forever</div>
+    <div class="btns">
+      <a class="btn primary" href="https://github.com/getodapm/getodapm.github.io/blob/main/MANIFESTO.md">Read the Manifesto</a>
+      <a class="btn ghost" href="https://github.com/getodapm/getodapm.github.io/blob/main/SPEC.md">The Specification</a>
+      <a class="btn ghost" href="https://github.com/getodapm/getodapm.github.io/blob/main/prompts/00-START-HERE.md">Build Your Model</a>
+    </div>
+  </div>
+</header>
+
+<section>
+  <div class="wrap">
+    <h2>Why this exists</h2>
+    <p class="lead">Restoration work is priced against a single proprietary list. Insurers use that same list — then discount the contractor's submission below it. The contractor has no independent reference to push back with. That isn't a market; it's an administered price, set by a party with an interest in keeping it low.</p>
+    <blockquote>The fix isn't a contractor-friendly list — a list that tilts the other way is just as broken. The fix is a transparent benchmark <b>no party controls</b>, where every number traces to a public, checkable source.</blockquote>
+    <p>And the old moat is gone. The proprietary list's power was never the prices — it was the cost of collecting the data. In the AI era, public wage data, material cost indices, and equipment rates can reconstruct defensible market pricing for almost nothing, and show the work. <b>Their data no longer matters.</b></p>
+  </div>
+</section>
+
+<section class="alt">
+  <div class="wrap">
+    <h2>The principles</h2>
+    <div class="grid">
+      <div class="card"><h3>1 · Market-derived, not hand-set</h3><p>Every price comes from citable open inputs. The methodology is public. Anyone can audit why a number is what it is.</p></div>
+      <div class="card"><h3>2 · Capture all defensible work</h3><p>Every line ties to a justification — the standard, the observed condition, the documentation. Completeness survives scrutiny.</p></div>
+      <div class="card"><h3>3 · One honest price</h3><p>The same transparent numbers whether insurance pays in full, in part, or the homeowner self-pays. No two-tier pricing.</p></div>
+      <div class="card"><h3>4 · Homeowners are people, not claims</h3><p>Damage happens to responsible people; help them. Deferred damage genuinely costs more — that's physics, not a judgment.</p></div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <h2>What ODAPM is</h2>
+    <p>One open standard, two layers, and a separate tax sibling:</p>
+    <div class="card"><b>Scope schema</b> — a vendor-neutral language for restoration line items: what work exists, its units, its action choices, how an estimate is structured. Any app can build on it.</div>
+    <div class="card"><b>Pricing layer</b> — flat, auditable rates attached to each item, derived once from a cost model (labor hours × local wage + materials + markup), anchored to the owner's accepted invoices, reconciled through tolerance bands, and escalated by public indices.</div>
+    <div class="card"><b>Tax sibling</b> — jurisdiction rates from each state's own published data, mapped to the territory you actually serve. Tax applies to materials only; labor is never taxed.</div>
+  </div>
+</section>
+
+<section class="alt">
+  <div class="wrap">
+    <h2>Build your model — no coding</h2>
+    <div class="steps">
+      <div>Get the repository (clone it, or download the ZIP from GitHub).</div>
+      <div>Open the folder in an AI assistant that can read and write files (Claude).</div>
+      <div>Open <code>prompts/00-START-HERE.md</code> and run the prompts in order — your trade, your territory, your scope, your prices.</div>
+      <div>Walk away with <code>model.json</code> and <code>tax.json</code>: your complete, defensible pricing model. Yours. Free.</div>
+    </div>
+    <p style="margin-top:22px">A reference implementation — a free, open-source app that consumes ODAPM models — lives at <a href="https://github.com/getodapm/odapm-tool">odapm-tool</a>. It is one consumer of the standard, not the standard itself; anything that reads a valid <code>model.json</code> is equally ODAPM-compatible.</p>
+  </div>
+</section>
+
+<section>
+  <div class="wrap" style="text-align:center">
+    <h2>Owned by no one</h2>
+    <p style="max-width:620px;margin:0 auto 6px">ODAPM is free and open source and will stay that way. It contains zero proprietary or third-party pricing data — every number derives from cited open sources. The work it prices is where contractors earn. The standard itself belongs to the field.</p>
+    <div class="btns"><a class="btn dark" href="https://github.com/getodapm/getodapm.github.io">View on GitHub</a></div>
+  </div>
+</section>
+
+<footer>
+  ODAPM · spec <code>odapm/v1</code> · tools MIT · spec &amp; data CC-BY-4.0 · no proprietary or third-party pricing data, ever
+</footer>
+
+</body>
+</html>

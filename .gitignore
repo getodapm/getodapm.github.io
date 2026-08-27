@@ -1,0 +1,7 @@
+# Wrangler's local build cache and account cache.
+# .wrangler/cache/wrangler-account.json holds the Cloudflare account id —
+# not a credential, but not something to publish in a public repo either.
+.wrangler/
+
+# Node, if a toolchain ever lands here.
+node_modules/
