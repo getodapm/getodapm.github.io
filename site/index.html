@@ -10,7 +10,10 @@
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:Georgia,'Times New Roman',serif;color:var(--text);background:var(--bg);line-height:1.65}
 .wrap{max-width:880px;margin:0 auto;padding:0 24px}
-header{background:var(--dark);color:#fff;padding:72px 0 64px;text-align:center}
+header{background:var(--dark);color:#fff;padding:26px 0 64px;text-align:center}
+.topbar{text-align:right;margin-bottom:34px}
+.topbar a{display:inline-block;color:#fff;text-decoration:none;font-family:Arial,sans-serif;font-size:14px;padding:8px 18px;border:1px solid rgba(255,255,255,.45);border-radius:6px}
+.topbar a:hover,.topbar a:focus{background:rgba(255,255,255,.14);border-color:rgba(255,255,255,.8)}
 header h1{font-size:38px;letter-spacing:1px;margin-bottom:10px;line-height:1.2}
 header .tag{font-size:20px;opacity:.92;max-width:640px;margin:0 auto;font-style:italic}
 header .sub{margin-top:22px;font-size:14px;opacity:.75;font-family:Arial,sans-serif;letter-spacing:1px;text-transform:uppercase}
@@ -41,6 +44,19 @@ code{font-family:Menlo,monospace;font-size:14px;background:#eef1f6;padding:1px 6
 
 <header>
   <div class="wrap">
+    <!--
+      Deliberately small, deliberately not a call to action, and deliberately
+      NOT a tenant address.
+
+      This page is the home of the standard, and the people reading it are
+      restoration contractors -- the competitors of whoever runs a workspace on
+      the reference tool. A link reading "drymedicparkerco.odapm.ai" would name
+      the vendor's own shop on the standard's front page. app.odapm.ai belongs
+      to no tenant: it authenticates first and then sends each person to their
+      own workspace, so this one link stays correct for every shop and names
+      none of them.
+    -->
+    <nav class="topbar"><a href="https://app.odapm.ai/">Sign in</a></nav>
     <h1>Open Data AI Pricing Model</h1>
     <div class="tag">An open standard for describing and pricing restoration work — derived from public market data, buildable by anyone with an AI assistant, owned by no one.</div>
     <div class="sub">ODAPM · odapm/v1 · free forever</div>
@@ -92,7 +108,7 @@ code{font-family:Menlo,monospace;font-size:14px;background:#eef1f6;padding:1px 6
       <div>Open <code>prompts/00-START-HERE.md</code> and run the prompts in order — your trade, your territory, your scope, your prices.</div>
       <div>Walk away with <code>model.json</code> and <code>tax.json</code>: your complete, defensible pricing model. Yours. Free.</div>
     </div>
-    <p style="margin-top:22px">A reference implementation — a free, open-source app that consumes ODAPM models — lives at <a href="https://github.com/getodapm/odapm-tool">odapm-tool</a>. It is one consumer of the standard, not the standard itself; anything that reads a valid <code>model.json</code> is equally ODAPM-compatible.</p>
+    <p style="margin-top:22px">A reference implementation — a free, open-source app that consumes ODAPM models — lives at <a href="https://github.com/getodapm/odapm-tool">odapm-tool</a>. It is one consumer of the standard, not the standard itself; anything that reads a valid <code>model.json</code> is equally ODAPM-compatible. Already have an account? <a href="https://app.odapm.ai/">Sign in</a>.</p>
   </div>
 </section>
 
