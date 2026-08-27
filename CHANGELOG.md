@@ -6,6 +6,23 @@ Fixes found by auditing the spec, methodology and tools against ODAPM's own core
 that every number can be traced to a citable source.
 
 **Corrected — pricing bug**
+- `tools/escalate.py` walked only `item.price` and `item.priceByCategory`, so the 96
+  option-level blocks under `pick.options[].price` — the majority of priced blocks in the
+  reference seed, and a shape `tools/reconcile.py` already reads — were never escalated,
+  while the model was still stamped `meta.escalated`. The audit log asserted a re-index
+  that had not happened for two thirds of the catalogue. All three price shapes now go
+  through one generator, and the log records how many blocks were seen and how many moved.
+- A tiered `catPrice` block (`{cat1: {...}, cat2: {...}}`, legal under the schema's `oneOf`)
+  was read for `rem`/`rep`/`mat`, found none, and written back as three nulls — destroying
+  the tiers in place. Detected and escalated per tier instead.
+- A block with `rep` 0 and `mat` above 0 escaped the containment warning, because the guard
+  tested `rep` for truthiness. That is precisely the violation the warning exists to catch.
+- An escalation rate above 0.5 is now refused without `--force`: `--labor 2.1` meaning 2.1%
+  would have tripled every price, in place, over the only copy.
+- The labour/material rounding is now sequenced so `rep - mat` equals the escalated labour
+  exactly. Rounding the combined product left the two a cent apart on about a quarter of
+  inputs, while this module's stated claim was that the identity holds.
+
 - `tools/escalate.py` escalated the whole of `rep` on the labour index, including the material
   content inside it, while separately escalating `mat` on the materials index. Prices drifted
   low on material-heavy items and `rep - mat` stopped reconciling with the escalated labour.
@@ -25,6 +42,17 @@ that every number can be traced to a citable source.
   non-conformant model. It now exits non-zero on schema errors and on any non-zero-priced item
   without a `basis`. Unpriced items still warn and pass: an unpriced model is a template, not a
   violation, and the shipped seed is one.
+- That gate had the same blind spot as the escalator: `price_is_set` looked only at `price`
+  and `priceByCategory`, so an item priced solely through `pick.options` reported as UNPRICED
+  and was never asked for a `basis`. 34 of the shipped seed's 94 items sat outside the check.
+  Both tools now share one definition of where prices live, and `price_is_set` understands
+  the tiered `catPrice` shape as well.
+- **Exit codes are now three, not two.** Without the `jsonschema` package the validator could
+  not check the schema at all, yet still printed `Conformant.` and exited 0 — on a stock
+  interpreter, which is what a fresh checkout has. So the headline "exits non-zero on schema
+  errors" did not fire by default, and a CI gate was green for the wrong reason. It now exits
+  `2 UNVERIFIED` and says so, and `requirements.txt` pins the dependency. `0` now means the
+  schema was actually checked and passed.
 - Deprecated `margin_target` now raises a warning naming the correct conversion.
 
 **Corrected — data sources**

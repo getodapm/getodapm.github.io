@@ -48,15 +48,22 @@ Each derived price stores a `basis` note recording the inputs and sources used. 
 Prices don't get re-derived from scratch each cycle; they're **escalated by public indices**, weighted per item:
 
 ```
-new_price = labor_portion   × (1 + labor_index_change)
-          + material_portion× (1 + material_index_change)
-          + equipment_portion×(1 + labor_index_change)
+new_price = labor_portion    × (1 + labor_index_change)
+          + material_portion × (1 + material_index_change)
+          + equipment_portion× (1 + equipment_index_change)
 ```
 
 - **Labor** escalates with a wage index (BLS Employment Cost Index), not a consumer price index.
 - **Equipment** escalates with the equipment rental producer-price index, not the wage index —
   rental rates do not track wages.
 - **Materials** escalate with a construction-materials producer-price index.
+
+> **Tool limitation, stated plainly.** `tools/escalate.py` implements only the
+> labour/material split: it takes `--labor` and `--materials` and treats
+> everything that is not `mat` as labour. It has no equipment input, so a price
+> with an equipment portion baked into `rep` is escalated on the wage index —
+> the very thing the bullet above says not to do. Until the tool separates
+> equipment, re-derive equipment-heavy items rather than escalating them.
 
 Run quarterly or twice a year (`prompts/06-keep-it-current.md`). **Pull the live figures from
 the series named in `data-sources.md` and cite the series and vintage on every run** —
