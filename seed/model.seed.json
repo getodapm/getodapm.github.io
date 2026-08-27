@@ -14,7 +14,7 @@
       "dispose": "Dispose"
     },
     "est_desc_rule": "estimate line = (estVerb+' ' if present)+name+(' — '+option label if option)",
-    "note": "Full reference scope: every item and option from the battle-tested DRYscope catalog, ALL prices zero. Build your prices via prompts/03-derive-your-prices.md (cost model + your accepted invoices + tolerance-band reconcile). No proprietary data."
+    "note": "Full reference scope: every item and option from a battle-tested production restoration catalog, ALL prices zero. Build your prices via prompts/03-derive-your-prices.md (cost model + your accepted invoices + tolerance-band reconcile). No proprietary data."
   },
   "settings": {
     "perRoomCategory": true,
