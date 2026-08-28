@@ -12,15 +12,15 @@ An ODAPM **item** has:
 |---|---|
 | `id` | stable slug, unique within the model |
 | `name` | plain-language label (no proprietary codes) |
-| `group` | section: `setup`, `demolition`, `cleaning`, `equipment`, `fixtures`, `labor`, … |
-| `unit` | `SF`, `LF`, `EA`, `HR`, `DAY` |
+| `group` | section (closed): `setup`, `demo`, `demolition`, `extraction`, `cleaning`, `equipment`, `fixtures`, `service`, `labor`, `other` |
+| `unit` | `SF`, `LF`, `EA`, `HR`, `DAY`, `DA`, `PR` |
 | `pick` | *(optional)* a choice set, e.g. action `detach` vs `remove & dispose`, or a material/size option |
 | `categoryPriced` | *(optional)* `true` if the price varies by water category (cat1/cat2/cat3) |
 | `repeatable` | *(optional)* `true` if it can appear per-room/per-area |
 | `desc` | one-line explanation of what the item covers |
 | `estVerb` | *(optional)* verb used when rendering the estimate line |
 
-Machine schema: [`schema/odapm.scope.schema.json`](schema/odapm.scope.schema.json).
+Machine schema: [`schema/odapm.scope.schema.json`](schema/odapm.scope.schema.json). The group and unit lists are closed enums — not open-ended. `demo` / `extraction` / `service` and units `DA` / `PR` are the production catalog vocabulary (the public seed and the v0.27.0 priced instance); `demolition` / `labor` / `DAY` remain so older Layer 1 names still validate. The enum was expanded to match that catalog rather than mass-renaming priced items.
 
 ## Layer 2 — Pricing (market-derived values)
 
@@ -65,7 +65,10 @@ validate against the scope schema, whose prices validate against the pricing sch
 which **every item carrying a non-zero price also carries a `basis` note**.
 
 That last condition is normative but not expressible in JSON Schema; `tools/validate.py`
-enforces it and exits non-zero when it fails. A model with uncited prices is not conformant,
+enforces it and exits non-zero when it fails. The same tool loads **both** machine
+schemas (pricing on the document, scope on every item); a catalog that fails the
+Layer 1 group/unit enums is not conformant even if the pricing schema, whose
+`group`/`unit` are plain strings, would accept it. A model with uncited prices is not conformant,
 however cleanly it validates structurally — auditability is the standard, not a convention. An **ODAPM-compatible app** reads such a model (and an optional `tax.json`) without requiring any proprietary data. No app owns the standard; the reference estimator is merely one consumer.
 
 ## Versioning

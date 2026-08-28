@@ -6,13 +6,20 @@ Usage:
 
 Reports schema errors, unpriced items, and items missing a `basis` note.
 
+Layer 1 group/unit enums live on `schema/odapm.scope.schema.json`. The pricing
+schema types those fields as unconstrained strings, so this tool must load
+*both* schemas: the document against the pricing schema, and every item
+against the scope schema. Loading pricing alone would print Conformant on a
+catalog the scope enum rejects.
+
 Exit codes:
-    0  Conformant. The schema was checked and passed, and every non-zero-priced
-       item carries a basis note.
+    0  Conformant. Both schemas were checked and passed, and every
+       non-zero-priced item carries a basis note.
     1  NOT conformant: schema errors, or a priced item with no basis.
-    2  UNVERIFIED: the `jsonschema` package is missing, so the schema could not
-       be checked. Structural checks may still have passed. This is deliberately
-       not 0 -- a gate that cannot validate must not report success.
+    2  UNVERIFIED: the `jsonschema` package is missing, so the schemas could
+       not be checked. Structural checks may still have passed. This is
+       deliberately not 0 -- a gate that cannot validate must not report
+       success.
 
 Unpriced items warn and pass: an unpriced model is a template, not a violation,
 and the shipped seed is one.
@@ -30,15 +37,48 @@ def load(p):
         return json.load(f)
 
 
-def try_jsonschema(instance, schema_path):
+def jsonschema_mod():
     try:
         import jsonschema  # type: ignore
+        return jsonschema
     except ImportError:
-        return None  # signal: not available
-    schema = load(schema_path)
+        return None
+
+
+def schema_error_strings(jsonschema, instance, schema):
     errs = sorted(jsonschema.Draft7Validator(schema).iter_errors(instance),
                   key=lambda e: list(e.path))
     return [f"{'/'.join(map(str, e.path)) or '(root)'}: {e.message}" for e in errs]
+
+
+def try_jsonschema(instance, schema_path):
+    js = jsonschema_mod()
+    if js is None:
+        return None  # signal: not available
+    return schema_error_strings(js, instance, load(schema_path))
+
+
+def check_model_schemas(model):
+    """Pricing schema on the document; scope schema on every item.
+
+    Returns None if jsonschema is not installed. Never treat that as valid.
+    """
+    js = jsonschema_mod()
+    if js is None:
+        return None
+    pricing = load(os.path.join(SCHEMA_DIR, "odapm.pricing.schema.json"))
+    scope = load(os.path.join(SCHEMA_DIR, "odapm.scope.schema.json"))
+    errs = schema_error_strings(js, model, pricing)
+    items = model.get("items")
+    if isinstance(items, list):
+        for i, it in enumerate(items):
+            for e in schema_error_strings(js, it, scope):
+                path, _, msg = e.partition(": ")
+                if path == "(root)":
+                    errs.append(f"items/{i}: {msg}")
+                else:
+                    errs.append(f"items/{i}/{path}: {msg}")
+    return errs
 
 
 PRICE_KEYS = ("rem", "rep", "mat")
@@ -120,7 +160,7 @@ def main():
     unverified = False
     print(f"Validating model: {model_path}")
     model = load(model_path)
-    schema_errs = try_jsonschema(model, os.path.join(SCHEMA_DIR, "odapm.pricing.schema.json"))
+    schema_errs = check_model_schemas(model)
     if schema_errs is None:
         print("  SCHEMA NOT CHECKED — the `jsonschema` package is not installed.")
         print("    pip install -r requirements.txt")
@@ -131,7 +171,7 @@ def main():
             print("   -", e)
         failed = True
     else:
-        print("  schema: valid ✓")
+        print("  schema: valid ✓ (pricing + scope)")
     notes, basis_failed = check_model(model)
     failed = failed or basis_failed
     for n in notes:
@@ -155,10 +195,12 @@ def main():
             failed = True
         print(f"  jurisdictions: {len(tax.get('jurisdictions', []))}")
 
-    # Three outcomes, three exit codes. "Conformant" is claimed ONLY when the
-    # schema was actually checked: this tool previously printed it, and exited
+    # Three outcomes, three exit codes. "Conformant" is claimed ONLY when both
+    # schemas were actually checked: this tool previously printed it, and exited
     # 0, on a schema-invalid model whenever `jsonschema` was missing -- which is
-    # the stock interpreter. Any CI gate built on it was green by default.
+    # the stock interpreter -- and, with jsonschema installed, still printed it
+    # on a Layer-1-illegal catalog because it never loaded the scope schema.
+    # Any CI gate built on it was green by default.
     if failed:
         print("\nNOT CONFORMANT — see failures above.")
         sys.exit(1)

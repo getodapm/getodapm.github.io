@@ -33,6 +33,21 @@ that every number can be traced to a citable source.
 - `SPEC.md` now states that `mat` is *contained within* `rep` rather than added to it. Two
   conforming implementations could previously disagree on the line total by the full material cost.
 
+**Corrected — validator blessed Layer-1-illegal catalogs**
+- `tools/validate.py` only loaded `odapm.pricing.schema.json`, whose item `group` /
+  `unit` are unconstrained strings. The seed (and the v0.27.0 production catalog)
+  uses groups `demo` / `extraction` / `service` and units `DA` / `PR`, which
+  `odapm.scope.schema.json` rejected — but the checker never loaded that file, so
+  with `jsonschema` installed it printed `Conformant.` and exited 0. It now
+  validates the document against the pricing schema **and** every item against
+  the scope schema. Missing `jsonschema` still exits `2 UNVERIFIED` and does not
+  claim schema valid.
+- Layer 1 enums expanded to include that production/DRYscope vocabulary
+  (`demo`, `extraction`, `service`, `DA`, `PR`) rather than mass-renaming ~100
+  priced items. Original names (`demolition`, `labor`, `DAY`) stay valid.
+  Prompt 02's group list matches that enum. Closed list, no ellipsis, in
+  `SPEC.md`.
+
 **Tightened — conformance**
 - A conformant model must now carry a `basis` note on every non-zero-priced item. Previously
   a model with no citations at all validated cleanly, contradicting the standard's core promise.

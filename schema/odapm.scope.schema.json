@@ -11,10 +11,14 @@
     "name": { "type": "string", "description": "Plain-language label. No proprietary codes." },
     "group": {
       "type": "string",
-      "enum": ["setup", "demolition", "cleaning", "equipment", "fixtures", "labor", "other"],
-      "description": "Estimate section this item belongs to."
+      "enum": ["setup", "demo", "demolition", "extraction", "cleaning", "equipment", "fixtures", "service", "labor", "other"],
+      "description": "Estimate section this item belongs to. Closed enum. demo/extraction/service are the production catalog vocabulary (DRYscope / odapm-tool v0.27.0 and the public seed); demolition/labor remain so older Layer 1 names still validate. Expanded rather than mass-renaming priced items."
     },
-    "unit": { "type": "string", "enum": ["SF", "LF", "EA", "HR", "DAY"] },
+    "unit": {
+      "type": "string",
+      "enum": ["SF", "LF", "EA", "HR", "DAY", "DA", "PR"],
+      "description": "Closed enum. DA (day) and PR (pair) are the production catalog vocabulary; DAY remains so the original Layer 1 name still validates. Expanded rather than mass-renaming priced items."
+    },
     "desc": { "type": "string", "description": "One-line explanation of what the item covers." },
     "estVerb": { "type": "string", "description": "Optional verb used when rendering the estimate line." },
     "categoryPriced": { "type": "boolean", "default": false, "description": "True if the unit price varies by water category (cat1/cat2/cat3)." },

@@ -189,10 +189,12 @@
             "type": "string"
           },
           "group": {
-            "type": "string"
+            "type": "string",
+            "description": "Plain string here; the closed Layer 1 enum lives on odapm.scope.schema.json. tools/validate.py checks every item against that schema."
           },
           "unit": {
-            "type": "string"
+            "type": "string",
+            "description": "Plain string here; the closed Layer 1 enum lives on odapm.scope.schema.json. tools/validate.py checks every item against that schema."
           },
           "price": {
             "oneOf": [
