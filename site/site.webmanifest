@@ -1,11 +1,11 @@
 {
-  "name": "Odamp",
-  "short_name": "Odamp",
-  "description": "The open standard for restoration pricing",
+  "name": "OpenData",
+  "short_name": "OpenData",
+  "description": "an AI Pricing Model",
   "start_url": "/",
   "display": "browser",
-  "background_color": "#06343A",
-  "theme_color": "#06343A",
+  "background_color": "#EFECE6",
+  "theme_color": "#EFECE6",
   "icons": [
     { "src": "/favicon-32.png", "sizes": "32x32", "type": "image/png" },
     { "src": "/favicon-512.png", "sizes": "512x512", "type": "image/png" }
