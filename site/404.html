@@ -1,41 +1,154 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Not found — ODAPM</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Not found — Odamp</title>
+<meta name="theme-color" content="#06343A">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" href="/favicon-32.png" type="image/png" sizes="32x32">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="canonical" href="https://odapm.ai/">
 <style>
-:root{--dark:#1f3864;--accent:#2e74b5;--text:#222;--muted:#667;--bg:#fafbfc;--border:#e3e7ee}
+@font-face{font-family:"IBM Plex Sans";src:url("/fonts/plex-sans-400.woff2") format("woff2");font-weight:400;font-style:normal;font-display:swap}
+@font-face{font-family:"IBM Plex Sans";src:url("/fonts/plex-sans-600.woff2") format("woff2");font-weight:600;font-style:normal;font-display:swap}
+@font-face{font-family:"IBM Plex Mono";src:url("/fonts/plex-mono-400.woff2") format("woff2");font-weight:400;font-style:normal;font-display:swap}
+:root{
+  --abyss:#06343A;--deep:#0A3A40;--ocean:#0E7C86;--aqua:#35E0D0;--foam:#F2F7F7;
+  --ink:#0A3A40;--muted:#4A6A6E;
+  --line:color-mix(in srgb,var(--ocean) 18%,transparent);
+  --foam-08:rgba(242,247,247,.08);
+  --sans:"IBM Plex Sans",ui-sans-serif,system-ui,sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,Menlo,monospace;
+}
 *{box-sizing:border-box;margin:0;padding:0}
-body{font-family:Georgia,'Times New Roman',serif;color:var(--text);background:var(--bg);line-height:1.65}
-header{background:var(--dark);color:#fff;padding:64px 24px 56px;text-align:center}
-header h1{font-size:34px;letter-spacing:1px;margin-bottom:10px}
-header .tag{font-size:18px;opacity:.9;font-style:italic}
-main{max-width:640px;margin:0 auto;padding:48px 24px}
-p{font-size:17px;margin-bottom:14px}
-a{color:var(--accent)}
-ul{margin:18px 0 0 22px}
-li{font-size:16px;margin-bottom:8px}
-footer{padding:40px 24px;text-align:center;font-size:13px;color:var(--muted);font-family:Arial,sans-serif}
+body{font-family:var(--sans);color:var(--ink);background:var(--foam);line-height:1.65;min-height:100vh;display:flex;flex-direction:column}
+a{color:var(--ocean)}
+:focus-visible{outline:3px solid var(--aqua);outline-offset:3px}
+.nav{
+  background:color-mix(in srgb,var(--abyss) 86%,transparent);
+  backdrop-filter:saturate(1.2) blur(16px);
+  -webkit-backdrop-filter:saturate(1.2) blur(16px);
+  border-bottom:1px solid var(--foam-08);
+  padding:1.15rem 0;
+}
+.nav .wrap{width:min(72rem,calc(100% - 2.5rem));margin-inline:auto}
+.wrap{width:min(40rem,calc(100% - 2.5rem));margin-inline:auto}
+.nav-lockup{width:8.5rem}
+.hero{
+  position:relative;
+  overflow:hidden;
+  isolation:isolate;
+  color:var(--foam);
+  background-color:var(--abyss);
+  background-image:
+    linear-gradient(90deg,
+      var(--abyss) 0%,
+      color-mix(in srgb,var(--abyss) 65%,transparent) 40%,
+      transparent 68%),
+    radial-gradient(ellipse 90% 55% at 50% -18%,
+      color-mix(in srgb,var(--ocean) 40%,transparent),
+      transparent 58%),
+    linear-gradient(180deg,
+      color-mix(in srgb,var(--ocean) 26%,var(--abyss)) 0%,
+      var(--deep) 40%,
+      var(--abyss) 100%);
+  padding:4.25rem 0 4.5rem;
+  border-bottom:1px solid var(--foam-08);
+}
+.hero::before{
+  content:"";
+  position:absolute;inset:0;z-index:-1;pointer-events:none;
+  background-image:
+    radial-gradient(ellipse 34% 12% at 58% 0%,rgba(14,124,134,.18),transparent 72%),
+    repeating-linear-gradient(
+      180deg,
+      transparent 0,transparent 2.85rem,
+      rgba(242,247,247,.04) 2.85rem,
+      rgba(242,247,247,.04) calc(2.85rem + 1px)
+    );
+  -webkit-mask-image:linear-gradient(180deg,#000 0%,transparent 80%);
+          mask-image:linear-gradient(180deg,#000 0%,transparent 80%);
+}
+.hero::after{
+  content:"";
+  position:absolute;inset:0;z-index:-1;pointer-events:none;
+  background:radial-gradient(ellipse 85% 75% at 40% 40%,
+    transparent 44%,
+    color-mix(in srgb,var(--abyss) 75%,transparent) 100%);
+}
+.hero-fx{
+  position:absolute;inset:0;z-index:-1;pointer-events:none;
+  background:
+    radial-gradient(ellipse 22% 18% at 88% 8%,
+      rgba(53,224,208,.46) 0%,
+      rgba(53,224,208,.14) 36%,
+      transparent 68%),
+    radial-gradient(ellipse 40% 80% at 80% 20%,
+      rgba(53,224,208,.16) 0%,
+      transparent 64%);
+  mix-blend-mode:screen;
+}
+.hero-mark{
+  position:absolute;right:-18%;top:10%;
+  width:min(22rem,62vw);opacity:.11;
+  pointer-events:none;z-index:-1;
+}
+.hero .wrap{position:relative;z-index:1}
+h1{font-size:clamp(1.8rem,4vw,2.4rem);font-weight:600;letter-spacing:-.02em;margin-bottom:.5rem}
+.tag{color:rgba(242,247,247,.78);font-size:1.1rem}
+main{flex:1;padding:3rem 0}
+p{margin-bottom:1rem;font-size:1.05rem}
+ul{margin:1.25rem 0 0 1.15rem}
+li{margin-bottom:.5rem}
+code{font-family:var(--mono);font-size:.86em;background:rgba(10,58,64,.06);padding:.1em .35em;border-radius:4px}
+footer{
+  padding:2rem 0;
+  background:var(--abyss);
+  color:rgba(242,247,247,.55);
+  border-top:1px solid var(--foam-08);
+  font-family:var(--mono);font-size:.75rem;
+}
+@media (prefers-reduced-motion:no-preference){
+  .hero-fx{animation:shaft-breathe 14s ease-in-out infinite alternate}
+}
+@media (prefers-reduced-motion:reduce){
+  .hero-fx{animation:none}
+}
+@keyframes shaft-breathe{
+  from{opacity:.84;transform:translate3d(0,0,0)}
+  to{opacity:1;transform:translate3d(-1.4%,1.8%,0)}
+}
 </style>
 </head>
 <body>
-<header>
-  <h1>Not found</h1>
-  <div class="tag">That page isn&rsquo;t part of the standard.</div>
+<nav class="nav">
+  <div class="wrap">
+    <a href="/" aria-label="Odamp home"><img class="nav-lockup" src="/brand/odamp-lockup-dark.svg" width="445" height="100" alt="Odamp.ai"></a>
+  </div>
+</nav>
+<header class="hero">
+  <div class="hero-fx" aria-hidden="true"></div>
+  <img class="hero-mark" src="/brand/odamp-mark-foam.svg" width="512" height="512" alt="" aria-hidden="true">
+  <div class="wrap">
+    <h1>Not found</h1>
+    <p class="tag">That page isn’t part of the standard.</p>
+  </div>
 </header>
 <main>
-  <p>The link may be out of date, or the file may have moved as the
-  specification evolved. The spec is versioned &mdash; <code>odapm/v1</code> &mdash;
-  and older paths are not guaranteed to survive.</p>
-  <p>Useful starting points:</p>
-  <ul>
-    <li><a href="/">The overview</a> &mdash; what ODAPM is and why it exists</li>
-    <li><a href="/SPEC.md">The specification</a></li>
-    <li><a href="/MANIFESTO.md">The manifesto</a></li>
-    <li><a href="https://github.com/getodapm/getodapm.github.io">The repository</a></li>
-  </ul>
+  <div class="wrap">
+    <p>The link may be out of date, or the file may have moved as the specification evolved. The spec is versioned — <code>odapm/v1</code> — and older paths are not guaranteed to survive.</p>
+    <p>Useful starting points:</p>
+    <ul>
+      <li><a href="/">The overview</a> — what Odamp is and why it exists</li>
+      <li><a href="https://github.com/getodapm/getodapm.github.io/blob/main/SPEC.md">The specification</a></li>
+      <li><a href="https://github.com/getodapm/getodapm.github.io/blob/main/MANIFESTO.md">The manifesto</a></li>
+      <li><a href="https://github.com/getodapm/getodapm.github.io">The repository</a></li>
+    </ul>
+  </div>
 </main>
-<footer>ODAPM &middot; spec odapm/v1 &middot; owned by no one</footer>
+<footer>
+  <div class="wrap">spec odapm/v1 · owned by no one</div>
+</footer>
 </body>
 </html>

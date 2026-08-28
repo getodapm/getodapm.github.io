@@ -1,0 +1,13 @@
+{
+  "name": "Odamp",
+  "short_name": "Odamp",
+  "description": "The open standard for restoration pricing",
+  "start_url": "/",
+  "display": "browser",
+  "background_color": "#06343A",
+  "theme_color": "#06343A",
+  "icons": [
+    { "src": "/favicon-32.png", "sizes": "32x32", "type": "image/png" },
+    { "src": "/favicon-512.png", "sizes": "512x512", "type": "image/png" }
+  ]
+}
