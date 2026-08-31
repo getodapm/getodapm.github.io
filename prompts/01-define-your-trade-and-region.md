@@ -1,10 +1,10 @@
 # Step 01 — Define your trade and region
 
-This sets the foundation: what kinds of work you price, and where — which drives the labor, material, and equipment data Claude will use to derive your prices.
+This sets the foundation: what kinds of work you price, and where — which drives the labor, material, and equipment data your assistant will use to derive your prices.
 
 ---
 
-**Paste this to Claude:**
+**Paste this:**
 
 > I'm building my ODAPM pricing model in this folder. Read `README.md` and `SPEC.md` first so you understand the standard, then help me set my foundation. Ask me, one topic at a time:
 >

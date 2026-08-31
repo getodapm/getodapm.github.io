@@ -4,7 +4,7 @@ Now confirm your model is complete and conforms to the ODAPM standard, so any co
 
 ---
 
-**Paste this to Claude:**
+**Paste this:**
 
 > Validate my ODAPM model. Run `tools/validate.py` against my `model.json` and `tax.json` (or validate them directly against the schemas in `schema/`). Then report:
 >

@@ -15,7 +15,7 @@ Then prices are escalated over time by public indices (see step 06). Tax is hand
 
 ---
 
-**Paste this to Claude:**
+**Paste this:**
 
 > Help me derive prices for the line items in my `model.json`, using the ODAPM methodology in `methodology/METHODOLOGY.md` and the open sources in `methodology/data-sources.md`. Do NOT use any proprietary price list.
 >

@@ -1,10 +1,10 @@
 # ODAPM Specification — odapm/v1
 
-ODAPM defines two layers and one separate sibling. An app reads them; this document defines them.
+ODAPM is a model for trade SKUs. v1 ships a restoration catalog: two layers and one separate sibling. An app reads them; this document defines them.
 
 ## Layer 1 — Scope schema (the shared language)
 
-The vendor-neutral description of restoration work. It answers *"what line items exist and how is an estimate structured"* — independent of any proprietary code set.
+The vendor-neutral description of the work you sell as SKUs. v1's catalog is restoration work: it answers *"what line items exist and how is an estimate structured"* — independent of any proprietary code set.
 
 An ODAPM **item** has:
 

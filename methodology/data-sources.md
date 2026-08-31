@@ -1,6 +1,6 @@
 # ODAPM Open Data Sources
 
-ODAPM derives prices only from publicly available data. This file lists the source *categories* and the specific public series commonly used. When Claude derives or escalates your prices, it should cite the exact series and date it used, written into each item's `basis` note.
+ODAPM derives prices only from publicly available data. This file lists the source *categories* and the specific public series commonly used. When your assistant derives or escalates your prices, it should cite the exact series and date it used, written into each item's `basis` note.
 
 > These are public reference series, not a pricing product. None of them is proprietary restoration pricing data.
 

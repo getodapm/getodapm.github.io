@@ -1,23 +1,23 @@
 # ODAPM — Open Data AI Pricing Model
 
-**An open standard for describing and pricing restoration work — derived from public market data, buildable by anyone with an AI assistant, owned by no one.**
+**An open standard for trades to describe work as SKUs and price them from public market data — plus the owner's disclosed markup, with a basis that shows the work.**
 
 ODAPM is two open things in one project:
 
-1. **A scope schema** — a vendor-neutral way to describe restoration line items (what work exists, its units, how an estimate is structured). This is the shared language.
-2. **A pricing methodology** — a transparent, auditable way to attach *market-derived* prices to those line items using open public data (wage indices, material cost indices, equipment rates), instead of a proprietary list.
+1. **A scope schema** — a vendor-neutral way to describe trade SKUs (what work exists, its units, how a job is structured). This is the shared language. v1 ships a restoration catalog as the first seed.
+2. **A pricing methodology** — a transparent, auditable way to attach *market-derived* prices to those SKUs using open public data (wage indices, material cost indices, equipment rates), instead of a guessed number or a black-box list.
 
-You don't need to be a developer. You open this folder in an AI assistant (Claude), run the prompts in order, answer questions about your trade and your region, and walk away with your own complete, defensible pricing model.
+You don't need to be a developer. You open this folder in an AI assistant, run the prompts in order, answer questions about your trade and your region, and walk away with your own priced catalog. This run's seed is restoration. The same method is how other trades will build theirs.
 
 ---
 
 ## Why this exists
 
-The restoration industry prices work against a single proprietary list. Insurers use that same list, then discount the contractor's submission below it — and the contractor has no independent reference to push back with. That isn't a market; it's an administered price set by a party with an interest in keeping it low.
+Trade work is sold as SKUs. Install a water heater, hang a door, frame a wall, dry a room. Owners still price that work by guess, by copying a competitor, or by inheriting a list they cannot audit.
 
-ODAPM restores the thing that makes a market fair: **a transparent benchmark that neither the insurer nor the contractor controls, where every number can be traced back to its open-data source.** It is not anti-pricing and not anti-profit — it's pro–price-discovery. The honest answer to a lowball is: *"the open-market rate is X, here is the sourced basis — show me yours."*
+ODAPM is a transparent way to price the work you sell: **public data sets the cost floor, you set markup and disclose it, every SKU carries a sourced `basis`.** Restoration is the first catalog because that's what existed — not because the standard is a restoration product.
 
-And the moat is gone. The value of the old list was never the numbers — it was the cost of collecting the data. In an AI world, public wage, material, and equipment data plus a model that reasons over it can reconstruct defensible market pricing for almost nothing. **Their data no longer matters.**
+AI is why the book is cheap to build. Public wage, material, and equipment data plus a model that reasons over it can reconstruct defensible market pricing and show the work.
 
 > ODAPM contains **zero** proprietary or third-party pricing data. Every price is independently derived from cited open sources. (See `methodology/data-sources.md`.)
 
@@ -27,19 +27,19 @@ And the moat is gone. The value of the old list was never the numbers — it was
 
 When you finish the prompts you'll have:
 
-- `model.json` — your priced instance (your line items + your market-derived prices), valid against the ODAPM schema.
+- `model.json` — your priced instance (your SKUs + your market-derived prices), valid against the ODAPM schema.
 - `tax.json` — your jurisdiction tax rates (kept separate; tax ≠ pricing).
-- A documented basis for every number, so your estimates are defensible.
+- A documented basis for every number, so the prices can be audited.
 
-Any ODAPM-compatible app can read these files. A reference estimator app is one example consumer; the standard does not depend on any one app.
+Any ODAPM-compatible consumer can read these files. The standard does not depend on any one app.
 
 ---
 
 ## Quickstart (no coding)
 
-1. Open this `odapm/` folder in Claude (Cowork).
+1. Open this `odapm/` folder in an assistant that can read the repo and write `model.json` / `tax.json`.
 2. Open `prompts/00-START-HERE.md` and follow it.
-3. Run the prompts in order. Answer Claude's questions about your trade, region, and costs.
+3. Run the prompts in order. Answer your assistant's questions about your trade, region, and costs.
 4. You're done — your `model.json` and `tax.json` are built and validated.
 
 Start here → [`prompts/00-START-HERE.md`](prompts/00-START-HERE.md)
@@ -57,7 +57,7 @@ odapm/
   LICENSE-CODE         MIT (tools/scripts)
   LICENSE-DATA         CC-BY-4.0 (spec, schema, methodology, seed)
   schema/              machine-readable JSON Schemas (scope + pricing + tax)
-  prompts/             the Claude-driven build workflow (the heart)
+  prompts/             the assistant-driven build workflow (the heart)
   methodology/         the cost model + the open data sources, cited
   tools/               escalate.py (re-index), validate.py (check your model)
   seed/                reference scope + templates to start from
@@ -70,4 +70,4 @@ Spec line: **odapm/v1** · Project version **0.1.0** · Early — the standard a
 
 ## License
 
-Tools and scripts: **MIT**. Spec, schema, methodology, and seed data: **CC-BY-4.0** (use it freely, just keep the attribution so the open provenance stays visible). ODAPM is free and open. It will not be monetized.
+Tools and scripts: **MIT**. Spec, schema, methodology, and seed data: **CC-BY-4.0** (use it freely, just keep the attribution so the open provenance stays visible). The standard is free and open. It is owned by no one.

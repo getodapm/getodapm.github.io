@@ -1,34 +1,36 @@
 # The ODAPM Manifesto
 
-## Administered price vs. market price
+## Trade work is sold as SKUs
 
-A free market sets prices through open discovery: many buyers, many sellers, and information both sides can see. An *administered* price is set by one party and imposed on the rest.
+A plumber sells the labor to install a water heater. A handyman sells hanging a door. A GC sells a framed wall. A restoration shop sells drying a room. That is the product: named work, a unit, a price.
 
-Restoration pricing today is administered. One company publishes the line-item list. Insurers price claims against that list — then discount the contractor's submission below it to protect their own margins. The contractor has no independent, neutral reference to argue from, because the only "standard" is owned by a party with an interest in the number being low.
+Most of those prices are a guess, a copied competitor, or a list nobody can audit. The owner cannot show why the number is what it is. Neither can anyone else. That is not a market. It is a shrug.
 
-That is not a market failing. It is the absence of a market.
+## A SKU with a sourced basis is the way
 
-## What we are actually fighting
+Fair price is not a slogan. It is:
 
-Not capitalism. Not profit. Not even insurers doing their job. We are fighting **price-fixing through information monopoly** — the situation where one private dataset is the only accepted truth, and everyone else negotiates blind.
+- cost from public market data — wages, materials, equipment when they apply
+- plus the markup the owner discloses
+- with a `basis` that shows the work
 
-The fix is not a cheaper list or a contractor-friendly list. A list that tilts the other way is just as broken. The fix is a **transparent benchmark no party controls**, where every price traces back to a public, checkable source. Fair to the contractor, fair to the insurer, fair to the homeowner.
+Public data sets the cost floor. The owner sets markup. Hide neither.
 
-## The moat is gone
+The fix is not a friendlier black-box list. A list that tilts is still a list you cannot check. The fix is a transparent catalog **no party controls**, where every number traces to a public, checkable source.
 
-The proprietary list's power was never the prices. It was the decades and millions of dollars it took to collect and maintain the data. That cost was the moat.
+## AI makes the book cheap to build
 
-In the AI era the moat is a puddle. Public wage data, material cost indices, equipment rental rates, and a model that can reason over them will reconstruct defensible market pricing for almost nothing — and show its work. We do not need their data. We can derive better, more transparent numbers from data that already belongs to the public.
+The old cost of a price book was collecting and maintaining the data. That cost is gone. An AI assistant can read public wage series, material indices, and equipment rates, apply the owner's trade and territory, and write a priced catalog with a basis on every SKU.
 
-**That is why their data no longer matters.**
+That is the product of the standard: a way for a trade to build fair SKU pricing. Restoration is the first catalog because that is what existed. Plumbing, HVAC, electrical, handyman, GCs, and the rest use the same kernel when their books are built. Those catalogs are not shipped today. The method is.
 
 ## Our principles
 
-1. **Market-derived, not hand-set.** Every price comes from citable open inputs. The methodology is public. Anyone can audit *why* a number is what it is.
-2. **Capture all defensible work.** The estimate documents everything actually performed and ties each line to a justification — standard, observed condition, photo. Completeness and defensibility are what survive scrutiny.
-3. **One honest price, coverage-agnostic.** The same transparent numbers whether insurance pays in full, pays partially, or the homeowner self-pays. No two-tier pricing.
-4. **Treat homeowners as people, not claims.** Damage happens to responsible people; help them. Deferred damage genuinely costs more — that is physics, not a moral judgment — and the model reflects real condition honestly, without punishing and without pretending.
+1. **Market-derived, not hand-set.** The cost floor comes from citable open inputs. The methodology is public. Anyone can audit *why* a number is what it is.
+2. **Show your work.** Every non-zero price carries a `basis`. A number without a basis is not a price.
+3. **Standard SKUs for standard work.** Name the work, unitize it, reuse it. Same work, same SKU.
+4. **You set markup; public data sets the cost floor.** The market inputs are shared. Your margin is yours, and it is disclosed.
 
-## Owned by no one
+## The standard is owned by no one
 
-ODAPM is free and open source and will stay that way. It is not a product and will not be monetized. The work it prices is where contractors earn — fairly, in the open. The standard itself belongs to the field.
+The OpenData **standard** is free and open and owned by no one. Tools are MIT; spec and data are CC-BY-4.0. It contains zero proprietary pricing data. The work it prices is where shops earn. The standard itself belongs to the field.

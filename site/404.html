@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Not found — OpenData</title>
-<meta name="theme-color" content="#EFECE6">
+<meta name="theme-color" content="#06343A">
 <link rel="icon" href="/favicon.ico" sizes="any">
 <link rel="icon" href="/favicon-32.png" type="image/png" sizes="32x32">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
@@ -12,64 +12,148 @@
 <style>
 @font-face{font-family:"IBM Plex Sans";src:url("/fonts/plex-sans-400.woff2") format("woff2");font-weight:400;font-style:normal;font-display:swap}
 @font-face{font-family:"IBM Plex Sans";src:url("/fonts/plex-sans-600.woff2") format("woff2");font-weight:600;font-style:normal;font-display:swap}
-@font-face{font-family:"IBM Plex Serif";src:url("/fonts/plex-serif-600.woff2") format("woff2");font-weight:600;font-style:normal;font-display:swap}
 @font-face{font-family:"IBM Plex Mono";src:url("/fonts/plex-mono-400.woff2") format("woff2");font-weight:400;font-style:normal;font-display:swap}
 :root{
-  --bg:#EFECE6;--surface:#FAF8F4;--ink:#161513;--accent:#2C2926;--pin:#C4A35A;
-  --muted:#3D3A36;--line:color-mix(in srgb,var(--ink) 14%,transparent);
+  --abyss:#06343A;--deep:#0A3A40;--ocean:#0E7C86;--aqua:#35E0D0;--foam:#F2F7F7;
+  --ink:#0A3A40;--muted:#4A6A6E;
+  --line:color-mix(in srgb,var(--ocean) 18%,transparent);
+  --foam-72:rgba(242,247,247,.72);
+  --foam-08:rgba(242,247,247,.08);
   --sans:"IBM Plex Sans",ui-sans-serif,system-ui,sans-serif;
-  --serif:"IBM Plex Serif",Georgia,"Times New Roman",serif;
   --mono:"IBM Plex Mono",ui-monospace,Menlo,monospace;
 }
 *{box-sizing:border-box;margin:0;padding:0}
-body{font-family:var(--sans);color:var(--ink);background:var(--bg);line-height:1.65;min-height:100vh;display:flex;flex-direction:column}
-a{color:var(--accent)}
-:focus-visible{outline:3px solid var(--pin);outline-offset:3px}
+body{font-family:var(--sans);color:var(--ink);background:var(--foam);line-height:1.65;min-height:100vh;display:flex;flex-direction:column}
+a{color:var(--ocean)}
+:focus-visible{outline:3px solid var(--aqua);outline-offset:3px}
 .nav{
-  background:color-mix(in srgb,var(--surface) 92%,transparent);
-  border-bottom:1px solid var(--line);
+  background:color-mix(in srgb,var(--abyss) 86%,transparent);
+  backdrop-filter:saturate(1.2) blur(16px);
+  -webkit-backdrop-filter:saturate(1.2) blur(16px);
+  border-bottom:1px solid var(--foam-08);
   padding:1.15rem 0;
 }
 .nav .wrap{width:min(72rem,calc(100% - 2.5rem));margin-inline:auto}
 .wrap{width:min(40rem,calc(100% - 2.5rem));margin-inline:auto}
-.nav-lockup{
-  display:flex;align-items:center;gap:.55rem;
-  color:var(--ink);text-decoration:none;
-  font-weight:600;letter-spacing:-.02em;font-size:1.05rem;
-}
-.nav-lockup .mark{width:1.5rem;height:1.5rem;flex:0 0 auto}
+.nav .brand-lockup{flex:0 0 auto}
 .hero{
-  color:var(--ink);
-  background:var(--bg);
-  padding:4.25rem 0 2.5rem;
-  border-bottom:1px solid var(--line);
+  position:relative;
+  overflow:hidden;
+  isolation:isolate;
+  color:var(--foam);
+  background-color:var(--abyss);
+  background-image:
+    linear-gradient(90deg,
+      var(--abyss) 0%,
+      color-mix(in srgb,var(--abyss) 65%,transparent) 40%,
+      transparent 68%),
+    radial-gradient(ellipse 90% 55% at 50% -18%,
+      color-mix(in srgb,var(--ocean) 40%,transparent),
+      transparent 58%),
+    linear-gradient(180deg,
+      color-mix(in srgb,var(--ocean) 26%,var(--abyss)) 0%,
+      var(--deep) 40%,
+      var(--abyss) 100%);
+  padding:4.25rem 0 4.5rem;
+  border-bottom:1px solid var(--foam-08);
 }
-h1{font-family:var(--serif);font-size:clamp(1.8rem,4vw,2.4rem);font-weight:600;letter-spacing:-.02em;margin-bottom:.5rem}
-.tag{color:var(--muted);font-size:1.1rem}
+.hero::before{
+  content:"";
+  position:absolute;inset:0;z-index:-1;pointer-events:none;
+  background-image:
+    radial-gradient(ellipse 34% 12% at 58% 0%,rgba(14,124,134,.18),transparent 72%),
+    repeating-linear-gradient(
+      180deg,
+      transparent 0,transparent 2.85rem,
+      rgba(242,247,247,.04) 2.85rem,
+      rgba(242,247,247,.04) calc(2.85rem + 1px)
+    );
+  -webkit-mask-image:linear-gradient(180deg,#000 0%,transparent 80%);
+          mask-image:linear-gradient(180deg,#000 0%,transparent 80%);
+}
+.hero::after{
+  content:"";
+  position:absolute;inset:0;z-index:-1;pointer-events:none;
+  background:radial-gradient(ellipse 85% 75% at 40% 40%,
+    transparent 44%,
+    color-mix(in srgb,var(--abyss) 75%,transparent) 100%);
+}
+.hero-fx{
+  position:absolute;inset:0;z-index:-1;pointer-events:none;
+  background:
+    radial-gradient(ellipse 22% 18% at 88% 8%,
+      rgba(53,224,208,.46) 0%,
+      rgba(53,224,208,.14) 36%,
+      transparent 68%),
+    radial-gradient(ellipse 40% 80% at 80% 20%,
+      rgba(53,224,208,.16) 0%,
+      transparent 64%);
+  mix-blend-mode:screen;
+}
+.hero-mark{
+  position:absolute;right:-18%;top:10%;
+  width:min(22rem,62vw);opacity:.11;
+  pointer-events:none;z-index:-1;
+}
+.hero .wrap{position:relative;z-index:1}
+h1{font-size:clamp(1.8rem,4vw,2.4rem);font-weight:600;letter-spacing:-.02em;margin-bottom:.5rem}
+.tag{color:rgba(242,247,247,.78);font-size:1.1rem}
 main{flex:1;padding:3rem 0}
 p{margin-bottom:1rem;font-size:1.05rem}
 ul{margin:1.25rem 0 0 1.15rem}
 li{margin-bottom:.5rem}
-code{font-family:var(--mono);font-size:.86em;background:color-mix(in srgb,var(--ink) 7%,transparent);padding:.1em .35em;border-radius:4px}
+code{font-family:var(--mono);font-size:.86em;background:rgba(10,58,64,.06);padding:.1em .35em;border-radius:4px}
 footer{
   padding:2rem 0;
-  background:var(--accent);
-  color:color-mix(in srgb,var(--surface) 62%,transparent);
-  border-top:1px solid color-mix(in srgb,var(--surface) 12%,transparent);
+  background:var(--abyss);
+  color:rgba(242,247,247,.55);
+  border-top:1px solid var(--foam-08);
   font-family:var(--mono);font-size:.75rem;
 }
+@media (prefers-reduced-motion:no-preference){
+  .hero-fx{animation:shaft-breathe 14s ease-in-out infinite alternate}
+}
+@media (prefers-reduced-motion:reduce){
+  .hero-fx{animation:none}
+}
+@keyframes shaft-breathe{
+  from{opacity:.84;transform:translate3d(0,0,0)}
+  to{opacity:1;transform:translate3d(-1.4%,1.8%,0)}
+}
+
+.brand-lockup{
+  display:flex;flex-direction:row;flex-wrap:nowrap;align-items:center;gap:.65rem;
+  width:auto;margin:0;
+  color:var(--foam);text-decoration:none;
+  font-size:inherit;font-weight:inherit;
+}
+.brand-lockup .mark{flex:0 0 auto;width:1.5rem;height:1.5rem}
+.brand-text{display:flex;flex-direction:column;gap:.1rem;min-width:0}
+.brand-name{
+  font-weight:600;letter-spacing:-.02em;line-height:1.1;font-size:1.05rem;
+}
+.brand-tag{
+  font-weight:400;font-size:.6875rem;line-height:1.2;letter-spacing:0;
+  color:var(--foam-72);white-space:nowrap;
+}
+img,svg{display:block;max-width:100%;height:auto}
 </style>
 </head>
 <body>
 <nav class="nav">
   <div class="wrap">
-    <a class="nav-lockup" href="/" aria-label="OpenData home">
-      <svg class="mark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="24" height="24" aria-hidden="true"><path d="M 57.1 9.6 A 41 41 0 1 0 90.4 42.9" fill="none" stroke="currentColor" stroke-width="16" stroke-linecap="round"/><circle cx="79" cy="21" r="8.5" fill="#C4A35A"/></svg>
-      OpenData
+    <a class="brand-lockup" href="/">
+      <svg class="mark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="24" height="24" aria-hidden="true"><path d="M 57.1 9.6 A 41 41 0 1 0 90.4 42.9" fill="none" stroke="currentColor" stroke-width="16" stroke-linecap="round"/><circle cx="79" cy="21" r="8.5" fill="#35E0D0"/></svg>
+      <span class="brand-text">
+        <span class="brand-name">OpenData</span>
+        <span class="brand-tag">an AI Pricing Model</span>
+      </span>
     </a>
   </div>
 </nav>
 <header class="hero">
+  <div class="hero-fx" aria-hidden="true"></div>
+  <svg class="hero-mark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="512" height="512" aria-hidden="true"><path d="M 57.1 9.6 A 41 41 0 1 0 90.4 42.9" fill="none" stroke="#F2F7F7" stroke-width="16" stroke-linecap="round"/><circle cx="79" cy="21" r="8.5" fill="#35E0D0"/></svg>
   <div class="wrap">
     <h1>Not found</h1>
     <p class="tag">That page isn’t part of the standard.</p>
@@ -88,7 +172,7 @@ footer{
   </div>
 </main>
 <footer>
-  <div class="wrap">spec odapm/v1 · owned by no one</div>
+  <div class="wrap">spec odapm/v1 · the standard is owned by no one</div>
 </footer>
 </body>
 </html>

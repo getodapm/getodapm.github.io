@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Request access — OpenData</title>
+<meta name="description" content="Request an OpenData account for your shop.">
+<link rel="canonical" href="https://odapm.ai/signup/">
+<meta name="theme-color" content="#06343A">
+<meta name="color-scheme" content="light">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" href="/favicon-32.png" type="image/png" sizes="32x32">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="manifest" href="/site.webmanifest">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://odapm.ai/signup/">
+<meta property="og:title" content="Request access — OpenData">
+<meta property="og:description" content="Request an OpenData account for your shop.">
+<meta property="og:image" content="https://odapm.ai/brand/opendata-og.png">
+<link rel="preload" href="/fonts/plex-sans-400.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/fonts/plex-sans-600.woff2" as="font" type="font/woff2" crossorigin>
+<style>
+@font-face{font-family:"IBM Plex Sans";src:url("/fonts/plex-sans-400.woff2") format("woff2");font-weight:400;font-style:normal;font-display:swap}
+@font-face{font-family:"IBM Plex Sans";src:url("/fonts/plex-sans-500.woff2") format("woff2");font-weight:500;font-style:normal;font-display:swap}
+@font-face{font-family:"IBM Plex Sans";src:url("/fonts/plex-sans-600.woff2") format("woff2");font-weight:600;font-style:normal;font-display:swap}
+@font-face{font-family:"IBM Plex Mono";src:url("/fonts/plex-mono-400.woff2") format("woff2");font-weight:400;font-style:normal;font-display:swap}
+
+:root{
+  --abyss:#06343A;
+  --deep:#0A3A40;
+  --ocean:#0E7C86;
+  --aqua:#35E0D0;
+  --foam:#F2F7F7;
+  --ink:#0A3A40;
+  --muted:#4A6A6E;
+  --line:color-mix(in srgb,var(--ocean) 18%,transparent);
+  --foam-72:rgba(242,247,247,.72);
+  --foam-08:rgba(242,247,247,.08);
+  --shadow:0 1px 0 rgba(6,52,58,.04), 0 18px 40px -24px rgba(6,52,58,.35);
+  --radius:18px;
+  --wrap:72rem;
+  --sans:"IBM Plex Sans",ui-sans-serif,system-ui,-apple-system,sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,Menlo,monospace;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{-webkit-text-size-adjust:100%}
+body{font-family:var(--sans);color:var(--ink);background:var(--foam);line-height:1.6;font-size:1.0625rem;min-height:100vh;display:flex;flex-direction:column}
+img,svg{display:block;max-width:100%;height:auto}
+a{color:var(--ocean);text-underline-offset:.18em}
+a:hover{color:var(--deep)}
+:focus-visible{outline:3px solid var(--aqua);outline-offset:3px}
+.skip{position:absolute;left:1rem;top:-4rem;z-index:20;padding:.75rem 1rem;background:var(--foam);color:var(--deep);border-radius:8px}
+.skip:focus{top:1rem}
+.wrap{width:min(var(--wrap),calc(100% - 2.5rem));margin-inline:auto}
+
+.nav{
+  position:sticky;top:0;z-index:10;
+  background:color-mix(in srgb,var(--abyss) 86%,transparent);
+  backdrop-filter:saturate(1.2) blur(16px);
+  -webkit-backdrop-filter:saturate(1.2) blur(16px);
+  border-bottom:1px solid rgba(242,247,247,.08);
+}
+.nav-inner{
+  display:flex;align-items:center;gap:.25rem 1rem;
+  min-height:4.25rem;
+  flex-wrap:nowrap;
+}
+.nav .brand-lockup{flex:0 0 auto}
+.nav-links{
+  display:flex;align-items:center;gap:.25rem .15rem;
+  margin-left:auto;flex-wrap:wrap;justify-content:flex-end;
+  list-style:none;
+}
+.nav-links a, a.signin, a.signup{
+  color:var(--foam);text-decoration:none;
+  font-size:.875rem;font-weight:500;
+  padding:.45rem .7rem;border-radius:999px;
+}
+.nav-links a:hover, a.signin:hover{background:rgba(242,247,247,.1);color:#fff}
+.nav-auth{
+  display:flex;align-items:center;gap:.4rem;
+  flex:0 0 auto;
+}
+a.signin, a.signup{
+  flex:0 0 auto;
+  padding:.45rem 1rem;
+}
+a.signin{
+  border:1px solid rgba(242,247,247,.4);
+}
+a.signin:hover{background:rgba(242,247,247,.14);border-color:var(--foam);color:#fff}
+a.signup{
+  background:var(--foam);color:var(--deep);font-weight:600;
+}
+a.signup:hover{background:#fff;color:var(--abyss)}
+a.signup[aria-current="page"]{pointer-events:none}
+
+.hero{
+  position:relative;
+  overflow:hidden;
+  isolation:isolate;
+  color:var(--foam);
+  background-color:var(--abyss);
+  background-image:
+    linear-gradient(90deg,
+      var(--abyss) 0%,
+      color-mix(in srgb,var(--abyss) 70%,transparent) 36%,
+      transparent 64%),
+    radial-gradient(ellipse 90% 55% at 50% -18%,
+      color-mix(in srgb,var(--ocean) 46%,transparent) 0%,
+      transparent 58%),
+    linear-gradient(180deg,
+      color-mix(in srgb,var(--ocean) 28%,var(--abyss)) 0%,
+      var(--deep) 42%,
+      var(--abyss) 100%);
+  padding:3.25rem 0 3.5rem;
+  border-bottom:1px solid var(--foam-08);
+}
+.hero-fx{
+  position:absolute;inset:0;z-index:-1;pointer-events:none;
+  background:
+    radial-gradient(ellipse 22% 18% at 88% 8%,
+      rgba(53,224,208,.46) 0%,
+      rgba(53,224,208,.14) 36%,
+      transparent 68%),
+    radial-gradient(ellipse 40% 80% at 80% 20%,
+      rgba(53,224,208,.16) 0%,
+      transparent 64%);
+  mix-blend-mode:screen;
+}
+.hero-mark{
+  position:absolute;
+  right:-10%;
+  top:50%;
+  transform:translateY(-46%);
+  width:min(28rem,62vw);
+  opacity:.13;
+  pointer-events:none;
+  z-index:-1;
+}
+.hero-inner{display:grid;gap:1rem;justify-items:start;max-width:40rem;position:relative;z-index:1}
+.hero-lede{
+  font-size:clamp(1.05rem,2vw,1.25rem);
+  line-height:1.45;color:rgba(242,247,247,.92);
+  max-width:34rem;
+}
+
+.brand-lockup{
+  display:flex;flex-direction:row;flex-wrap:nowrap;align-items:center;gap:.65rem;
+  width:auto;margin:0;
+  color:var(--foam);text-decoration:none;
+  font-size:inherit;font-weight:inherit;
+}
+.brand-lockup .mark{flex:0 0 auto;width:1.5rem;height:1.5rem}
+.brand-text{display:flex;flex-direction:column;gap:.1rem;min-width:0}
+.brand-name{
+  font-weight:600;letter-spacing:-.02em;line-height:1.1;font-size:1.05rem;
+}
+.brand-tag{
+  font-weight:400;font-size:.6875rem;line-height:1.2;letter-spacing:0;
+  color:var(--foam-72);white-space:nowrap;
+}
+h1.brand-lockup{gap:1rem}
+h1.brand-lockup .mark{width:3.75rem;height:3.75rem}
+h1.brand-lockup .brand-name{
+  font-size:clamp(2rem,6vw,2.8rem);
+  letter-spacing:-.03em;line-height:1;
+}
+h1.brand-lockup .brand-tag{
+  font-size:clamp(1rem,2vw,1.2rem);line-height:1.3;
+}
+
+main{flex:1;padding:3.25rem 0 4rem}
+.panel{
+  width:min(32rem,100%);
+  background:#fff;
+  border:1px solid color-mix(in srgb,var(--ocean) 22%,transparent);
+  border-radius:var(--radius);
+  padding:1.75rem 1.7rem 1.85rem;
+  box-shadow:var(--shadow), inset 0 1px 0 rgba(242,247,247,.85);
+}
+.field{margin-bottom:1.15rem}
+label{display:block;font-size:.875rem;font-weight:500;margin:0 0 .35rem;color:var(--deep)}
+.optional{font-weight:400;color:var(--muted)}
+input,select{
+  width:100%;
+  min-height:2.85rem;
+  padding:.6rem .85rem;
+  border:1px solid color-mix(in srgb,var(--ocean) 28%,transparent);
+  border-radius:12px;
+  background:#fff;
+  color:var(--ink);
+  font-family:var(--sans);
+  font-size:1rem;
+}
+select{appearance:auto}
+.btn{
+  display:inline-flex;align-items:center;justify-content:center;
+  min-height:2.85rem;padding:.7rem 1.25rem;border-radius:999px;
+  font-family:var(--sans);font-size:.95rem;font-weight:600;
+  text-decoration:none;border:1px solid transparent;cursor:pointer;
+}
+.btn-deep{background:var(--deep);color:var(--foam)}
+.btn-deep:hover{background:var(--abyss);color:#fff}
+.note{margin-top:1.1rem;font-size:.9rem;color:var(--muted)}
+.note a{font-weight:500}
+.confirm{
+  font-size:1.15rem;line-height:1.45;color:var(--deep);
+  width:min(32rem,100%);
+}
+
+footer{
+  padding:2.5rem 0 3rem;
+  background:var(--abyss);
+  color:rgba(242,247,247,.55);
+  border-top:1px solid var(--foam-08);
+  font-family:var(--mono);font-size:.75rem;
+  margin-top:auto;
+}
+.foot{
+  display:flex;flex-wrap:wrap;gap:.75rem 1.5rem;
+  align-items:center;justify-content:space-between;
+}
+.foot a{color:rgba(242,247,247,.55);text-decoration:none}
+.foot a:hover{color:var(--foam)}
+.foot .brand-lockup,
+.foot .brand-lockup:hover{font-family:var(--sans);color:var(--foam)}
+.foot .brand-lockup .mark{width:1.35rem;height:1.35rem}
+.foot .brand-lockup .brand-name{font-size:.95rem}
+.foot .brand-lockup .brand-tag{font-size:.625rem;color:var(--foam-72)}
+.foot code{
+  background:rgba(242,247,247,.08);
+  color:rgba(242,247,247,.78);
+}
+
+@media (max-width:40rem){
+  .wrap{width:min(var(--wrap),calc(100% - 2rem))}
+  .nav-inner{
+    display:grid;
+    grid-template-columns:1fr auto;
+    grid-template-areas:
+      "logo auth"
+      "links links";
+    gap:.1rem .75rem;
+    min-height:0;
+    padding:.55rem 0 .4rem;
+    align-items:center;
+  }
+  .nav .brand-lockup{grid-area:logo}
+  .nav-auth{grid-area:auth}
+  .nav-links{
+    grid-area:links;
+    margin-left:0;
+    justify-content:flex-start;
+    flex-wrap:nowrap;
+  }
+  .nav-links a{padding:.35rem .45rem .45rem 0;font-size:.8125rem}
+  a.signin, a.signup{padding:.4rem .75rem;font-size:.8125rem}
+  h1.brand-lockup .mark{width:3rem;height:3rem}
+  .hero-mark{width:min(22rem,80vw);right:-28%;top:18%;transform:none;opacity:.09}
+}
+@media (prefers-reduced-motion:no-preference){
+  .hero-fx{animation:shaft-breathe 14s ease-in-out infinite alternate}
+}
+@media (prefers-reduced-motion:reduce){
+  .hero-fx{animation:none}
+}
+@keyframes shaft-breathe{
+  from{opacity:.84;transform:translate3d(0,0,0)}
+  to{opacity:1;transform:translate3d(-1.4%,1.8%,0)}
+}
+</style>
+</head>
+<body>
+<a class="skip" href="#request">Skip to form</a>
+
+<nav class="nav">
+  <div class="wrap nav-inner">
+    <a class="brand-lockup" href="/">
+      <svg class="mark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="24" height="24" aria-hidden="true"><path d="M 57.1 9.6 A 41 41 0 1 0 90.4 42.9" fill="none" stroke="currentColor" stroke-width="16" stroke-linecap="round"/><circle cx="79" cy="21" r="8.5" fill="#35E0D0"/></svg>
+      <span class="brand-text">
+        <span class="brand-name">OpenData</span>
+        <span class="brand-tag">an AI Pricing Model</span>
+      </span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="https://github.com/getodapm/getodapm.github.io/blob/main/MANIFESTO.md">Manifesto</a></li>
+      <li><a href="https://github.com/getodapm/getodapm.github.io/blob/main/SPEC.md">Spec</a></li>
+      <li><a href="https://github.com/getodapm/getodapm.github.io/blob/main/prompts/00-START-HERE.md">Build</a></li>
+    </ul>
+    <div class="nav-auth">
+      <a class="signup" href="/signup/" aria-current="page">Sign up</a>
+      <a class="signin" href="https://app.odapm.ai/">Sign in</a>
+    </div>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="hero-fx" aria-hidden="true"></div>
+  <svg class="hero-mark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="512" height="512" aria-hidden="true"><path d="M 57.1 9.6 A 41 41 0 1 0 90.4 42.9" fill="none" stroke="#F2F7F7" stroke-width="16" stroke-linecap="round"/><circle cx="79" cy="21" r="8.5" fill="#35E0D0"/></svg>
+  <div class="wrap">
+    <div class="hero-inner">
+      <h1 class="brand-lockup">
+        <svg class="mark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="60" height="60" aria-hidden="true"><path d="M 57.1 9.6 A 41 41 0 1 0 90.4 42.9" fill="none" stroke="currentColor" stroke-width="16" stroke-linecap="round"/><circle cx="79" cy="21" r="8.5" fill="#35E0D0"/></svg>
+        <span class="brand-text">
+          <span class="brand-name">OpenData</span>
+          <span class="brand-tag">an AI Pricing Model</span>
+        </span>
+      </h1>
+      <p class="hero-lede">Shop owners request an account here. We’ll follow up at your work email.</p>
+    </div>
+  </div>
+</header>
+
+<main>
+  <div class="wrap">
+    <form class="panel" id="request">
+      <div class="field">
+        <label for="email">Work email</label>
+        <input id="email" name="email" type="email" autocomplete="email" required>
+      </div>
+      <div class="field">
+        <label for="company">Shop / company name</label>
+        <input id="company" name="company" type="text" autocomplete="organization" required>
+      </div>
+      <div class="field">
+        <label for="trade">Trade</label>
+        <select id="trade" name="trade" required>
+          <option value="" disabled selected>Select a trade</option>
+          <option>Plumbing</option>
+          <option>HVAC</option>
+          <option>Electrical</option>
+          <option>Restoration</option>
+          <option>Handyman</option>
+          <option>General contractor</option>
+          <option>Other</option>
+        </select>
+      </div>
+      <div class="field">
+        <label for="name">Your name <span class="optional">(optional)</span></label>
+        <input id="name" name="name" type="text" autocomplete="name">
+      </div>
+      <button class="btn btn-deep" type="submit">Request access</button>
+      <p class="note">Already have an account? <a href="https://app.odapm.ai/">Sign in</a>.</p>
+    </form>
+    <p class="confirm" id="done" hidden role="status"></p>
+  </div>
+</main>
+
+<footer>
+  <div class="wrap foot">
+    <a class="brand-lockup" href="/">
+      <svg class="mark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="22" height="22" aria-hidden="true"><path d="M 57.1 9.6 A 41 41 0 1 0 90.4 42.9" fill="none" stroke="currentColor" stroke-width="16" stroke-linecap="round"/><circle cx="79" cy="21" r="8.5" fill="#35E0D0"/></svg>
+      <span class="brand-text">
+        <span class="brand-name">OpenData</span>
+        <span class="brand-tag">an AI Pricing Model</span>
+      </span>
+    </a>
+    <p>spec <code>odapm/v1</code> · tools MIT · spec &amp; data CC-BY-4.0 · no proprietary pricing data, ever</p>
+  </div>
+</footer>
+<script>
+(function () {
+  var form = document.getElementById("request");
+  var done = document.getElementById("done");
+  form.addEventListener("submit", function (e) {
+    e.preventDefault();
+    var email = (form.email.value || "").trim();
+    form.hidden = true;
+    done.hidden = false;
+    done.textContent = "Got it. We’ll follow up at " + email + ".";
+  });
+})();
+</script>
+</body>
+</html>
