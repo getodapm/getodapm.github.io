@@ -8,6 +8,7 @@
 <link rel="canonical" href="https://odapm.org/">
 <meta name="theme-color" content="#F6F3EC">
 <meta name="color-scheme" content="light">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <link rel="icon" href="/favicon.ico" sizes="any">
 <link rel="icon" href="/favicon-32.png" type="image/png" sizes="32x32">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
@@ -211,6 +212,7 @@ footer .wrap{width:min(56rem,calc(100% - 2.5rem))}
       <li><a href="https://github.com/getodapm/getodapm.github.io/blob/main/MANIFESTO.md">Manifesto</a></li>
       <li><a href="https://github.com/getodapm/getodapm.github.io/blob/main/SPEC.md">Spec</a></li>
       <li><a href="https://github.com/getodapm/getodapm.github.io/blob/main/prompts/00-START-HERE.md">Build</a></li>
+      <li><a href="/rate-sheet/">Rate sheet</a></li>
     </ul>
     <div class="nav-auth">
       <a class="tool" href="https://odapm.ai/">The tool</a>
@@ -238,6 +240,14 @@ footer .wrap{width:min(56rem,calc(100% - 2.5rem))}
 tax   = qty × mat × (rate / 100)</pre>
     </div>
 
+    <h2>Why this exists</h2>
+    <p class="prose">Unit-priced work needs a number you can stand behind. Most of those numbers are a guess, a copied competitor, or a list you cannot audit. A number without a basis is not a price.</p>
+    <p class="prose">This model is the equation above, plus a <code>basis</code> on every non-zero price. Public inputs set the cost floor. You set markup and disclose it. The file that carries that is <code>model.json</code>.</p>
+
+    <h2>How it gets used</h2>
+    <p class="prose">Write a <code>model.json</code> that conforms to <code>odapm/v1</code> — from the spec and prompts, or from any program that emits the same shape. Open it on the <a href="/rate-sheet/">rate sheet</a>: this page checks the file in your browser, then lists every SKU and rate. Nothing is uploaded. Nothing is saved.</p>
+    <p class="prose">A compatible app reads the same file. One of those apps is the shop at <a href="https://odapm.ai/">odapm.ai</a>. The standard does not require that shop.</p>
+
     <h2>What it is</h2>
     <p class="prose">An open standard for named SKUs. The brand is OpenData. The spec line is <code>odapm/v1</code>. An app reads a <code>model.json</code>; this page defines what that file is.</p>
 
@@ -263,8 +273,8 @@ tax   = qty × mat × (rate / 100)</pre>
     <p class="prose">The <b>standard</b> is free and open. Tools are MIT. Spec and data are CC-BY-4.0. The methodology is public. A shop that uses this model is a consumer of it, not the owner.</p>
 
     <div class="btns">
-      <a class="btn btn-ink" href="https://github.com/getodapm/getodapm.github.io/blob/main/SPEC.md">Read the spec</a>
-      <a class="btn btn-ghost" href="https://github.com/getodapm/getodapm.github.io/blob/main/MANIFESTO.md">Read the manifesto</a>
+      <a class="btn btn-ink" href="/rate-sheet/">Test a rate sheet</a>
+      <a class="btn btn-ghost" href="https://github.com/getodapm/getodapm.github.io/blob/main/SPEC.md">Read the spec</a>
     </div>
   </div>
 </main>

@@ -1,0 +1,37 @@
+{
+  "meta": {
+    "schema": "odapm/v1",
+    "version": "example-0.1.0",
+    "model_name": "Example sheet",
+    "currency": "USD"
+  },
+  "items": [
+    {
+      "id": "tech_labor",
+      "group": "labor",
+      "name": "Technician labor",
+      "unit": "HR",
+      "desc": "One hour of technician time.",
+      "price": { "rem": 0, "rep": 85, "mat": 0 },
+      "basis": "Local wage × 1.0 hr + disclosed markup."
+    },
+    {
+      "id": "poly_sheet",
+      "group": "setup",
+      "name": "Poly sheeting",
+      "unit": "SF",
+      "desc": "6-mil poly, per square foot.",
+      "price": { "rem": 0, "rep": 0.42, "mat": 0.18 },
+      "basis": "Material $0.18/SF; labor minutes in rep; markup disclosed."
+    },
+    {
+      "id": "equipment_day",
+      "group": "equipment",
+      "name": "Equipment, per day",
+      "unit": "DAY",
+      "desc": "One day of a standard equipment unit.",
+      "price": { "rem": 0, "rep": 62, "mat": 0 },
+      "basis": "Daily share of equipment cost + disclosed markup."
+    }
+  ]
+}

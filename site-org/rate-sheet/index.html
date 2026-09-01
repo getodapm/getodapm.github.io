@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Rate sheet — OpenData</title>
+<meta name="description" content="Load an odapm/v1 model.json. Validate it in the browser. Read the rates. Nothing is uploaded.">
+<link rel="canonical" href="https://odapm.org/rate-sheet/">
+<meta name="theme-color" content="#F6F3EC">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" href="/favicon-32.png" type="image/png" sizes="32x32">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="preload" href="/fonts/plex-sans-400.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/fonts/plex-serif-600.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/fonts/plex-mono-400.woff2" as="font" type="font/woff2" crossorigin>
+<style>
+@font-face{font-family:"IBM Plex Sans";src:url("/fonts/plex-sans-400.woff2") format("woff2");font-weight:400;font-style:normal;font-display:swap}
+@font-face{font-family:"IBM Plex Sans";src:url("/fonts/plex-sans-600.woff2") format("woff2");font-weight:600;font-style:normal;font-display:swap}
+@font-face{font-family:"IBM Plex Serif";src:url("/fonts/plex-serif-600.woff2") format("woff2");font-weight:600;font-style:normal;font-display:swap}
+@font-face{font-family:"IBM Plex Mono";src:url("/fonts/plex-mono-400.woff2") format("woff2");font-weight:400;font-style:normal;font-display:swap}
+:root{
+  --paper:#F6F3EC;--sheet:#FFFCF7;--ink:#141210;--muted:#5C574E;--rule:rgba(20,18,16,.14);
+  --ok:#1F6B3A;--bad:#8B1E1E;
+  --sans:"IBM Plex Sans",ui-sans-serif,system-ui,sans-serif;
+  --serif:"IBM Plex Serif","Iowan Old Style",Georgia,serif;
+  --mono:"IBM Plex Mono",ui-monospace,Menlo,monospace;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:var(--sans);color:var(--ink);background:var(--paper);line-height:1.6;font-size:1.05rem}
+a{color:var(--ink)}
+:focus-visible{outline:2px solid var(--ink);outline-offset:3px}
+.wrap{width:min(42rem,calc(100% - 2.5rem));margin-inline:auto}
+.wide{width:min(72rem,calc(100% - 2.5rem));margin-inline:auto}
+.nav{position:sticky;top:0;z-index:10;background:color-mix(in srgb,var(--paper) 92%,transparent);backdrop-filter:blur(10px);border-bottom:1px solid var(--rule)}
+.nav .wrap{width:min(56rem,calc(100% - 2.5rem))}
+.nav-inner{display:flex;align-items:center;gap:.5rem 1.25rem;min-height:3.75rem}
+.nav-links{display:flex;margin-left:auto;list-style:none;flex-wrap:wrap}
+.nav-links a{display:inline-block;padding:.35rem .55rem;font-size:.8125rem;font-weight:500;text-decoration:none;color:var(--muted)}
+.nav-links a[aria-current="page"]{color:var(--ink);text-decoration:underline;text-underline-offset:4px}
+.tool{display:inline-flex;padding:.35rem .8rem;border:1px solid var(--ink);font-size:.8125rem;font-weight:600;text-decoration:none}
+.tool:hover{background:var(--ink);color:var(--paper)}
+.brand-lockup{display:flex;flex-direction:row;flex-wrap:nowrap;align-items:center;gap:.65rem;color:var(--ink);text-decoration:none}
+.brand-lockup .mark{width:1.35rem;height:1.35rem;flex:0 0 auto}
+.brand-text{display:flex;flex-direction:column;gap:.08rem}
+.brand-name{font-weight:600;letter-spacing:-.02em;font-size:1rem;line-height:1.1}
+.brand-tag{font-size:.625rem;color:var(--muted);white-space:nowrap}
+main{padding:3.5rem 0 5rem}
+.kicker{font-family:var(--mono);font-size:.75rem;font-weight:500;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-bottom:1.25rem}
+h1{font-family:var(--serif);font-size:clamp(2.2rem,5vw,3rem);letter-spacing:-.03em;line-height:1.05;margin-bottom:1rem}
+.lede{font-size:1.15rem;margin-bottom:1.75rem;max-width:38rem}
+.drop{
+  border:1px dashed var(--ink);background:var(--sheet);padding:1.25rem 1.35rem;margin-bottom:1.25rem;
+}
+.drop.hot{background:var(--paper)}
+.drop p{margin-bottom:.75rem}
+.row{display:flex;flex-wrap:wrap;gap:.65rem;align-items:center}
+label.file{display:inline-flex;align-items:center;min-height:2.6rem;padding:.55rem 1.05rem;border:1px solid var(--ink);font-weight:600;cursor:pointer}
+label.file:hover{background:var(--ink);color:var(--paper)}
+input[type=file]{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+button, .btn{
+  display:inline-flex;align-items:center;min-height:2.6rem;padding:.55rem 1.05rem;
+  font:inherit;font-weight:600;border:1px solid var(--ink);background:transparent;color:var(--ink);cursor:pointer;text-decoration:none;
+}
+button:hover, .btn:hover{background:var(--ink);color:var(--paper)}
+textarea{
+  width:100%;min-height:8rem;margin:.75rem 0;padding:.75rem;
+  font-family:var(--mono);font-size:.85rem;border:1px solid var(--rule);background:var(--sheet);color:var(--ink);
+}
+.status{display:flex;gap:1rem;align-items:flex-start;border:1px solid var(--ink);padding:1rem 1.15rem;margin:1.5rem 0;background:var(--sheet)}
+.status .mark{font-size:1.8rem;line-height:1;font-weight:600}
+.status.ok{border-color:var(--ok)}
+.status.ok .mark{color:var(--ok)}
+.status.bad{border-color:var(--bad)}
+.status.bad .mark{color:var(--bad)}
+.status ul{margin:.5rem 0 0 1.1rem}
+.status .warn{color:var(--muted);margin-top:.5rem}
+.table-scroll{overflow-x:auto;border:1px solid var(--ink);background:var(--sheet);margin-top:.5rem}
+table{width:100%;border-collapse:collapse;font-size:.9rem}
+th, td{padding:.55rem .7rem;border-bottom:1px solid var(--rule);text-align:left;vertical-align:top}
+th{font-family:var(--mono);font-size:.7rem;letter-spacing:.08em;text-transform:uppercase;font-weight:500;color:var(--muted)}
+td.num{font-family:var(--mono);text-align:right;white-space:nowrap}
+td.basis{font-size:.85rem;color:var(--muted);max-width:22rem}
+code{font-family:var(--mono);font-size:.86em}
+footer{border-top:1px solid var(--rule);padding:2rem 0 3rem;font-family:var(--mono);font-size:.75rem;color:var(--muted)}
+footer .wrap{width:min(56rem,calc(100% - 2.5rem))}
+@media (max-width:40rem){
+  .nav-inner{flex-wrap:wrap;padding:.65rem 0}
+  .nav-links{margin-left:0;width:100%}
+}
+</style>
+</head>
+<body>
+<nav class="nav">
+  <div class="wrap nav-inner">
+    <a class="brand-lockup" href="/">
+      <svg class="mark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="22" height="22" aria-hidden="true"><path d="M 57.1 9.6 A 41 41 0 1 0 90.4 42.9" fill="none" stroke="currentColor" stroke-width="16" stroke-linecap="round"/><circle cx="79" cy="21" r="8.5" fill="#35E0D0"/></svg>
+      <span class="brand-text">
+        <span class="brand-name">OpenData</span>
+        <span class="brand-tag">an AI Pricing Model</span>
+      </span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="https://github.com/getodapm/getodapm.github.io/blob/main/MANIFESTO.md">Manifesto</a></li>
+      <li><a href="https://github.com/getodapm/getodapm.github.io/blob/main/SPEC.md">Spec</a></li>
+      <li><a href="https://github.com/getodapm/getodapm.github.io/blob/main/prompts/00-START-HERE.md">Build</a></li>
+      <li><a href="/rate-sheet/" aria-current="page">Rate sheet</a></li>
+    </ul>
+    <a class="tool" href="https://odapm.ai/">The tool</a>
+  </div>
+</nav>
+
+<main>
+  <div class="wrap">
+    <p class="kicker">odapm/v1 · in the browser</p>
+    <h1>Test a rate sheet</h1>
+    <p class="lede">Drop a <code>model.json</code> from the prompts, or paste it. This page checks conformance, then lists every SKU and rate. Nothing is sent anywhere. Refresh and it is gone.</p>
+
+    <div class="drop" id="drop">
+      <p>Load a file, paste JSON, or open the three-item example.</p>
+      <div class="row">
+        <label class="file">Choose file<input id="file" type="file" accept="application/json,.json"></label>
+        <button type="button" id="example">Load example</button>
+      </div>
+      <textarea id="paste" spellcheck="false" placeholder='{"meta":{"schema":"odapm/v1",...},"items":[...]}'></textarea>
+      <button type="button" id="run-paste">Check pasted JSON</button>
+    </div>
+
+    <div id="status" class="status" hidden></div>
+  </div>
+  <div class="wide" id="sheet" hidden></div>
+</main>
+
+<footer>
+  <div class="wrap">spec <code>odapm/v1</code> · the check is structure + basis, in your browser · the tool is at <a href="https://odapm.ai/">odapm.ai</a></div>
+</footer>
+<script src="rate-sheet.js"></script>
+</body>
+</html>
