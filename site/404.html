@@ -11,6 +11,7 @@
 <link rel="canonical" href="https://odapm.ai/">
 <style>
 @font-face{font-family:"IBM Plex Sans";src:url("/fonts/plex-sans-400.woff2") format("woff2");font-weight:400;font-style:normal;font-display:swap}
+@font-face{font-family:"IBM Plex Sans";src:url("/fonts/plex-sans-500.woff2") format("woff2");font-weight:500;font-style:normal;font-display:swap}
 @font-face{font-family:"IBM Plex Sans";src:url("/fonts/plex-sans-600.woff2") format("woff2");font-weight:600;font-style:normal;font-display:swap}
 @font-face{font-family:"IBM Plex Mono";src:url("/fonts/plex-mono-400.woff2") format("woff2");font-weight:400;font-style:normal;font-display:swap}
 :root{
@@ -27,15 +28,47 @@ body{font-family:var(--sans);color:var(--ink);background:var(--foam);line-height
 a{color:var(--ocean)}
 :focus-visible{outline:3px solid var(--aqua);outline-offset:3px}
 .nav{
+  position:sticky;top:0;z-index:10;
   background:color-mix(in srgb,var(--abyss) 86%,transparent);
   backdrop-filter:saturate(1.2) blur(16px);
   -webkit-backdrop-filter:saturate(1.2) blur(16px);
   border-bottom:1px solid var(--foam-08);
-  padding:1.15rem 0;
 }
 .nav .wrap{width:min(72rem,calc(100% - 2.5rem));margin-inline:auto}
 .wrap{width:min(40rem,calc(100% - 2.5rem));margin-inline:auto}
+.nav-inner{
+  display:flex;align-items:center;gap:.25rem 1rem;
+  min-height:4.25rem;
+  flex-wrap:nowrap;
+}
 .nav .brand-lockup{flex:0 0 auto}
+.nav-links{
+  display:flex;align-items:center;gap:.25rem .15rem;
+  margin-left:auto;flex-wrap:wrap;justify-content:flex-end;
+  list-style:none;
+}
+.nav-links a, a.signin, a.signup{
+  color:var(--foam);text-decoration:none;
+  font-size:.875rem;font-weight:500;
+  padding:.45rem .7rem;border-radius:999px;
+}
+.nav-links a:hover, a.signin:hover{background:rgba(242,247,247,.1);color:#fff}
+.nav-auth{
+  display:flex;align-items:center;gap:.4rem;
+  flex:0 0 auto;
+}
+a.signin, a.signup{
+  flex:0 0 auto;
+  padding:.45rem 1rem;
+}
+a.signin{
+  border:1px solid rgba(242,247,247,.4);
+}
+a.signin:hover{background:rgba(242,247,247,.14);border-color:var(--foam);color:#fff}
+a.signup{
+  background:var(--foam);color:var(--deep);font-weight:600;
+}
+a.signup:hover{background:#fff;color:var(--abyss)}
 .hero{
   position:relative;
   overflow:hidden;
@@ -110,6 +143,29 @@ footer{
   border-top:1px solid var(--foam-08);
   font-family:var(--mono);font-size:.75rem;
 }
+@media (max-width:40rem){
+  .nav-inner{
+    display:grid;
+    grid-template-columns:1fr auto;
+    grid-template-areas:
+      "logo auth"
+      "links links";
+    gap:.1rem .75rem;
+    min-height:0;
+    padding:.55rem 0 .4rem;
+    align-items:center;
+  }
+  .nav .brand-lockup{grid-area:logo}
+  .nav-auth{grid-area:auth}
+  .nav-links{
+    grid-area:links;
+    margin-left:0;
+    justify-content:flex-start;
+    flex-wrap:nowrap;
+  }
+  .nav-links a{padding:.35rem .45rem .45rem 0;font-size:.8125rem}
+  a.signin, a.signup{padding:.4rem .75rem;font-size:.8125rem}
+}
 @media (prefers-reduced-motion:no-preference){
   .hero-fx{animation:shaft-breathe 14s ease-in-out infinite alternate}
 }
@@ -141,7 +197,7 @@ img,svg{display:block;max-width:100%;height:auto}
 </head>
 <body>
 <nav class="nav">
-  <div class="wrap">
+  <div class="wrap nav-inner">
     <a class="brand-lockup" href="/">
       <svg class="mark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="24" height="24" aria-hidden="true"><path d="M 57.1 9.6 A 41 41 0 1 0 90.4 42.9" fill="none" stroke="currentColor" stroke-width="16" stroke-linecap="round"/><circle cx="79" cy="21" r="8.5" fill="#35E0D0"/></svg>
       <span class="brand-text">
@@ -149,6 +205,16 @@ img,svg{display:block;max-width:100%;height:auto}
         <span class="brand-tag">an AI Pricing Model</span>
       </span>
     </a>
+    <ul class="nav-links">
+      <li><a href="https://github.com/getodapm/getodapm.github.io/blob/main/MANIFESTO.md">Manifesto</a></li>
+      <li><a href="https://github.com/getodapm/getodapm.github.io/blob/main/SPEC.md">Spec</a></li>
+      <li><a href="https://github.com/getodapm/getodapm.github.io/blob/main/prompts/00-START-HERE.md">Build</a></li>
+      <li><a href="/docs/">Docs</a></li>
+    </ul>
+    <div class="nav-auth">
+      <a class="signup" href="/signup/">Sign up</a>
+      <a class="signin" href="https://app.odapm.ai/">Sign in</a>
+    </div>
   </div>
 </nav>
 <header class="hero">

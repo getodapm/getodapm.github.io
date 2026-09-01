@@ -3,9 +3,9 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Request access — OpenData</title>
-<meta name="description" content="Request an OpenData account for your shop.">
-<link rel="canonical" href="https://odapm.ai/signup/">
+<title>Connect your AI — OpenData</title>
+<meta name="description" content="Create an API key in your OpenData shop and connect Cursor, Claude Desktop, or your own HTTP client.">
+<link rel="canonical" href="https://odapm.ai/docs/">
 <meta name="theme-color" content="#06343A">
 <meta name="color-scheme" content="light">
 <link rel="icon" href="/favicon.ico" sizes="any">
@@ -13,10 +13,11 @@
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <link rel="manifest" href="/site.webmanifest">
 <meta property="og:type" content="website">
-<meta property="og:url" content="https://odapm.ai/signup/">
-<meta property="og:title" content="Request access — OpenData">
-<meta property="og:description" content="Request an OpenData account for your shop.">
+<meta property="og:url" content="https://odapm.ai/docs/">
+<meta property="og:title" content="Connect your AI — OpenData">
+<meta property="og:description" content="Create an API key in your OpenData shop and connect Cursor, Claude Desktop, or your own HTTP client.">
 <meta property="og:image" content="https://odapm.ai/brand/opendata-og.png">
+<meta name="twitter:card" content="summary_large_image">
 <link rel="preload" href="/fonts/plex-sans-400.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/fonts/plex-sans-600.woff2" as="font" type="font/woff2" crossorigin>
 <style>
@@ -39,11 +40,13 @@
   --shadow:0 1px 0 rgba(6,52,58,.04), 0 18px 40px -24px rgba(6,52,58,.35);
   --radius:18px;
   --wrap:72rem;
+  --prose:40rem;
   --sans:"IBM Plex Sans",ui-sans-serif,system-ui,-apple-system,sans-serif;
   --mono:"IBM Plex Mono",ui-monospace,Menlo,monospace;
 }
 *{box-sizing:border-box;margin:0;padding:0}
-html{-webkit-text-size-adjust:100%}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
 body{font-family:var(--sans);color:var(--ink);background:var(--foam);line-height:1.6;font-size:1.0625rem;min-height:100vh;display:flex;flex-direction:column}
 img,svg{display:block;max-width:100%;height:auto}
 a{color:var(--ocean);text-underline-offset:.18em}
@@ -52,6 +55,7 @@ a:hover{color:var(--deep)}
 .skip{position:absolute;left:1rem;top:-4rem;z-index:20;padding:.75rem 1rem;background:var(--foam);color:var(--deep);border-radius:8px}
 .skip:focus{top:1rem}
 .wrap{width:min(var(--wrap),calc(100% - 2.5rem));margin-inline:auto}
+.prose{width:min(var(--prose),100%)}
 
 .nav{
   position:sticky;top:0;z-index:10;
@@ -77,6 +81,7 @@ a:hover{color:var(--deep)}
   padding:.45rem .7rem;border-radius:999px;
 }
 .nav-links a:hover, a.signin:hover{background:rgba(242,247,247,.1);color:#fff}
+.nav-links a[aria-current="page"]{background:rgba(242,247,247,.12);color:#fff;pointer-events:none}
 .nav-auth{
   display:flex;align-items:center;gap:.4rem;
   flex:0 0 auto;
@@ -93,7 +98,6 @@ a.signup{
   background:var(--foam);color:var(--deep);font-weight:600;
 }
 a.signup:hover{background:#fff;color:var(--abyss)}
-a.signup[aria-current="page"]{pointer-events:none}
 
 .hero{
   position:relative;
@@ -139,6 +143,10 @@ a.signup[aria-current="page"]{pointer-events:none}
   z-index:-1;
 }
 .hero-inner{display:grid;gap:1rem;justify-items:start;max-width:40rem;position:relative;z-index:1}
+.hero h1{
+  font-size:clamp(1.85rem,4.5vw,2.6rem);
+  font-weight:600;letter-spacing:-.03em;line-height:1.1;
+}
 .hero-lede{
   font-size:clamp(1.05rem,2vw,1.25rem);
   line-height:1.45;color:rgba(242,247,247,.92);
@@ -160,54 +168,44 @@ a.signup[aria-current="page"]{pointer-events:none}
   font-weight:400;font-size:.6875rem;line-height:1.2;letter-spacing:0;
   color:var(--foam-72);white-space:nowrap;
 }
-h1.brand-lockup{gap:1rem}
-h1.brand-lockup .mark{width:3.75rem;height:3.75rem}
-h1.brand-lockup .brand-name{
-  font-size:clamp(2rem,6vw,2.8rem);
-  letter-spacing:-.03em;line-height:1;
-}
-h1.brand-lockup .brand-tag{
-  font-size:clamp(1rem,2vw,1.2rem);line-height:1.3;
-}
 
 main{flex:1;padding:3.25rem 0 4rem}
-.panel{
-  width:min(32rem,100%);
+h2{
+  font-size:1.35rem;font-weight:600;letter-spacing:-.02em;
+  color:var(--deep);margin:2.5rem 0 .75rem;
+}
+h2:first-child{margin-top:0}
+.jump{
+  display:flex;flex-wrap:wrap;gap:.45rem .7rem;
+  list-style:none;margin:0 0 2rem;
+  font-size:.9375rem;font-weight:500;
+}
+.lede{margin:0 0 1.1rem;color:var(--ink)}
+.note{margin:0 0 1.1rem;color:var(--muted);font-size:.95rem}
+.steps{margin:0 0 1.15rem;padding:0 0 0 1.35rem}
+.steps li{margin:0 0 .7rem;padding-left:.2rem}
+.steps li::marker{font-weight:600;color:var(--ocean)}
+ul.plain{margin:0 0 1.15rem;padding:0 0 0 1.2rem}
+ul.plain li{margin:0 0 .55rem}
+code{
+  font-family:var(--mono);font-size:.86em;
+  background:rgba(10,58,64,.06);padding:.1em .35em;border-radius:4px;
+  word-break:break-word;
+}
+pre{
+  overflow-x:auto;
   background:#fff;
   border:1px solid color-mix(in srgb,var(--ocean) 22%,transparent);
-  border-radius:var(--radius);
-  padding:1.75rem 1.7rem 1.85rem;
+  border-radius:12px;
+  padding:1rem 1.1rem;
+  margin:.35rem 0 1.25rem;
   box-shadow:var(--shadow), inset 0 1px 0 rgba(242,247,247,.85);
 }
-.field{margin-bottom:1.15rem}
-label{display:block;font-size:.875rem;font-weight:500;margin:0 0 .35rem;color:var(--deep)}
-.optional{font-weight:400;color:var(--muted)}
-input,select{
-  width:100%;
-  min-height:2.85rem;
-  padding:.6rem .85rem;
-  border:1px solid color-mix(in srgb,var(--ocean) 28%,transparent);
-  border-radius:12px;
-  background:#fff;
-  color:var(--ink);
-  font-family:var(--sans);
-  font-size:1rem;
+pre code{
+  background:none;padding:0;font-size:.8125rem;line-height:1.5;
+  color:var(--deep);word-break:normal;
 }
-select{appearance:auto}
-.btn{
-  display:inline-flex;align-items:center;justify-content:center;
-  min-height:2.85rem;padding:.7rem 1.25rem;border-radius:999px;
-  font-family:var(--sans);font-size:.95rem;font-weight:600;
-  text-decoration:none;border:1px solid transparent;cursor:pointer;
-}
-.btn-deep{background:var(--deep);color:var(--foam)}
-.btn-deep:hover{background:var(--abyss);color:#fff}
-.note{margin-top:1.1rem;font-size:.9rem;color:var(--muted)}
-.note a{font-weight:500}
-.confirm{
-  font-size:1.15rem;line-height:1.45;color:var(--deep);
-  width:min(32rem,100%);
-}
+strong{font-weight:600}
 
 footer{
   padding:2.5rem 0 3rem;
@@ -256,7 +254,6 @@ footer{
   }
   .nav-links a{padding:.35rem .45rem .45rem 0;font-size:.8125rem}
   a.signin, a.signup{padding:.4rem .75rem;font-size:.8125rem}
-  h1.brand-lockup .mark{width:3rem;height:3rem}
   .hero-mark{width:min(22rem,80vw);right:-28%;top:18%;transform:none;opacity:.09}
 }
 @media (prefers-reduced-motion:no-preference){
@@ -272,7 +269,7 @@ footer{
 </style>
 </head>
 <body>
-<a class="skip" href="#request">Skip to form</a>
+<a class="skip" href="#key">Skip to content</a>
 
 <nav class="nav">
   <div class="wrap nav-inner">
@@ -287,10 +284,10 @@ footer{
       <li><a href="https://github.com/getodapm/getodapm.github.io/blob/main/MANIFESTO.md">Manifesto</a></li>
       <li><a href="https://github.com/getodapm/getodapm.github.io/blob/main/SPEC.md">Spec</a></li>
       <li><a href="https://github.com/getodapm/getodapm.github.io/blob/main/prompts/00-START-HERE.md">Build</a></li>
-      <li><a href="/docs/">Docs</a></li>
+      <li><a href="/docs/" aria-current="page">Docs</a></li>
     </ul>
     <div class="nav-auth">
-      <a class="signup" href="/signup/" aria-current="page">Sign up</a>
+      <a class="signup" href="/signup/">Sign up</a>
       <a class="signin" href="https://app.odapm.ai/">Sign in</a>
     </div>
   </div>
@@ -301,50 +298,78 @@ footer{
   <svg class="hero-mark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="512" height="512" aria-hidden="true"><path d="M 57.1 9.6 A 41 41 0 1 0 90.4 42.9" fill="none" stroke="#F2F7F7" stroke-width="16" stroke-linecap="round"/><circle cx="79" cy="21" r="8.5" fill="#35E0D0"/></svg>
   <div class="wrap">
     <div class="hero-inner">
-      <h1 class="brand-lockup">
-        <svg class="mark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="60" height="60" aria-hidden="true"><path d="M 57.1 9.6 A 41 41 0 1 0 90.4 42.9" fill="none" stroke="currentColor" stroke-width="16" stroke-linecap="round"/><circle cx="79" cy="21" r="8.5" fill="#35E0D0"/></svg>
-        <span class="brand-text">
-          <span class="brand-name">OpenData</span>
-          <span class="brand-tag">an AI Pricing Model</span>
-        </span>
-      </h1>
-      <p class="hero-lede">Shop owners request an account here. We’ll follow up at your work email.</p>
+      <h1>Connect your AI</h1>
+      <p class="hero-lede">Shop owners: create a key in Settings, then point Cursor or Claude Desktop at your shop. Vendors use the same key against the same host.</p>
     </div>
   </div>
 </header>
 
 <main>
   <div class="wrap">
-    <form class="panel" id="request">
-      <div class="field">
-        <label for="email">Work email</label>
-        <input id="email" name="email" type="email" autocomplete="email" required>
-      </div>
-      <div class="field">
-        <label for="company">Shop / company name</label>
-        <input id="company" name="company" type="text" autocomplete="organization" required>
-      </div>
-      <div class="field">
-        <label for="trade">Trade</label>
-        <select id="trade" name="trade" required>
-          <option value="" disabled selected>Select a trade</option>
-          <option>Plumbing</option>
-          <option>HVAC</option>
-          <option>Electrical</option>
-          <option>Restoration</option>
-          <option>Handyman</option>
-          <option>General contractor</option>
-          <option>Other</option>
-        </select>
-      </div>
-      <div class="field">
-        <label for="name">Your name <span class="optional">(optional)</span></label>
-        <input id="name" name="name" type="text" autocomplete="name">
-      </div>
-      <button class="btn btn-deep" type="submit">Request access</button>
-      <p class="note">Already have an account? <a href="https://app.odapm.ai/">Sign in</a>.</p>
-    </form>
-    <p class="confirm" id="done" hidden role="status"></p>
+    <article class="prose" id="connect">
+      <p class="lede">Sign in at <a href="https://app.odapm.ai/">app.odapm.ai</a>. Your shop is <code>https://YOUR-SHOP.odapm.ai</code> in production, or <code>https://stg.odapm.ai</code> in staging. MCP and the HTTP API live on that shop origin — not on this marketing site. They ship with the tenant app; a given shop may not have them on yet.</p>
+      <ul class="jump">
+        <li><a href="#key">Get a key</a></li>
+        <li><a href="#cursor">Cursor</a></li>
+        <li><a href="#claude">Claude Desktop</a></li>
+        <li><a href="#developers">Developers</a></li>
+        <li><a href="#agent">Internal agent</a></li>
+      </ul>
+
+      <h2 id="key">Get a key</h2>
+      <ol class="steps">
+        <li>Sign in at <a href="https://app.odapm.ai/">app.odapm.ai</a> (or your shop host).</li>
+        <li>Open <strong>Settings</strong> (owner/admin).</li>
+        <li>Open <strong>API access</strong>.</li>
+        <li>Name the key. Click <strong>MCP starter set</strong> unless you know you want fewer scopes. Create.</li>
+        <li>Copy the token now — it is shown once. Store it in a password manager.</li>
+      </ol>
+      <p class="note">The starter set checks catalog, customers, properties, jobs, and quotes (read, write, price, and PDF). Execute is not in the starter set. After you leave the page you will only see the last four characters. Tokens look like <code>odapm_live_…</code> or <code>odapm_test_…</code>.</p>
+
+      <h2 id="cursor">Cursor</h2>
+      <ol class="steps">
+        <li>Cursor → Settings → MCP → New MCP server.</li>
+        <li>Type URL. URL = <code>https://YOUR-SHOP.odapm.ai/mcp</code>.</li>
+        <li>Header <code>Authorization</code> = <code>Bearer {token}</code>.</li>
+        <li>Done when tools like <code>quote_price</code> appear.</li>
+      </ol>
+      <p class="note">Use your shop origin, not <code>app.odapm.ai</code>.</p>
+
+      <h2 id="claude">Claude Desktop</h2>
+      <ol class="steps">
+        <li>Not Connectors. Use <code>mcp-remote</code>.</li>
+        <li>In <code>claude_desktop_config.json</code>, set command <code>npx</code> and args <code>["-y", "mcp-remote", "https://YOUR-SHOP.odapm.ai/mcp", "--header", "Authorization: Bearer {token}"]</code>.</li>
+        <li>Restart Claude Desktop.</li>
+      </ol>
+      <pre><code>{
+  "mcpServers": {
+    "opendata": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "mcp-remote",
+        "https://YOUR-SHOP.odapm.ai/mcp",
+        "--header",
+        "Authorization: Bearer {token}"
+      ]
+    }
+  }
+}</code></pre>
+      <p class="note">Claude Connectors and ChatGPT Connectors use OAuth. That is not v1.</p>
+
+      <h2 id="developers">For developers</h2>
+      <p class="lede">Host is the shop origin. No <code>X-Org-Id</code> header. The Worker owns prices — do not send cents or totals.</p>
+      <ul class="plain">
+        <li><code>Authorization: Bearer …</code> against <code>https://YOUR-SHOP.odapm.ai</code></li>
+        <li><code>GET /api/me</code>, <code>GET /api/catalog</code>, <code>POST /api/quotes/price</code> — body is EstimateInput ticks, never cents</li>
+        <li>OpenAPI: <code>/api/openapi.json</code> (unauthenticated). EstimateInput schema: <code>/api/schema/estimate-input</code></li>
+        <li>Execute is a separate scope; starter keys cannot run a job</li>
+        <li>Rate limits apply. Rotating the app session secret revokes keys too.</li>
+      </ul>
+
+      <h2 id="agent">Internal agent</h2>
+      <p class="lede">Settings → Internal agent. Default off. Toggle off = nobody can run it. Off means off. Does not delete your AI provider key.</p>
+    </article>
   </div>
 </main>
 
@@ -360,18 +385,5 @@ footer{
     <p>spec <code>odapm/v1</code> · tools MIT · spec &amp; data CC-BY-4.0 · no proprietary pricing data, ever</p>
   </div>
 </footer>
-<script>
-(function () {
-  var form = document.getElementById("request");
-  var done = document.getElementById("done");
-  form.addEventListener("submit", function (e) {
-    e.preventDefault();
-    var email = (form.email.value || "").trim();
-    form.hidden = true;
-    done.hidden = false;
-    done.textContent = "Got it. We’ll follow up at " + email + ".";
-  });
-})();
-</script>
 </body>
 </html>
