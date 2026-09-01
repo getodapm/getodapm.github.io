@@ -226,28 +226,6 @@ footer .wrap{width:min(56rem,calc(100% - 2.5rem))}
     <h1>The model</h1>
     <p class="lede">Build a rate sheet for anyone. Keep it current forever.</p>
 
-    <div class="plate">
-      <p>Derivation</p>
-      <pre>unit price = (labor hours × local labor cost)
-           + (material qty × material cost)
-           + equipment share
-           + markup</pre>
-    </div>
-
-    <div class="plate">
-      <p>Line total</p>
-      <pre>total = (qty × rem) + (qty × rep) + tax
-tax   = qty × mat × (rate / 100)</pre>
-    </div>
-
-    <h2>Why this exists</h2>
-    <p class="prose">Unit-priced work needs a number you can stand behind. Most of those numbers are a guess, a copied competitor, or a list you cannot audit. A number without a basis is not a price.</p>
-    <p class="prose">This model is the equation above, plus a <code>basis</code> on every non-zero price. Public inputs set the cost floor. You set markup and disclose it. The file that carries that is <code>model.json</code>.</p>
-
-    <h2>How it gets used</h2>
-    <p class="prose">Write a <code>model.json</code> that conforms to <code>odapm/v1</code> — from the spec and prompts, or from any program that emits the same shape. Open it on the <a href="/rate-sheet/">rate sheet</a>: this page checks the file in your browser, then lists every SKU and rate. Nothing is uploaded. Nothing is saved.</p>
-    <p class="prose">A compatible app reads the same file. One of those apps is the shop at <a href="https://odapm.ai/">odapm.ai</a>. The standard does not require that shop.</p>
-
     <h2>What it is</h2>
     <p class="prose">An open standard for named SKUs. The brand is OpenData. The spec line is <code>odapm/v1</code>. An app reads a <code>model.json</code>; this page defines what that file is.</p>
 
@@ -265,6 +243,29 @@ tax   = qty × mat × (rate / 100)</pre>
         <dd>A sibling file, not part of the price. Published jurisdiction rates on materials. Different source, different cadence.</dd>
       </div>
     </dl>
+
+    <h2>Why this exists</h2>
+    <p class="prose">Unit-priced work needs a number you can stand behind. Most of those numbers are a guess, a copied competitor, or a list you cannot audit. A number without a basis is not a price.</p>
+    <p class="prose">This model is the equation below, plus a <code>basis</code> on every non-zero price. Public inputs set the cost floor. You set markup and disclose it. The file that carries that is <code>model.json</code>.</p>
+
+    <h2>How it gets used</h2>
+    <p class="prose">Write a <code>model.json</code> that conforms to <code>odapm/v1</code> — from the spec and prompts, or from any program that emits the same shape. Open it on the <a href="/rate-sheet/">rate sheet</a>: this page checks the file in your browser, then lists every SKU and rate. Nothing is uploaded. Nothing is saved.</p>
+    <p class="prose">A compatible app reads the same file. One of those apps is the shop at <a href="https://odapm.ai/">odapm.ai</a>. The standard does not require that shop.</p>
+
+    <h2>The math</h2>
+    <div class="plate">
+      <p>Derivation</p>
+      <pre>unit price = (labor hours × local labor cost)
+           + (material qty × material cost)
+           + equipment share
+           + markup</pre>
+    </div>
+
+    <div class="plate">
+      <p>Line total</p>
+      <pre>total = (qty × rem) + (qty × rep) + tax
+tax   = qty × mat × (rate / 100)</pre>
+    </div>
 
     <h2>Conformance</h2>
     <p class="prose">A valid model has <code>meta.schema</code> of <code>odapm/v1</code>, items that match the scope and pricing schemas, and a <code>basis</code> on every non-zero price. Structure without a basis is not conformant. No app owns the standard.</p>
