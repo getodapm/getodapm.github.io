@@ -227,7 +227,7 @@ footer .wrap{width:min(56rem,calc(100% - 2.5rem))}
     <p class="lede">Build a rate sheet for anyone. Keep it current forever. If you can't show the work, it isn't a price.</p>
 
     <h2>What it is</h2>
-    <p class="prose">A rate sheet you own. Named SKUs for the work you sell. Prices you can defend. The brand is OpenData. The spec line is <code>odapm/v1</code>. The file is <code>model.json</code> — any app can read it, and none of them get to own it.</p>
+    <p class="prose">A rate sheet you own. Named SKUs for the work you sell. Prices you can defend.</p>
 
     <dl class="defs">
       <div>
@@ -236,11 +236,7 @@ footer .wrap{width:min(56rem,calc(100% - 2.5rem))}
       </div>
       <div>
         <dt>Pricing</dt>
-        <dd><code>{rem, rep, mat}</code> on each SKU. <code>mat</code> is the material share of replace, not a third addend. Every non-zero price carries a <code>basis</code>. No basis, no price.</dd>
-      </div>
-      <div>
-        <dt>Tax</dt>
-        <dd>A sibling file, not part of the price. Published rates on materials. Different source, different cadence — on purpose.</dd>
+        <dd>Public data sets the cost floor. You set markup and disclose it. Every non-zero price carries a <code>basis</code>. No basis, no price.</dd>
       </div>
     </dl>
 
@@ -263,8 +259,8 @@ footer .wrap{width:min(56rem,calc(100% - 2.5rem))}
 
     <div class="plate">
       <p>Line total</p>
-      <pre>total = (qty × rem) + (qty × rep) + tax
-tax   = qty × mat × (rate / 100)</pre>
+      <pre>total = (qty × remove) + (qty × replace) + tax
+tax   = material × rate</pre>
     </div>
 
     <h2>Conformance</h2>
