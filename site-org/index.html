@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>OpenData — an AI Pricing Model</title>
-<meta name="description" content="Build a rate sheet for anyone. Keep it current forever. If you can't show the work, it isn't a price.">
+<meta name="description" content="Build a rate sheet for anyone. Keep it current forever. Every number says how it was built.">
 <link rel="canonical" href="https://odapm.org/">
 <meta name="theme-color" content="#F6F3EC">
 <meta name="color-scheme" content="light">
@@ -16,7 +16,7 @@
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://odapm.org/">
 <meta property="og:title" content="OpenData — an AI Pricing Model">
-<meta property="og:description" content="Build a rate sheet for anyone. Keep it current forever. If you can't show the work, it isn't a price.">
+<meta property="og:description" content="Build a rate sheet for anyone. Keep it current forever. Every number says how it was built.">
 <meta property="og:image" content="https://odapm.org/brand/opendata-og.png">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="preload" href="/fonts/plex-sans-400.woff2" as="font" type="font/woff2" crossorigin>
@@ -224,7 +224,7 @@ footer .wrap{width:min(56rem,calc(100% - 2.5rem))}
   <div class="wrap">
     <p class="kicker">spec odapm/v1</p>
     <h1>The model</h1>
-    <p class="lede">Build a rate sheet for anyone. Keep it current forever. If you can't show the work, it isn't a price.</p>
+    <p class="lede">Build a rate sheet for anyone. Keep it current forever. Every number says how it was built.</p>
 
     <h2>What it is</h2>
     <p class="prose">A rate sheet you own. Named SKUs for the work you sell. Prices you can defend.</p>
@@ -242,7 +242,7 @@ footer .wrap{width:min(56rem,calc(100% - 2.5rem))}
 
     <h2>Why this exists</h2>
     <p class="prose">Shops guess. They copy a competitor. They buy a list they are not allowed to see inside. Then the number gets challenged and there is nothing to stand on. That is not a market. That is a black box with a letterhead.</p>
-    <p class="prose">This model is the equation below, plus a <code>basis</code> on every non-zero price. Public data sets the cost floor. You set markup and you disclose it. The work is visible. That is the whole point.</p>
+    <p class="prose">This model is the equation below, plus a <code>basis</code> on every non-zero price. Public data sets the cost floor. You set markup and you disclose it. That is the whole point.</p>
 
     <h2>How it gets used</h2>
     <p class="prose">Write a <code>model.json</code>. Use the spec, the prompts, or any program that emits <code>odapm/v1</code> — bring your own model; mileage varies. Open it on the <a href="/rate-sheet/">rate sheet</a>. This page checks the file in your browser and lists every SKU and rate. Nothing is uploaded. Nothing is saved. When the market moves, you re-index. You do not start over.</p>
@@ -250,17 +250,11 @@ footer .wrap{width:min(56rem,calc(100% - 2.5rem))}
 
     <h2>The math</h2>
     <div class="plate">
-      <p>Derivation</p>
+      <p>Unit price</p>
       <pre>unit price = (labor hours × local labor cost)
            + (material qty × material cost)
            + equipment share
            + markup</pre>
-    </div>
-
-    <div class="plate">
-      <p>Line total</p>
-      <pre>total = (qty × remove) + (qty × replace) + tax
-tax   = material × rate</pre>
     </div>
 
     <h2>Conformance</h2>
