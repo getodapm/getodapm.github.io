@@ -1,6 +1,12 @@
 # ODAPM Specification — odapm/v1
 
-ODAPM is a model for trade SKUs. v1 ships a restoration catalog: two layers and one separate sibling. An app reads them; this document defines them.
+ODAPM is a model for trade SKUs. **`odapm/v1` is the restoration catalog.** Tear-out vs replace (`rem` / `rep`), water categories (`cat1`–`cat3`), and rooms are restoration shape. They are not the kernel.
+
+The kernel that would be shared with another trade is: named SKU, unit, a unit price built from labor + materials + equipment + markup, and a `basis` on every non-zero price. A plumber does not inherit a tear-out price or a water category.
+
+**Do not pretend v1 is a plumber spec.** When another trade has a real catalog, it gets its own spec line (for example `odapm-plumbing/v1`), not a fake generic overlay on restoration fields. Empty specs for trades we do not have are not a spec.
+
+An app reads a `model.json`; this document defines v1.
 
 ## Layer 1 — Scope schema (the shared language)
 
@@ -24,11 +30,13 @@ Machine schema: [`schema/odapm.scope.schema.json`](schema/odapm.scope.schema.jso
 
 ## Layer 2 — Pricing (market-derived values)
 
-Attaches a price to each scope item. The price **shape** is `{rem, rep, mat}`:
+v1 attaches a **restoration** price to each scope item. The shape is `{rem, rep, mat}` because restoration lines are often tear-out, reset, or both:
 
 - `rem` — **remove** unit price (tear-out / detach / haul)
 - `rep` — **replace** unit price (install / reset / perform service)
-- `mat` — **material** portion per unit (the *taxable* part; labor is never taxed)
+- `mat` — **material** portion per unit (the taxable share of replace, when tax applies)
+
+This shape is the restoration profile. It is not how a plumber SKU should look.
 
 `mat` is **contained within `rep`, not added to it.** For a replace line, `rep` is the full
 unit price and `mat` is the material share of it, so `rep − mat` is the labour share. A line
@@ -70,4 +78,6 @@ however cleanly it validates structurally — auditability is the standard, not 
 
 ## Versioning
 
-The **spec** version is `odapm/v1` (breaking changes bump the integer). A **model instance** carries its own `meta.version` and `meta.escalated` date independent of the spec.
+The **spec** line `odapm/v1` means this restoration catalog. Breaking changes to *this* catalog bump the integer (`odapm/v2`). A **model instance** carries its own `meta.version` and `meta.escalated` date independent of the spec.
+
+A second trade is a second spec, written when that catalog exists — not a v1 field we leave unused.
