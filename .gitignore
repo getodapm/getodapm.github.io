@@ -5,3 +5,7 @@
 
 # Node, if a toolchain ever lands here.
 node_modules/
+
+# Python bytecode from tools/*.py
+__pycache__/
+*.pyc

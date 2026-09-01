@@ -85,6 +85,9 @@ that every number can be traced to a citable source.
 **Added — public docs**
 - `/docs/` — shop-owner page for API keys, Cursor, and Claude Desktop (`mcp-remote`).
 
+**Changed — public docs**
+- `/docs/` is a hub; topics live at `/docs/keys/`, `/docs/cursor/`, `/docs/claude/`, `/docs/api/`, `/docs/agent/`. Search index is `/docs/search.json`.
+
 ## 0.1.0 — 2026-06-02 (initial scaffold, in development)
 - Established ODAPM as a standalone, prompt-driven open project — usable by anyone in Claude, no coding.
 - Spec line **odapm/v1**: two layers (scope schema + pricing) plus a separate tax sibling.

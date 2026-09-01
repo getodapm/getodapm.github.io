@@ -3,9 +3,9 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Connect your AI — OpenData</title>
-<meta name="description" content="Create an API key in your OpenData shop and connect Cursor, Claude Desktop, or your own HTTP client.">
-<link rel="canonical" href="https://odapm.ai/docs/">
+<title>Cursor — OpenData</title>
+<meta name="description" content="Point Cursor at your shop origin MCP URL with a Bearer token.">
+<link rel="canonical" href="https://odapm.ai/docs/cursor/">
 <meta name="theme-color" content="#06343A">
 <meta name="color-scheme" content="light">
 <link rel="icon" href="/favicon.ico" sizes="any">
@@ -13,9 +13,9 @@
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <link rel="manifest" href="/site.webmanifest">
 <meta property="og:type" content="website">
-<meta property="og:url" content="https://odapm.ai/docs/">
-<meta property="og:title" content="Connect your AI — OpenData">
-<meta property="og:description" content="Create an API key in your OpenData shop and connect Cursor, Claude Desktop, or your own HTTP client.">
+<meta property="og:url" content="https://odapm.ai/docs/cursor/">
+<meta property="og:title" content="Cursor — OpenData">
+<meta property="og:description" content="Point Cursor at your shop origin MCP URL with a Bearer token.">
 <meta property="og:image" content="https://odapm.ai/brand/opendata-og.png">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="preload" href="/fonts/plex-sans-400.woff2" as="font" type="font/woff2" crossorigin>
@@ -51,9 +51,9 @@
 <nav class="docs-bar" aria-label="Topics">
   <div class="wrap docs-bar-inner">
     <ul class="docs-topics">
-      <li><a href="/docs/" aria-current="page">Docs</a></li>
+      <li><a href="/docs/">Docs</a></li>
       <li><a href="/docs/keys/">Keys</a></li>
-      <li><a href="/docs/cursor/">Cursor</a></li>
+      <li><a href="/docs/cursor/" aria-current="page">Cursor</a></li>
       <li><a href="/docs/claude/">Claude</a></li>
       <li><a href="/docs/api/">API</a></li>
       <li><a href="/docs/agent/">Agent</a></li>
@@ -67,52 +67,18 @@
 </nav>
 </div>
 
-<header class="hero">
-  <div class="hero-fx" aria-hidden="true"></div>
-  <svg class="hero-mark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="512" height="512" aria-hidden="true"><path d="M 57.1 9.6 A 41 41 0 1 0 90.4 42.9" fill="none" stroke="#F2F7F7" stroke-width="16" stroke-linecap="round"/><circle cx="79" cy="21" r="8.5" fill="#35E0D0"/></svg>
-  <div class="wrap">
-    <div class="hero-inner">
-      <h1>Connect your AI</h1>
-      <p class="hero-lede">Shop owners: create a key in Settings, then point Cursor or Claude Desktop at your shop. Vendors use the same key against the same host.</p>
-    </div>
-  </div>
-</header>
-
 <main id="content">
   <div class="wrap">
-    <p class="lede prose">Sign in at <a href="https://app.odapm.ai/">app.odapm.ai</a>. Your shop is <code>https://YOUR-SHOP.odapm.ai</code> in production, or <code>https://stg.odapm.ai</code> in staging. MCP and the HTTP API live on that shop origin — not on this marketing site. They ship with the tenant app; a given shop may not have them on yet.</p>
-    <ul class="cards">
-      <li>
-        <a class="card" href="/docs/keys/">
-          <h2>Get a key</h2>
-          <p>Settings → API access. Name the key, create, copy the token once.</p>
-        </a>
-      </li>
-      <li>
-        <a class="card" href="/docs/cursor/">
-          <h2>Cursor</h2>
-          <p>Point Cursor at <code>https://YOUR-SHOP.odapm.ai/mcp</code> with a Bearer token.</p>
-        </a>
-      </li>
-      <li>
-        <a class="card" href="/docs/claude/">
-          <h2>Claude Desktop</h2>
-          <p><code>mcp-remote</code> in <code>claude_desktop_config.json</code>. Not Connectors.</p>
-        </a>
-      </li>
-      <li>
-        <a class="card" href="/docs/api/">
-          <h2>HTTP API</h2>
-          <p>Bearer token against the shop origin. The Worker owns prices — do not send cents.</p>
-        </a>
-      </li>
-      <li>
-        <a class="card" href="/docs/agent/">
-          <h2>Internal agent</h2>
-          <p>Settings → Internal agent. Default off. Off means off.</p>
-        </a>
-      </li>
-    </ul>
+    <article class="prose">
+      <h1>Cursor</h1>
+      <ol class="steps">
+        <li>Cursor → Settings → MCP → New MCP server.</li>
+        <li>Type URL. URL = <code>https://YOUR-SHOP.odapm.ai/mcp</code>.</li>
+        <li>Header <code>Authorization</code> = <code>Bearer {token}</code>.</li>
+        <li>Done when tools like <code>quote_price</code> appear.</li>
+      </ol>
+      <p class="note">Use your shop origin, not <code>app.odapm.ai</code>. MCP lives on that shop origin — not on this marketing site. It ships with the tenant app; a given shop may not have it on yet.</p>
+    </article>
   </div>
 </main>
 

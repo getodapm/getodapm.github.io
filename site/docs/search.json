@@ -1,0 +1,61 @@
+[
+  {
+    "url": "/docs/",
+    "title": "Connect your AI — OpenData",
+    "description": "Create an API key in your OpenData shop and connect Cursor, Claude Desktop, or your own HTTP client.",
+    "headings": [
+      "Connect your AI",
+      "Get a key",
+      "Cursor",
+      "Claude Desktop",
+      "HTTP API",
+      "Internal agent"
+    ],
+    "text": "Connect your AI Shop owners: create a key in Settings, then point Cursor or Claude Desktop at your shop. Vendors use the same key against the same host. Sign in at app.odapm.ai. Your shop is https://YOUR-SHOP.odapm.ai in production, or https://stg.odapm.ai in staging. MCP and the HTTP API live on that shop origin — not on this marketing site. They ship with the tenant app; a given shop may not have them on yet. Get a key Settings → API access. Name the key, create, copy the token once. Cursor Point Cursor at https://YOUR-SHOP.odapm.ai/mcp with a Bearer token. Claude Desktop mcp-remote in claude_desktop_config.json. Not Connectors. HTTP API Bearer token against the shop origin. The Worker owns prices — do not send cents. Internal agent Settings → Internal agent. Default off. Off means off."
+  },
+  {
+    "url": "/docs/agent/",
+    "title": "Internal agent — OpenData",
+    "description": "Internal agent in Settings. Default off. Off means off.",
+    "headings": [
+      "Internal agent"
+    ],
+    "text": "Internal agent Settings → Internal agent. Default off. Toggle off = nobody can run it. Off means off. Does not delete your AI provider key."
+  },
+  {
+    "url": "/docs/api/",
+    "title": "HTTP API — OpenData",
+    "description": "HTTP API on your shop origin. Bearer token. The Worker owns prices.",
+    "headings": [
+      "HTTP API"
+    ],
+    "text": "HTTP API Host is the shop origin. No X-Org-Id header. The Worker owns prices — do not send cents or totals. Authorization: Bearer … against https://YOUR-SHOP.odapm.ai GET /api/me, GET /api/catalog, POST /api/quotes/price — body is EstimateInput ticks, never cents OpenAPI: /api/openapi.json (unauthenticated). EstimateInput schema: /api/schema/estimate-input Execute is a separate scope; starter keys cannot run a job Rate limits apply. Rotating the app session secret revokes keys too. The HTTP API lives on that shop origin — not on this marketing site. It ships with the tenant app; a given shop may not have it on yet."
+  },
+  {
+    "url": "/docs/claude/",
+    "title": "Claude Desktop — OpenData",
+    "description": "Connect Claude Desktop with mcp-remote. Not Connectors.",
+    "headings": [
+      "Claude Desktop"
+    ],
+    "text": "Claude Desktop Not Connectors. Use mcp-remote. In claude_desktop_config.json, set command npx and args [\"-y\", \"mcp-remote\", \"https://YOUR-SHOP.odapm.ai/mcp\", \"--header\", \"Authorization: Bearer {token}\"]. Restart Claude Desktop. { \"mcpServers\": { \"opendata\": { \"command\": \"npx\", \"args\": [ \"-y\", \"mcp-remote\", \"https://YOUR-SHOP.odapm.ai/mcp\", \"--header\", \"Authorization: Bearer {token}\" ] } } } Claude Connectors and ChatGPT Connectors use OAuth. That is not v1. MCP lives on your shop origin — not on this marketing site. It ships with the tenant app; a given shop may not have it on yet."
+  },
+  {
+    "url": "/docs/cursor/",
+    "title": "Cursor — OpenData",
+    "description": "Point Cursor at your shop origin MCP URL with a Bearer token.",
+    "headings": [
+      "Cursor"
+    ],
+    "text": "Cursor Cursor → Settings → MCP → New MCP server. Type URL. URL = https://YOUR-SHOP.odapm.ai/mcp. Header Authorization = Bearer {token}. Done when tools like quote_price appear. Use your shop origin, not app.odapm.ai. MCP lives on that shop origin — not on this marketing site. It ships with the tenant app; a given shop may not have it on yet."
+  },
+  {
+    "url": "/docs/keys/",
+    "title": "Get a key — OpenData",
+    "description": "Create an API key in Settings. Copy the token once.",
+    "headings": [
+      "Get a key"
+    ],
+    "text": "Get a key Sign in at app.odapm.ai (or your shop host). Open Settings (owner/admin). Open API access. Name the key. Click MCP starter set unless you know you want fewer scopes. Create. Copy the token now — it is shown once. Store it in a password manager. The starter set checks catalog, customers, properties, jobs, and quotes (read, write, price, and PDF). Execute is not in the starter set. After you leave the page you will only see the last four characters. Tokens look like odapm_live_… or odapm_test_…."
+  }
+]
