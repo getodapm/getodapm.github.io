@@ -1,6 +1,6 @@
 # Step 06 — Keep it current
 
-A market benchmark is only fair if it stays current. ODAPM prices are **escalated by public indices** — labor by an area wage index, materials by a construction-materials producer-price index — so your model tracks reality without you re-pricing by hand.
+A rate sheet is only fair if it stays current. That is the forever part. ODAPM prices are **escalated by public indices** — labor by an area wage index, materials by a construction-materials producer-price index — so you re-run this prompt instead of re-pricing by hand.
 
 ---
 

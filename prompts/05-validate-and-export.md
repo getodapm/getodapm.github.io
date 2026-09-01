@@ -17,4 +17,4 @@ Now confirm your model is complete and conforms to the ODAPM standard, so any co
 
 ---
 
-**When this passes:** you have a finished, valid ODAPM model. Drop `model.json` and `tax.json` into any ODAPM-compatible estimator and you're live. Keep both files somewhere safe (and version them — see step 06).
+**When this passes:** you have a finished `model.json`. Open it at [odapm.org/rate-sheet/](https://odapm.org/rate-sheet/) and confirm the check. A compatible app can read the same file; the standard does not depend on any one of them. Keep both files somewhere safe, and version them — see step 06. Do not treat this walk as an account on odapm.ai.

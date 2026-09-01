@@ -1,13 +1,15 @@
 # ODAPM — Open Data AI Pricing Model
 
-**An open standard for trades to describe work as SKUs and price them from public market data — plus the owner's disclosed markup, with a basis that shows the work.**
+**Build a rate sheet for anyone. Keep it current forever.**
+
+An open standard for trades to describe work as SKUs and price them from public market data — plus the owner's disclosed markup, with a basis that shows the work. Site: [odapm.org](https://odapm.org/). The shop that uses this model is a separate product at [odapm.ai](https://odapm.ai/).
 
 ODAPM is two open things in one project:
 
 1. **A scope schema** — a vendor-neutral way to describe trade SKUs (what work exists, its units, how a job is structured). This is the shared language. v1 ships a restoration catalog as the first seed.
 2. **A pricing methodology** — a transparent, auditable way to attach *market-derived* prices to those SKUs using open public data (wage indices, material cost indices, equipment rates), instead of a guessed number or a black-box list.
 
-You don't need to be a developer. You open this folder in an AI assistant, run the prompts in order, answer questions about your trade and your region, and walk away with your own priced catalog. This run's seed is restoration. The same method is how other trades will build theirs.
+**Bring your own model.** Any AI that can read this folder and write `model.json` / `tax.json` can run the prompts. Mileage varies by model. This is not a Claude project, not a ChatGPT project, and not a Cursor project. The seed in this repo is restoration; the same method is how other trades will build theirs.
 
 ---
 
@@ -35,12 +37,12 @@ Any ODAPM-compatible consumer can read these files. The standard does not depend
 
 ---
 
-## Quickstart (no coding)
+## Quickstart
 
-1. Open this `odapm/` folder in an assistant that can read the repo and write `model.json` / `tax.json`.
+1. Open this `odapm/` folder in **your** AI — whichever one can read the repo and write `model.json` / `tax.json`.
 2. Open `prompts/00-START-HERE.md` and follow it.
-3. Run the prompts in order. Answer your assistant's questions about your trade, region, and costs.
-4. You're done — your `model.json` and `tax.json` are built and validated.
+3. Run the prompts in order. Answer questions about your trade, region, and costs.
+4. Check the file on [odapm.org/rate-sheet/](https://odapm.org/rate-sheet/). Re-run `prompts/06-keep-it-current.md` when the market moves.
 
 Start here → [`prompts/00-START-HERE.md`](prompts/00-START-HERE.md)
 

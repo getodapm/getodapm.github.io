@@ -1,5 +1,11 @@
 # Changelog — ODAPM
 
+## Site / prompts — 2026-09-01
+
+- Spec site is [odapm.org](https://odapm.org/). GitHub Pages (`getodapm.github.io`) redirects there, not to odapm.ai.
+- Prompts and README are **bring your own model** — not Claude-specific. Mileage varies.
+- [odapm.org/rate-sheet/](https://odapm.org/rate-sheet/) checks a `model.json` in the browser.
+
 ## 0.2.0 — unreleased (methodology audit)
 
 Fixes found by auditing the spec, methodology and tools against ODAPM's own core claim:

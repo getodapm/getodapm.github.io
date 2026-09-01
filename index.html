@@ -5,23 +5,17 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>OpenData — an AI Pricing Model</title>
 <meta name="description" content="An open standard for trades to build fair SKU pricing from public market data.">
-<link rel="canonical" href="https://odapm.ai/">
-<meta http-equiv="refresh" content="0; url=https://odapm.ai/">
+<link rel="canonical" href="https://odapm.org/">
+<meta http-equiv="refresh" content="0; url=https://odapm.org/">
 <!--
-  This file is NOT the site. It is a pointer to it.
+  This file is NOT the site. It is a pointer to the spec.
 
-  Two things publish out of this repository and they are not the same thing:
+    site-org/   -> odapm.org  (Worker odapm-org)
+    site/       -> odapm.ai   (Worker odapm-site) — tool marketing, not this pointer
+    this file   -> getodapm.github.io (GitHub Pages, repo root)
 
-    site/       -> odapm.ai, served by the odapm-site Worker (see wrangler.toml)
-    this file   -> getodapm.github.io, served by GitHub Pages from main's root
-
-  GitHub Pages can only publish the repository root or /docs, so it cannot be
-  aimed at site/. Until now the two were byte-identical copies of one page,
-  which is a standing invitation for the published site and the Pages copy to
-  drift apart and start disagreeing about what ODAPM says. A pointer cannot
-  drift.
-
-  EDIT site/index.html. Nothing here needs to change when the page does.
+  GitHub Pages cannot publish site-org/, so the Pages URL must redirect.
+  Spec visitors land on odapm.org. Do not send them to odapm.ai from here.
 -->
 <style>
 body{font-family:"IBM Plex Sans",ui-sans-serif,system-ui,sans-serif;background:#F2F7F7;color:#0A3A40;
@@ -31,7 +25,7 @@ a{color:#0E7C86}
 </head>
 <body>
 <!-- Visible only if the redirect does not fire: no JavaScript, no meta refresh. -->
-<p>OpenData lives at <a href="https://odapm.ai/">odapm.ai</a>.</p>
-<script>location.replace('https://odapm.ai/')</script>
+<p>The standard lives at <a href="https://odapm.org/">odapm.org</a>.</p>
+<script>location.replace('https://odapm.org/')</script>
 </body>
 </html>

@@ -1,8 +1,10 @@
 # Start here
 
-Welcome. You're about to build an **open, market-derived pricing model** — no coding, no proprietary list. This run builds the **restoration catalog** (the first seed). The same method is how other trades will build theirs.
+Build a rate sheet for anyone. Keep it current forever. No proprietary list.
 
-You'll do it by running a short series of prompts with an AI assistant, answering questions about your trade and your region as you go.
+**Bring your own model.** This is not tied to Claude, ChatGPT, Cursor, or any other vendor. Use whatever AI can read this folder and write files. Mileage varies — some models follow the spec cleanly, some invent fields, some skip `basis`. You are the check. When a step finishes, drop `model.json` on [odapm.org/rate-sheet/](https://odapm.org/rate-sheet/).
+
+This run's seed is restoration. The same method is how other trades will build theirs.
 
 ## What you'll end up with
 - `model.json` — your line items and your prices, every number traceable to an open source.
@@ -11,11 +13,11 @@ You'll do it by running a short series of prompts with an AI assistant, answerin
 
 ## What you need
 
-**An assistant that can read a local folder and write files.** This workflow relies on that.
+**Any AI that can read a local folder and write files.** This workflow relies on that. It does not rely on a particular brand of model.
 
 ## Before you begin
-- Open this `odapm/` folder in an assistant that can read these files and write your model directly.
-- Have a rough idea of: the types of losses you handle (water, fire, mold, etc.), the region you work in, and your real costs (crew wage, typical material costs, equipment day-rates). Don't worry if some are fuzzy — your assistant will help you derive them from public data.
+- Open this `odapm/` folder in the AI you actually use, as long as it can read these files and write your model directly.
+- Have a rough idea of: the types of losses you handle (water, fire, mold, etc.), the region you work in, and your real costs (crew wage, typical material costs, equipment day-rates). Don't worry if some are fuzzy — public data fills gaps; your own costs are welcome.
 
 ## Run these in order
 1. **`01-define-your-trade-and-region.md`** — who you are, what you do, where.
@@ -26,7 +28,7 @@ You'll do it by running a short series of prompts with an AI assistant, answerin
 6. **`06-keep-it-current.md`** — re-index your prices over time so they track the market.
 
 ## How to run a prompt
-Open the prompt file, copy everything under the **"Paste this:"** line, send it to your assistant in this session, and answer the questions. When a step is done, move to the next file.
+Open the prompt file, copy everything under the **"Paste this:"** line, send it to **your** AI in this session, and answer the questions. When a step is done, move to the next file. Do not switch products mid-walk unless the one you started with cannot write files.
 
 ## The one rule
 Never paste in numbers from a licensed proprietary pricing platform. ODAPM derives prices independently from open public data — that's the entire point, and it's what keeps your model clean and defensible. If you already know your *own* real costs, those are welcome; a competitor's licensed list is not.
