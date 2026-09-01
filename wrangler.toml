@@ -34,3 +34,21 @@ routes = [
 [assets]
 directory = "./site"
 not_found_handling = "404-page"
+
+# odapm.org is a different Worker, not a suffix of odapm-site.
+# Named-env `routes` inherit the top-level list if omitted — that would bind
+# this Worker to odapm.ai. Set routes here so org never attaches .ai.
+# www can be a custom domain: there is no *.odapm.org tool wildcard.
+# workers_dev is off: this account has no workers.dev subdomain registered,
+# and wrangler will refuse to deploy if it is on.
+[env.org]
+name = "odapm-org"
+workers_dev = false
+routes = [
+  { pattern = "odapm.org", custom_domain = true },
+  { pattern = "www.odapm.org", custom_domain = true },
+]
+
+[env.org.assets]
+directory = "./site-org"
+not_found_handling = "404-page"
