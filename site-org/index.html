@@ -4,9 +4,9 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>OpenData — an AI Pricing Model</title>
-<meta name="description" content="An open standard for trades to build fair SKU pricing from public market data.">
+<meta name="description" content="odapm/v1: unit price is labor, materials, equipment, and disclosed markup. Every non-zero price carries a basis.">
 <link rel="canonical" href="https://odapm.org/">
-<meta name="theme-color" content="#06343A">
+<meta name="theme-color" content="#F6F3EC">
 <meta name="color-scheme" content="light">
 <link rel="icon" href="/favicon.ico" sizes="any">
 <link rel="icon" href="/favicon-32.png" type="image/png" sizes="32x32">
@@ -15,485 +15,193 @@
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://odapm.org/">
 <meta property="og:title" content="OpenData — an AI Pricing Model">
-<meta property="og:description" content="Fair SKU pricing for trades, from public market data plus your markup.">
+<meta property="og:description" content="odapm/v1: unit price is labor, materials, equipment, and disclosed markup. Every non-zero price carries a basis.">
 <meta property="og:image" content="https://odapm.org/brand/opendata-og.png">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="preload" href="/fonts/plex-sans-400.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="preload" href="/fonts/plex-sans-600.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/fonts/plex-serif-600.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/fonts/plex-mono-400.woff2" as="font" type="font/woff2" crossorigin>
 <style>
 @font-face{font-family:"IBM Plex Sans";src:url("/fonts/plex-sans-400.woff2") format("woff2");font-weight:400;font-style:normal;font-display:swap}
 @font-face{font-family:"IBM Plex Sans";src:url("/fonts/plex-sans-500.woff2") format("woff2");font-weight:500;font-style:normal;font-display:swap}
 @font-face{font-family:"IBM Plex Sans";src:url("/fonts/plex-sans-600.woff2") format("woff2");font-weight:600;font-style:normal;font-display:swap}
+@font-face{font-family:"IBM Plex Serif";src:url("/fonts/plex-serif-600.woff2") format("woff2");font-weight:600;font-style:normal;font-display:swap}
 @font-face{font-family:"IBM Plex Mono";src:url("/fonts/plex-mono-400.woff2") format("woff2");font-weight:400;font-style:normal;font-display:swap}
 @font-face{font-family:"IBM Plex Mono";src:url("/fonts/plex-mono-500.woff2") format("woff2");font-weight:500;font-style:normal;font-display:swap}
 
 :root{
-  --abyss:#06343A;
-  --deep:#0A3A40;
-  --ocean:#0E7C86;
+  --paper:#F6F3EC;
+  --sheet:#FFFCF7;
+  --ink:#141210;
+  --muted:#5C574E;
+  --rule:rgba(20,18,16,.14);
   --aqua:#35E0D0;
-  --foam:#F2F7F7;
-  --ink:#0A3A40;
-  --muted:#4A6A6E;
-  --line:color-mix(in srgb,var(--ocean) 18%,transparent);
-  --foam-72:rgba(242,247,247,.72);
-  --foam-08:rgba(242,247,247,.08);
-  --shadow:0 1px 0 rgba(6,52,58,.04), 0 18px 40px -24px rgba(6,52,58,.35);
-  --radius:18px;
-  --wrap:72rem;
-  --prose:40rem;
-  --sans:"IBM Plex Sans",ui-sans-serif,system-ui,-apple-system,sans-serif;
+  --sans:"IBM Plex Sans",ui-sans-serif,system-ui,sans-serif;
+  --serif:"IBM Plex Serif","Iowan Old Style",Georgia,serif;
   --mono:"IBM Plex Mono",ui-monospace,Menlo,monospace;
 }
 *{box-sizing:border-box;margin:0;padding:0}
-html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
-@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
-body{font-family:var(--sans);color:var(--ink);background:var(--foam);line-height:1.6;font-size:1.0625rem}
-img,svg{display:block;max-width:100%;height:auto}
-a{color:var(--ocean);text-underline-offset:.18em}
-a:hover{color:var(--deep)}
-:focus-visible{outline:3px solid var(--aqua);outline-offset:3px}
-.skip{position:absolute;left:1rem;top:-4rem;z-index:20;padding:.75rem 1rem;background:var(--foam);color:var(--deep);border-radius:8px}
-.skip:focus{top:1rem}
-.wrap{width:min(var(--wrap),calc(100% - 2.5rem));margin-inline:auto}
-.prose{width:min(var(--prose),100%)}
-
-/* ----- nav ----- */
+html{background:var(--paper)}
+body{
+  font-family:var(--sans);color:var(--ink);background:var(--paper);
+  line-height:1.6;font-size:1.05rem;
+}
+a{color:var(--ink)}
+a:hover{text-decoration-thickness:2px}
+:focus-visible{outline:2px solid var(--ink);outline-offset:3px}
+.skip{
+  position:absolute;left:-999px;top:0;
+  background:var(--ink);color:var(--paper);padding:.5rem .75rem;
+}
+.skip:focus{left:1rem;top:1rem;z-index:20}
+.wrap{width:min(42rem,calc(100% - 2.5rem));margin-inline:auto}
+.nav .wrap{width:min(56rem,calc(100% - 2.5rem))}
 .nav{
   position:sticky;top:0;z-index:10;
-  background:color-mix(in srgb,var(--abyss) 86%,transparent);
-  backdrop-filter:saturate(1.2) blur(16px);
-  -webkit-backdrop-filter:saturate(1.2) blur(16px);
-  border-bottom:1px solid rgba(242,247,247,.08);
+  background:color-mix(in srgb,var(--paper) 92%,transparent);
+  backdrop-filter:blur(10px);
+  -webkit-backdrop-filter:blur(10px);
+  border-bottom:1px solid var(--rule);
 }
 .nav-inner{
-  display:flex;align-items:center;gap:.25rem 1rem;
-  min-height:4.25rem;
-  flex-wrap:nowrap;
+  display:flex;align-items:center;gap:.5rem 1.25rem;
+  min-height:3.75rem;flex-wrap:nowrap;
 }
 .nav .brand-lockup{flex:0 0 auto}
 .nav-links{
-  display:flex;align-items:center;gap:.25rem .15rem;
+  display:flex;align-items:center;gap:.15rem .1rem;
   margin-left:auto;flex-wrap:wrap;justify-content:flex-end;
   list-style:none;
 }
-.nav-links a, a.signin, a.signup{
-  color:var(--foam);text-decoration:none;
-  font-size:.875rem;font-weight:500;
-  padding:.45rem .7rem;border-radius:999px;
+.nav-links a{
+  display:inline-block;padding:.35rem .55rem;
+  font-size:.8125rem;font-weight:500;letter-spacing:.02em;
+  text-decoration:none;color:var(--muted);
 }
-.nav-links a:hover, a.signin:hover{background:rgba(242,247,247,.1);color:#fff}
-.nav-auth{
-  display:flex;align-items:center;gap:.4rem;
-  flex:0 0 auto;
+.nav-links a:hover{color:var(--ink)}
+.nav-auth{flex:0 0 auto}
+.tool{
+  display:inline-flex;align-items:center;
+  padding:.35rem .8rem;border:1px solid var(--ink);
+  font-size:.8125rem;font-weight:600;letter-spacing:.03em;
+  text-decoration:none;color:var(--ink);
 }
-a.signin, a.signup{
-  flex:0 0 auto;
-  padding:.45rem 1rem;
-}
-a.signin{
-  border:1px solid rgba(242,247,247,.4);
-}
-a.signin:hover{background:rgba(242,247,247,.14);border-color:var(--foam);color:#fff}
-a.signup{
-  background:var(--foam);color:var(--deep);font-weight:600;
-}
-a.signup:hover{background:#fff;color:var(--abyss)}
+.tool:hover{background:var(--ink);color:var(--paper)}
 
-/* ----- hero : looking into water ----- */
-.hero{
-  position:relative;
-  overflow:hidden;
-  isolation:isolate;
-  color:var(--foam);
-  background-color:var(--abyss);
-  background-image:
-    linear-gradient(90deg,
-      var(--abyss) 0%,
-      color-mix(in srgb,var(--abyss) 70%,transparent) 36%,
-      transparent 64%),
-    radial-gradient(ellipse 90% 55% at 50% -18%,
-      color-mix(in srgb,var(--ocean) 46%,transparent) 0%,
-      transparent 58%),
-    linear-gradient(180deg,
-      color-mix(in srgb,var(--ocean) 28%,var(--abyss)) 0%,
-      var(--deep) 34%,
-      var(--abyss) 72%,
-      var(--abyss) 100%);
-  min-height:calc(100svh - 4.25rem);
-  padding:6.5rem 0 7.75rem;
-  display:flex;
-  align-items:center;
-  border-bottom:1px solid var(--foam-08);
+.brand-lockup{
+  display:flex;flex-direction:row;flex-wrap:nowrap;align-items:center;gap:.65rem;
+  width:auto;margin:0;color:var(--ink);text-decoration:none;
 }
-.hero::before{
-  content:"";
-  position:absolute;inset:0;
-  z-index:-1;
-  pointer-events:none;
-  background-image:
-    radial-gradient(ellipse 42% 14% at 28% 6%,rgba(242,247,247,.07),transparent 70%),
-    radial-gradient(ellipse 34% 12% at 58% 0%,rgba(14,124,134,.20),transparent 72%),
-    radial-gradient(ellipse 50% 22% at 8% 108%,rgba(14,124,134,.18),transparent 70%),
-    repeating-linear-gradient(
-      180deg,
-      transparent 0,
-      transparent 2.85rem,
-      rgba(242,247,247,.04) 2.85rem,
-      rgba(242,247,247,.04) calc(2.85rem + 1px)
-    );
-  -webkit-mask-image:linear-gradient(180deg,#000 0%,transparent 78%);
-          mask-image:linear-gradient(180deg,#000 0%,transparent 78%);
+.brand-lockup .mark{flex:0 0 auto;width:1.35rem;height:1.35rem}
+.brand-text{display:flex;flex-direction:column;gap:.08rem;min-width:0}
+.brand-name{font-weight:600;letter-spacing:-.02em;line-height:1.1;font-size:1rem}
+.brand-tag{
+  font-weight:400;font-size:.625rem;line-height:1.2;
+  color:var(--muted);white-space:nowrap;
 }
-.hero::after{
-  content:"";
-  position:absolute;inset:0;
-  z-index:-1;
-  pointer-events:none;
-  background:
-    radial-gradient(ellipse 85% 75% at 42% 38%,
-      transparent 42%,
-      color-mix(in srgb,var(--abyss) 78%,transparent) 100%);
-}
-.hero-fx{
-  position:absolute;inset:0;
-  z-index:-1;
-  pointer-events:none;
-  background:
-    radial-gradient(ellipse 20% 16% at 86% 10%,
-      rgba(53,224,208,.52) 0%,
-      rgba(53,224,208,.16) 34%,
-      transparent 68%),
-    radial-gradient(ellipse 38% 78% at 78% 22%,
-      rgba(53,224,208,.22) 0%,
-      rgba(53,224,208,.06) 40%,
-      transparent 66%);
-  mix-blend-mode:screen;
-}
-.hero-fx::after{
-  content:"";
-  position:absolute;
-  width:2px;height:2px;left:0;top:0;
-  background:transparent;
-  box-shadow:
-     12vw 18vh 0 0.5px rgba(242,247,247,.28),
-     22vw 42vh 0 1px   rgba(242,247,247,.16),
-     31vw 64vh 0 0.5px rgba(242,247,247,.20),
-     48vw 28vh 0 0.5px rgba(242,247,247,.14),
-     63vw 51vh 0 1px   rgba(242,247,247,.12),
-     71vw 73vh 0 0.5px rgba(242,247,247,.18),
-     18vw 81vh 0 0.5px rgba(242,247,247,.10),
-     84vw 36vh 0 0.5px rgba(242,247,247,.14),
-      7vw 55vh 0 1px   rgba(242,247,247,.10),
-     41vw 12vh 0 0.5px rgba(242,247,247,.16);
-}
-.hero-mark{
-  position:absolute;
-  right:-10%;
-  top:50%;
-  transform:translateY(-46%);
-  width:min(42rem,72vw);
-  opacity:.13;
-  pointer-events:none;
-  z-index:-1;
-}
-.hero-inner{display:grid;gap:1.5rem;justify-items:start;max-width:40rem;position:relative;z-index:1}
+
+main{padding:3.5rem 0 5rem}
 .kicker{
   font-family:var(--mono);font-size:.75rem;font-weight:500;
-  letter-spacing:.16em;text-transform:uppercase;
-  color:var(--foam-72);
-}
-
-.hero-lede{
-  font-size:clamp(1.15rem,2.1vw,1.4rem);
-  line-height:1.45;color:rgba(242,247,247,.92);
-  max-width:34rem;
-}
-.hero-meta{
-  font-family:var(--mono);font-size:.8125rem;
-  color:rgba(242,247,247,.68);
-}
-.btns{display:flex;flex-wrap:wrap;gap:.75rem;margin-top:.25rem}
-.btn{
-  display:inline-flex;align-items:center;justify-content:center;
-  min-height:2.85rem;padding:.7rem 1.25rem;border-radius:999px;
-  font-family:var(--sans);font-size:.95rem;font-weight:600;
-  text-decoration:none;border:1px solid transparent;
-}
-.btn-foam{background:var(--foam);color:var(--deep)}
-.btn-foam:hover{background:#fff;color:var(--abyss)}
-.btn-ghost{border-color:rgba(242,247,247,.45);color:var(--foam)}
-.btn-ghost:hover{border-color:var(--foam);background:rgba(242,247,247,.1);color:#fff}
-.btn-deep{background:var(--deep);color:var(--foam)}
-.btn-deep:hover{background:var(--abyss);color:#fff}
-
-/* ----- sections ----- */
-section{padding:5rem 0}
-h2{
-  font-size:clamp(1.6rem,2.6vw,2.15rem);
-  font-weight:600;letter-spacing:-.02em;line-height:1.2;
+  letter-spacing:.14em;text-transform:uppercase;color:var(--muted);
   margin-bottom:1.25rem;
 }
-.lede{font-size:1.2rem;line-height:1.55}
-p{margin-bottom:1rem}
-p:last-child{margin-bottom:0}
-.why{
-  display:grid;gap:2.5rem;
+h1{
+  font-family:var(--serif);font-size:clamp(2.4rem,6vw,3.4rem);
+  font-weight:600;letter-spacing:-.03em;line-height:1.05;
+  margin-bottom:1rem;
 }
-@media (min-width:56rem){
-  .why{grid-template-columns:minmax(12rem,18rem) 1fr;align-items:start;gap:4rem}
-  .why h2{position:sticky;top:6rem}
-}
-.pull{
-  margin:1.75rem 0;
-  padding:1.2rem 1.35rem 1.2rem 1.4rem;
-  border-left:3px solid var(--ocean);
-  background:color-mix(in srgb,var(--ocean) 8%,var(--foam));
-  border-radius:0 14px 14px 0;
-  font-size:1.2rem;line-height:1.45;font-weight:500;
-  color:var(--deep);
-}
-.pull b{font-weight:600}
+.lede{font-size:1.2rem;line-height:1.5;max-width:36rem;margin-bottom:2rem}
 
-.band{
-  background:
-    linear-gradient(180deg,
-      color-mix(in srgb,var(--ocean) 6%,#fff) 0%,
-      #fff 30%);
-  border-block:1px solid var(--line);
+.plate{
+  background:var(--sheet);
+  border:1px solid var(--ink);
+  padding:1.35rem 1.4rem 1.25rem;
+  margin:0 0 2.75rem;
+  overflow-x:auto;
 }
-.grid{
-  display:grid;gap:1rem;
-  grid-template-columns:repeat(auto-fit,minmax(16rem,1fr));
-  margin-top:1.75rem;
+.plate p{
+  font-family:var(--mono);font-size:.6875rem;font-weight:500;
+  letter-spacing:.12em;text-transform:uppercase;color:var(--muted);
+  margin-bottom:.85rem;
 }
-.card{
-  background:var(--foam);
-  border:1px solid var(--line);
-  border-radius:var(--radius);
-  padding:1.5rem 1.5rem 1.6rem;
-  box-shadow:var(--shadow);
-}
-.band .card{background:#fff}
-.card h3{font-size:1.05rem;font-weight:600;margin:.35rem 0 .5rem}
-.card p{font-size:.98rem;color:var(--muted);margin:0}
-.num{
-  font-family:var(--mono);font-size:.75rem;font-weight:500;
-  letter-spacing:.08em;color:var(--ocean);
+.plate pre{
+  font-family:var(--mono);font-size:clamp(.82rem,2.1vw,1.05rem);
+  font-weight:500;line-height:1.55;white-space:pre;
+  margin:0;
 }
 
-.layers{display:grid;gap:1rem;margin-top:1.5rem}
-.layer{
+h2{
+  font-family:var(--serif);font-size:1.45rem;font-weight:600;
+  letter-spacing:-.02em;margin:2.75rem 0 .85rem;
+}
+.prose{margin-bottom:1rem;color:var(--ink)}
+.prose a{text-underline-offset:3px}
+code{font-family:var(--mono);font-size:.86em}
+
+.defs{border-top:1px solid var(--rule);margin:1.5rem 0 0}
+.defs div{
   display:grid;gap:.35rem 1.5rem;
-  padding:1.4rem 1.5rem;
-  background:#fff;border:1px solid var(--line);border-radius:var(--radius);
-  box-shadow:var(--shadow);
+  padding:1.1rem 0;
+  border-bottom:1px solid var(--rule);
 }
-@media (min-width:44rem){
-  .layer{grid-template-columns:8.5rem 1fr;align-items:baseline}
+@media (min-width:40rem){
+  .defs div{grid-template-columns:7.5rem 1fr;align-items:baseline}
 }
-.layer .code{
+.defs dt{
   font-family:var(--mono);font-size:.75rem;font-weight:500;
-  letter-spacing:.14em;text-transform:uppercase;color:var(--ocean);
+  letter-spacing:.12em;text-transform:uppercase;color:var(--muted);
 }
-.layer b{font-weight:600}
-.layer p{color:var(--muted);margin:0}
+.defs dd{margin:0}
 
-.steps{
-  display:grid;gap:1rem;
-  grid-template-columns:repeat(auto-fit,minmax(14rem,1fr));
-  margin-top:1.75rem;counter-reset:s;
+.btns{display:flex;flex-wrap:wrap;gap:.65rem;margin:2rem 0 0}
+.btn{
+  display:inline-flex;align-items:center;justify-content:center;
+  min-height:2.6rem;padding:.55rem 1.05rem;
+  font-size:.9rem;font-weight:600;text-decoration:none;
+  border:1px solid var(--ink);
 }
-.step{
-  position:relative;
-  padding:1.5rem 1.4rem 1.5rem;
-  background:#fff;border:1px solid var(--line);border-radius:var(--radius);
-  box-shadow:var(--shadow);
-  font-size:.98rem;color:var(--muted);
-}
-.step::before{
-  counter-increment:s;content:counter(s,decimal-leading-zero);
-  display:block;margin-bottom:.7rem;
-  font-family:var(--mono);font-size:.75rem;font-weight:500;
-  letter-spacing:.12em;color:var(--ocean);
-}
-.card,
-.layer,
-.step{
-  border-color:color-mix(in srgb,var(--ocean) 22%,transparent);
-  box-shadow:
-    var(--shadow),
-    inset 0 1px 0 rgba(242,247,247,.85);
-}
-code{
-  font-family:var(--mono);font-size:.86em;
-  background:rgba(10,58,64,.06);padding:.1em .35em;border-radius:4px;
-}
-
-.close{
-  position:relative;
-  overflow:hidden;
-  isolation:isolate;
-  text-align:center;
-  background:var(--abyss);
-  color:var(--foam);
-  padding:6.25rem 0 6.5rem;
-}
-.close::before{
-  content:"";
-  position:absolute;inset:0;z-index:-1;pointer-events:none;
-  background:
-    radial-gradient(ellipse 80% 50% at 50% -16%,
-      color-mix(in srgb,var(--ocean) 32%,transparent),
-      transparent 62%),
-    linear-gradient(180deg,var(--deep) 0%,var(--abyss) 55%);
-}
-.close::after{
-  content:"";
-  position:absolute;inset:0;z-index:-1;pointer-events:none;
-  background:radial-gradient(ellipse 80% 80% at 50% 42%,
-    transparent 38%,
-    color-mix(in srgb,var(--abyss) 70%,transparent) 100%);
-}
-.close h2{color:var(--foam)}
-.close .prose{color:rgba(242,247,247,.86);margin-inline:auto}
-.close .btns{justify-content:center}
-.close .btn-deep{background:var(--foam);color:var(--deep)}
-.close .btn-deep:hover{background:#fff;color:var(--abyss)}
+.btn-ink{background:var(--ink);color:var(--paper)}
+.btn-ink:hover{background:transparent;color:var(--ink)}
+.btn-ghost{background:transparent;color:var(--ink)}
+.btn-ghost:hover{background:var(--ink);color:var(--paper)}
 
 footer{
-  padding:2.5rem 0 3rem;
-  background:var(--abyss);
-  color:rgba(242,247,247,.55);
-  border-top:1px solid var(--foam-08);
-  font-family:var(--mono);font-size:.75rem;
+  border-top:1px solid var(--rule);
+  padding:2rem 0 3rem;
+  font-family:var(--mono);font-size:.75rem;color:var(--muted);
 }
 .foot{
   display:flex;flex-wrap:wrap;gap:.75rem 1.5rem;
   align-items:center;justify-content:space-between;
 }
-.foot a{color:rgba(242,247,247,.55);text-decoration:none}
-.foot a:hover{color:var(--foam)}
-.foot code{
-  background:rgba(242,247,247,.08);
-  color:rgba(242,247,247,.78);
-}
+footer .wrap{width:min(56rem,calc(100% - 2.5rem))}
+.foot a{color:var(--muted)}
+.foot .brand-lockup, .foot .brand-lockup:hover{color:var(--ink);text-decoration:none}
+.foot .brand-lockup .mark{width:1.2rem;height:1.2rem}
+.foot .brand-lockup .brand-name{font-size:.9rem;font-family:var(--sans)}
+.foot .brand-lockup .brand-tag{font-size:.6rem}
 
 @media (max-width:40rem){
-  .wrap{width:min(var(--wrap),calc(100% - 2rem))}
   .nav-inner{
     display:grid;
     grid-template-columns:1fr auto;
-    grid-template-areas:
-      "logo auth"
-      "links links";
-    gap:.1rem .75rem;
-    min-height:0;
-    padding:.55rem 0 .4rem;
-    align-items:center;
+    grid-template-areas:"logo auth" "links links";
+    gap:.35rem .75rem;padding:.65rem 0 .75rem;
   }
   .nav .brand-lockup{grid-area:logo}
+  .nav-links{grid-area:links;margin-left:0;justify-content:flex-start}
   .nav-auth{grid-area:auth}
-  .nav-links{
-    grid-area:links;
-    margin-left:0;
-    justify-content:flex-start;
-    flex-wrap:nowrap;
-  }
-  .nav-links a{padding:.35rem .45rem .45rem 0;font-size:.8125rem}
-  a.signin, a.signup{padding:.4rem .75rem;font-size:.8125rem}
-  .hero{
-    min-height:0;
-    display:block;
-    padding:4.5rem 0 5.5rem;
-    align-items:stretch;
-  }
-  .hero-mark{
-    width:min(26rem,88vw);
-    right:-32%;
-    top:12%;
-    transform:none;
-    opacity:.09;
-  }
-  .hero-fx{
-    background:
-      radial-gradient(ellipse 46% 24% at 112% -6%,
-        rgba(53,224,208,.42) 0%,
-        rgba(53,224,208,.12) 36%,
-        transparent 70%),
-      radial-gradient(ellipse 58% 90% at 108% 8%,
-        rgba(53,224,208,.14) 0%,
-        transparent 62%);
-  }
-  section{padding:3.5rem 0}
-  .close{padding:4.25rem 0 4.5rem}
-}
-@media (prefers-reduced-motion:no-preference){
-  .hero-fx{animation:shaft-breathe 14s ease-in-out infinite alternate}
-  .hero::before{animation:caustic-drift 32s ease-in-out infinite alternate}
-  .hero-fx::after{animation:motes-rise 40s linear infinite}
-}
-@media (prefers-reduced-motion:reduce){
-  html{scroll-behavior:auto}
-  .hero-fx,
-  .hero::before,
-  .hero-fx::after{animation:none}
-}
-@keyframes shaft-breathe{
-  from{opacity:.84;transform:translate3d(0,0,0)}
-  to{opacity:1;transform:translate3d(-1.4%,1.8%,0)}
-}
-@keyframes caustic-drift{
-  from{transform:translate3d(0,0,0)}
-  to{transform:translate3d(1.2%,1.6%,0)}
-}
-@keyframes motes-rise{
-  from{transform:translate3d(0,8%,0)}
-  to{transform:translate3d(0,-10%,0)}
-}
-
-/* Mark left; OpenData + tagline stacked to the right of the mark. */
-.brand-lockup{
-  display:flex;flex-direction:row;flex-wrap:nowrap;align-items:center;gap:.65rem;
-  width:auto;margin:0;
-  color:var(--foam);text-decoration:none;
-  font-size:inherit;font-weight:inherit;
-}
-.brand-lockup .mark{flex:0 0 auto;width:1.5rem;height:1.5rem}
-.brand-text{display:flex;flex-direction:column;gap:.1rem;min-width:0}
-.brand-name{
-  font-weight:600;letter-spacing:-.02em;line-height:1.1;font-size:1.05rem;
-}
-.brand-tag{
-  font-weight:400;font-size:.6875rem;line-height:1.2;letter-spacing:0;
-  color:var(--foam-72);white-space:nowrap;
-}
-h1.brand-lockup{gap:1rem}
-h1.brand-lockup .mark{width:4.5rem;height:4.5rem}
-h1.brand-lockup .brand-name{
-  font-size:clamp(2.2rem,8vw,3.4rem);
-  letter-spacing:-.03em;line-height:1;
-}
-h1.brand-lockup .brand-tag{
-  font-size:clamp(1.05rem,2.2vw,1.35rem);line-height:1.3;
-}
-.foot .brand-lockup,
-.foot .brand-lockup:hover{font-family:var(--sans);color:var(--foam)}
-.foot .brand-lockup .mark{width:1.35rem;height:1.35rem}
-.foot .brand-lockup .brand-name{font-size:.95rem}
-.foot .brand-lockup .brand-tag{font-size:.625rem;color:var(--foam-72)}
-@media (max-width:40rem){
-  h1.brand-lockup .mark{width:3.5rem;height:3.5rem}
 }
 </style>
 </head>
 <body>
-<a class="skip" href="#why">Skip to content</a>
+<a class="skip" href="#model">Skip to the model</a>
 
 <nav class="nav">
   <div class="wrap nav-inner">
     <a class="brand-lockup" href="/">
-      <svg class="mark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="24" height="24" aria-hidden="true"><path d="M 57.1 9.6 A 41 41 0 1 0 90.4 42.9" fill="none" stroke="currentColor" stroke-width="16" stroke-linecap="round"/><circle cx="79" cy="21" r="8.5" fill="#35E0D0"/></svg>
+      <svg class="mark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="22" height="22" aria-hidden="true"><path d="M 57.1 9.6 A 41 41 0 1 0 90.4 42.9" fill="none" stroke="currentColor" stroke-width="16" stroke-linecap="round"/><circle cx="79" cy="21" r="8.5" fill="#35E0D0"/></svg>
       <span class="brand-text">
         <span class="brand-name">OpenData</span>
         <span class="brand-tag">an AI Pricing Model</span>
@@ -504,134 +212,73 @@ h1.brand-lockup .brand-tag{
       <li><a href="https://github.com/getodapm/getodapm.github.io/blob/main/SPEC.md">Spec</a></li>
       <li><a href="https://github.com/getodapm/getodapm.github.io/blob/main/prompts/00-START-HERE.md">Build</a></li>
     </ul>
-    <!-- Auth is not on .org. One door: the tool's marketing page. -->
     <div class="nav-auth">
-      <a class="signup" href="https://odapm.ai/">The tool</a>
+      <a class="tool" href="https://odapm.ai/">The tool</a>
     </div>
   </div>
 </nav>
 
-<header class="hero">
-  <div class="hero-fx" aria-hidden="true"></div>
-  <svg class="hero-mark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="512" height="512" aria-hidden="true"><path d="M 57.1 9.6 A 41 41 0 1 0 90.4 42.9" fill="none" stroke="#F2F7F7" stroke-width="16" stroke-linecap="round"/><circle cx="79" cy="21" r="8.5" fill="#35E0D0"/></svg>
+<main id="model">
   <div class="wrap">
-    <div class="hero-inner">
-      <h1 class="brand-lockup">
-        <svg class="mark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="72" height="72" aria-hidden="true"><path d="M 57.1 9.6 A 41 41 0 1 0 90.4 42.9" fill="none" stroke="currentColor" stroke-width="16" stroke-linecap="round"/><circle cx="79" cy="21" r="8.5" fill="#35E0D0"/></svg>
-        <span class="brand-text">
-          <span class="brand-name">OpenData</span>
-          <span class="brand-tag">an AI Pricing Model</span>
-        </span>
-      </h1>
-      <p class="hero-lede">Trade work is sold as SKUs. Fair price is public market data plus the markup you disclose, with a basis that shows the work.</p>
-      <div class="btns">
-        <a class="btn btn-foam" href="https://github.com/getodapm/getodapm.github.io/blob/main/MANIFESTO.md">Read the manifesto</a>
-        <a class="btn btn-ghost" href="https://odapm.ai/">See the tool</a>
+    <p class="kicker">spec odapm/v1</p>
+    <h1>The model</h1>
+    <p class="lede">A unit price is labor, materials, equipment, and the markup you disclose. A number without a basis is not a price.</p>
+
+    <div class="plate">
+      <p>Derivation</p>
+      <pre>unit price = (labor hours × local labor cost)
+           + (material qty × material cost)
+           + equipment share
+           + markup</pre>
+    </div>
+
+    <div class="plate">
+      <p>Line total</p>
+      <pre>total = (qty × rem) + (qty × rep) + tax
+tax   = qty × mat × (rate / 100)</pre>
+    </div>
+
+    <h2>What it is</h2>
+    <p class="prose">An open standard for named SKUs. The brand is OpenData. The spec line is <code>odapm/v1</code>. An app reads a <code>model.json</code>; this page defines what that file is.</p>
+
+    <dl class="defs">
+      <div>
+        <dt>Scope</dt>
+        <dd>The work you sell: what SKUs exist, their units, their options. Vendor-neutral. Any app can build on it.</dd>
       </div>
-      <p class="hero-meta">spec odapm/v1 · free and open source · CC-BY-4.0</p>
-    </div>
-  </div>
-</header>
+      <div>
+        <dt>Pricing</dt>
+        <dd>A <code>{rem, rep, mat}</code> on each SKU. <code>mat</code> is the material share of replace, not a third addend. Every non-zero price carries a <code>basis</code>.</dd>
+      </div>
+      <div>
+        <dt>Tax</dt>
+        <dd>A sibling file, not part of the price. Published jurisdiction rates on materials. Different source, different cadence.</dd>
+      </div>
+    </dl>
 
-<section id="why">
-  <div class="wrap why">
-    <h2>Why this exists</h2>
-    <div>
-      <p class="lede">If you were a plumber, you’d want standard SKUs for the labor — installing a water heater. Handyman, HVAC, electrical, a GC’s unit prices: same idea. Trade work is sold as SKUs. Most of those prices are a guess, a copied competitor, or a black-box list.</p>
-      <p class="pull">The fix is a priced catalog you can audit: public data sets the cost floor, you set markup and disclose it, every SKU carries a basis that shows the work.</p>
-      <p>AI is how you build that catalog for your trade and territory. That is the product of the standard.</p>
-    </div>
-  </div>
-</section>
+    <h2>Conformance</h2>
+    <p class="prose">A valid model has <code>meta.schema</code> of <code>odapm/v1</code>, items that match the scope and pricing schemas, and a <code>basis</code> on every non-zero price. Structure without a basis is not conformant. No app owns the standard.</p>
 
-<section class="band" id="principles">
-  <div class="wrap">
-    <h2>The principles</h2>
-    <div class="grid">
-      <article class="card">
-        <p class="num">01</p>
-        <h3>Market-derived, not hand&#8209;set</h3>
-        <p>The cost floor comes from citable open inputs: wages, materials, equipment when they apply. The methodology is public. Anyone can audit why a number is what it is.</p>
-      </article>
-      <article class="card">
-        <p class="num">02</p>
-        <h3>Show your work</h3>
-        <p>Every non-zero price carries a <code>basis</code>. Sources, hours, markup — visible. A number without a basis is not a price.</p>
-      </article>
-      <article class="card">
-        <p class="num">03</p>
-        <h3>Standard SKUs for standard work</h3>
-        <p>Name the work, unitize it, reuse it. A water-heater install, hang a door, a framed wall, a dried room. Same work, same SKU.</p>
-      </article>
-      <article class="card">
-        <p class="num">04</p>
-        <h3>You set markup; public data sets the cost floor</h3>
-        <p>The market inputs are shared. Your margin is yours, and it is disclosed. Hide neither the cost nor the markup.</p>
-      </article>
-    </div>
-  </div>
-</section>
-
-<section id="what">
-  <div class="wrap">
-    <h2>What OpenData is</h2>
-    <p class="prose">One open standard for trade SKUs. Two layers, and a separate tax sibling. The brand is OpenData; the spec line is still <code>odapm/v1</code>.</p>
-    <div class="layers">
-      <article class="layer">
-        <p class="code">Scope</p>
-        <div>
-          <p><b>A vendor-neutral language</b> for the work you sell: what SKUs exist, their units, their options, how a job is structured. Any app can build on it.</p>
-        </div>
-      </article>
-      <article class="layer">
-        <p class="code">Pricing</p>
-        <div>
-          <p><b>Auditable unit prices</b> on each SKU. Derived from a public cost model (labor hours × local wage + materials + equipment share + disclosed markup), each non-zero price carrying a <code>basis</code> note, then escalated by public indices.</p>
-        </div>
-      </article>
-      <article class="layer">
-        <p class="code">Tax</p>
-        <div>
-          <p><b>Jurisdiction rates</b> from each state’s published data. Tax applies to materials only; labor is never taxed.</p>
-        </div>
-      </article>
-    </div>
-  </div>
-</section>
-
-<section class="band" id="build">
-  <div class="wrap">
-    <h2>Build your model — no coding</h2>
-    <div class="steps">
-      <div class="step">Get the repository (clone it, or download the ZIP from GitHub).</div>
-      <div class="step">Open the folder in an AI assistant that can read and write files.</div>
-      <div class="step">Open <code>prompts/00-START-HERE.md</code> and run the prompts in order — your trade, your territory, your SKUs, your prices.</div>
-      <div class="step">Walk away with <code>model.json</code> and <code>tax.json</code>: a priced catalog you can audit. Yours.</div>
-    </div>
-
-  </div>
-</section>
-
-<section class="close" id="owned">
-  <div class="wrap">
     <h2>Owned by no one</h2>
-    <p class="prose">The OpenData <b>standard</b> is free and open and owned by no one. Tools are MIT; spec and data are CC-BY-4.0. Zero proprietary pricing data — every number derives from cited open sources. Shops earn on the work. The standard belongs to the field.</p>
-    <div class="btns" style="margin-top:1.75rem">
-      <a class="btn btn-deep" href="https://github.com/getodapm/getodapm.github.io">View on GitHub</a>
+    <p class="prose">The <b>standard</b> is free and open. Tools are MIT. Spec and data are CC-BY-4.0. The methodology is public. A shop that uses this model is a consumer of it, not the owner.</p>
+
+    <div class="btns">
+      <a class="btn btn-ink" href="https://github.com/getodapm/getodapm.github.io/blob/main/SPEC.md">Read the spec</a>
+      <a class="btn btn-ghost" href="https://github.com/getodapm/getodapm.github.io/blob/main/MANIFESTO.md">Read the manifesto</a>
     </div>
   </div>
-</section>
+</main>
 
 <footer>
   <div class="wrap foot">
     <a class="brand-lockup" href="/">
-      <svg class="mark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="22" height="22" aria-hidden="true"><path d="M 57.1 9.6 A 41 41 0 1 0 90.4 42.9" fill="none" stroke="currentColor" stroke-width="16" stroke-linecap="round"/><circle cx="79" cy="21" r="8.5" fill="#35E0D0"/></svg>
+      <svg class="mark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="20" height="20" aria-hidden="true"><path d="M 57.1 9.6 A 41 41 0 1 0 90.4 42.9" fill="none" stroke="currentColor" stroke-width="16" stroke-linecap="round"/><circle cx="79" cy="21" r="8.5" fill="#35E0D0"/></svg>
       <span class="brand-text">
         <span class="brand-name">OpenData</span>
         <span class="brand-tag">an AI Pricing Model</span>
       </span>
     </a>
-    <p>spec <code>odapm/v1</code> · tools MIT · spec &amp; data CC-BY-4.0 · no proprietary pricing data, ever · the shop is at <a href="https://odapm.ai/">odapm.ai</a></p>
+    <p>spec <code>odapm/v1</code> · MIT · CC-BY-4.0 · the tool is at <a href="https://odapm.ai/">odapm.ai</a></p>
   </div>
 </footer>
 </body>
