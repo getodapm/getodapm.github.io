@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>OpenData — an AI Pricing Model</title>
-<meta name="description" content="An open standard for trades to build fair SKU pricing from public market data.">
+<meta name="description" content="OpenData Tool is the shop: customers, jobs, restoration quotes. ODAPM is the open spec it is built to run on.">
 <link rel="canonical" href="https://odapm.ai/">
 <meta name="theme-color" content="#06343A">
 <meta name="color-scheme" content="light">
@@ -15,7 +15,7 @@
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://odapm.ai/">
 <meta property="og:title" content="OpenData — an AI Pricing Model">
-<meta property="og:description" content="Fair SKU pricing for trades, from public market data plus your markup.">
+<meta property="og:description" content="OpenData Tool is the shop: customers, jobs, restoration quotes. ODAPM is the open spec it is built to run on.">
 <meta property="og:image" content="https://odapm.ai/brand/opendata-og.png">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="preload" href="/fonts/plex-sans-400.woff2" as="font" type="font/woff2" crossorigin>
@@ -275,6 +275,15 @@ p:last-child{margin-bottom:0}
   box-shadow:var(--shadow);
 }
 .band .card{background:#fff}
+.band .btn-ghost{
+  border-color:color-mix(in srgb,var(--deep) 28%,transparent);
+  color:var(--deep);
+}
+.band .btn-ghost:hover{
+  border-color:var(--deep);
+  background:color-mix(in srgb,var(--deep) 6%,transparent);
+  color:var(--abyss);
+}
 .card h3{font-size:1.05rem;font-weight:600;margin:.35rem 0 .5rem}
 .card p{font-size:.98rem;color:var(--muted);margin:0}
 .num{
@@ -298,6 +307,8 @@ p:last-child{margin-bottom:0}
 }
 .layer b{font-weight:600}
 .layer p{color:var(--muted);margin:0}
+
+.now-cta{margin-top:1.75rem}
 
 .steps{
   display:grid;gap:1rem;
@@ -468,6 +479,19 @@ footer{
   font-weight:400;font-size:.6875rem;line-height:1.2;letter-spacing:0;
   color:var(--foam-72);white-space:nowrap;
 }
+.brand-name-row{
+  display:flex;flex-direction:row;flex-wrap:nowrap;align-items:center;gap:.5rem;
+}
+.brand-beta{
+  display:inline-flex;align-items:center;flex:0 0 auto;
+  padding:.15rem .5rem;
+  border:1px solid rgba(242,247,247,.35);
+  border-radius:999px;
+  background:rgba(242,247,247,.08);
+  color:var(--foam);
+  font-size:.75rem;font-weight:600;letter-spacing:.03em;line-height:1.2;
+  white-space:nowrap;
+}
 h1.brand-lockup{gap:1rem}
 h1.brand-lockup .mark{width:4.5rem;height:4.5rem}
 h1.brand-lockup .brand-name{
@@ -477,6 +501,7 @@ h1.brand-lockup .brand-name{
 h1.brand-lockup .brand-tag{
   font-size:clamp(1.05rem,2.2vw,1.35rem);line-height:1.3;
 }
+h1.brand-lockup .brand-beta{font-size:.95rem;padding:.2rem .65rem}
 .foot .brand-lockup,
 .foot .brand-lockup:hover{font-family:var(--sans);color:var(--foam)}
 .foot .brand-lockup .mark{width:1.35rem;height:1.35rem}
@@ -485,21 +510,251 @@ h1.brand-lockup .brand-tag{
 @media (max-width:40rem){
   h1.brand-lockup .mark{width:3.5rem;height:3.5rem}
 }
+
+/* ----- product demo ----- */
+#tool.band{border-bottom:0}
+#demo.band{border-top:0}
+.demo-sr{
+  position:absolute;width:1px;height:1px;padding:0;margin:-1px;
+  overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0;
+}
+.demo-layout{display:grid;gap:1.25rem}
+.demo-caption{
+  font-size:1.05rem;font-weight:500;line-height:1.45;color:var(--deep);
+  min-height:2.6em;margin:0;
+}
+.demo-frame{
+  background:var(--deep);
+  border-radius:var(--radius);
+  padding:.5rem;
+  box-shadow:var(--shadow);
+  min-width:0;
+}
+.mock{
+  --mock-bg:#F2F7F7;
+  --mock-surface:#fff;
+  --mock-sunk:#e4eeef;
+  --mock-border:#c5d4d5;
+  --mock-strong:#8aa3a6;
+  --mock-r:8px;
+  background:var(--mock-bg);
+  color:var(--ink);
+  border-radius:var(--mock-r);
+  overflow:hidden;
+  min-width:0;
+  display:flex;flex-direction:column;
+  min-height:26rem;
+}
+.mock h1,.mock h2,.mock h3{letter-spacing:-.01em;line-height:1.25;font-weight:650}
+.mock h1{font-size:1.25rem;margin:0 0 .75rem}
+.mock h2{font-size:1rem;margin:0 0 .5rem}
+.mock-main p{margin:0 0 .5rem;color:var(--muted);font-size:.875rem}
+.mock-topbar{
+  background:var(--mock-surface);
+  border-bottom:1px solid var(--mock-border);
+  padding:.7rem .9rem;
+  display:grid;gap:.45rem .75rem;
+  grid-template-columns:minmax(0,1fr) auto;
+  grid-template-areas:"brand org" "nav nav";
+  align-items:center;
+}
+.mock-brand{
+  grid-area:brand;display:flex;align-items:center;gap:.4rem;min-width:0;
+  font-size:.95rem;font-weight:650;letter-spacing:-.02em;color:var(--ink);
+}
+.mock-brand .mark{width:1.25rem;height:1.25rem;flex:0 0 auto}
+.mock-brand-name{white-space:nowrap}
+.mock-beta{
+  display:inline-flex;align-items:center;flex:0 0 auto;
+  padding:.12rem .4rem;border:1px solid var(--mock-strong);border-radius:999px;
+  background:var(--mock-sunk);color:var(--ink);
+  font-size:.7rem;font-weight:650;letter-spacing:.03em;line-height:1.2;
+}
+.mock-org{
+  grid-area:org;font-size:.8125rem;font-weight:650;color:var(--ink);
+  white-space:nowrap;
+}
+.mock-nav{grid-area:nav;display:flex;flex-wrap:wrap;gap:.25rem}
+.mock-nav span{
+  display:inline-flex;align-items:center;justify-content:center;
+  min-height:2.25rem;padding:0 .75rem;border-radius:var(--mock-r);
+  font-size:.8125rem;font-weight:650;color:var(--ink);
+}
+.mock-nav span[aria-current="page"]{background:var(--ocean);color:var(--foam)}
+.mock-main{padding:1rem 1.05rem 1.2rem;min-width:0;flex:1}
+.mock-progress{display:flex;align-items:center;gap:.5rem;margin:0 0 .85rem}
+.mock-progress ol{display:flex;gap:.35rem;list-style:none;margin:0;padding:0}
+.mock-progress li{
+  width:10px;height:10px;border-radius:50%;background:var(--mock-strong);
+}
+.mock-progress li.on{background:var(--ink)}
+.mock-progress li.done{background:var(--ocean)}
+.mock-progress .lbl{font-size:.75rem;color:var(--muted);margin-left:auto}
+.mock-search{
+  display:flex;gap:.5rem;margin-bottom:.75rem;
+}
+.mock-search .mock-input{flex:1}
+.mock-btn{
+  display:inline-flex;align-items:center;justify-content:center;
+  min-height:2.5rem;padding:0 .9rem;border-radius:var(--mock-r);
+  border:1px solid transparent;background:var(--ocean);color:var(--foam);
+  font:inherit;font-size:.875rem;font-weight:650;cursor:pointer;
+}
+.mock-btn:hover{background:var(--deep);color:#fff}
+.mock-row{
+  display:block;width:100%;text-align:left;cursor:pointer;
+  min-height:2.75rem;padding:.7rem .8rem;margin-top:.5rem;
+  border:1px solid var(--ocean);border-left-width:4px;
+  border-radius:var(--mock-r);background:var(--mock-surface);
+  font:inherit;color:inherit;
+}
+.mock-row:hover{background:var(--mock-sunk)}
+.mock-row b{display:block;font-weight:650}
+.mock-row span{font-size:.8125rem;color:var(--muted)}
+.mock-panel{
+  background:var(--mock-surface);border:1px solid var(--mock-border);
+  border-radius:var(--mock-r);padding:.85rem .9rem;margin-bottom:.7rem;
+}
+.mock-grid{display:grid;gap:.65rem .75rem;grid-template-columns:1fr 1fr}
+.mock-field{min-width:0}
+.mock-field.span{grid-column:1 / -1}
+.mock-field label,.mock-label{
+  display:block;font-size:.75rem;font-weight:650;color:var(--muted);margin-bottom:.2rem;
+}
+.mock-pills + .mock-label{margin-top:.65rem}
+.mock-indent{margin:.35rem 0 .75rem 1.6rem}
+.mock-indent:last-child{margin-bottom:0}
+.mock-input{
+  width:100%;min-height:2.25rem;padding:.3rem .6rem;
+  border:1px solid var(--mock-strong);border-radius:var(--mock-r);
+  background:var(--mock-surface);color:var(--ink);font:inherit;font-size:.875rem;
+}
+.mock-input.suggested{background:color-mix(in srgb,var(--ocean) 10%,#fff)}
+.mock-hint{font-size:.75rem;color:var(--muted);margin:.25rem 0 0}
+.mock-pills{display:flex;flex-wrap:wrap;gap:.35rem}
+.mock-pill{
+  display:inline-flex;align-items:center;min-height:2.15rem;padding:0 .7rem;
+  border:1px solid var(--mock-strong);border-radius:var(--mock-r);
+  background:var(--mock-surface);font-size:.8125rem;font-weight:650;
+}
+.mock-pill.on{background:var(--ocean);color:var(--foam);border-color:var(--ocean)}
+.mock-tick{
+  display:flex;align-items:center;gap:.5rem;min-height:2.25rem;
+  font-size:.875rem;font-weight:650;
+}
+.mock-box{
+  width:1.125rem;height:1.125rem;flex:0 0 auto;
+  border:1.5px solid var(--mock-strong);border-radius:3px;background:#fff;
+}
+.mock-box.on{
+  display:inline-flex;align-items:center;justify-content:center;
+  background:var(--ocean);border-color:var(--ocean);
+}
+.mock-box.on::after{
+  content:"";width:.28rem;height:.5rem;
+  border:solid var(--foam);border-width:0 2px 2px 0;
+  transform:rotate(45deg) translateY(-1px);
+}
+.mock-eq{
+  display:grid;grid-template-columns:repeat(auto-fill,minmax(10.5rem,1fr));gap:.5rem;
+}
+.mock-eq-card{
+  border:1px solid var(--mock-border);border-radius:var(--mock-r);
+  padding:.65rem;background:var(--mock-surface);
+}
+.mock-eq-card > p{font-weight:650;color:var(--ink);margin:0 0 .4rem;font-size:.875rem}
+.mock-eq-fields{display:flex;gap:.4rem}
+.mock-eq-fields .mock-field{flex:1;margin:0}
+.mock-room{
+  display:inline-flex;align-items:center;min-height:2.25rem;padding:0 .85rem;
+  border-radius:999px;border:1px solid var(--ocean);
+  background:var(--ocean);color:var(--foam);font-size:.8125rem;font-weight:650;
+  margin-bottom:.7rem;
+}
+.mock-tbl-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch}
+.mock-tbl{width:100%;border-collapse:collapse;font-size:.8125rem}
+.mock-tbl th{
+  text-align:left;padding:.4rem .5rem;background:var(--ink);color:var(--foam);font-weight:650;
+}
+.mock-tbl td{padding:.35rem .5rem;border-bottom:1px solid var(--mock-border);vertical-align:top;text-align:left}
+.mock-tbl .num{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+.mock-tbl tfoot td{font-weight:650;border-bottom:0;padding-top:.55rem}
+.mock-example{
+  display:inline-flex;align-items:center;
+  padding:.12rem .45rem;margin-bottom:.6rem;
+  border:1px solid var(--mock-strong);border-radius:999px;
+  background:var(--mock-sunk);font-size:.7rem;font-weight:650;letter-spacing:.03em;
+}
+.mock-note{
+  font-size:.8125rem;color:var(--muted);margin:.55rem 0 0;
+}
+.mock-act{display:flex;flex-wrap:wrap;gap:.5rem;margin:.75rem 0 .25rem}
+.demo-controls{
+  display:flex;flex-wrap:wrap;align-items:center;gap:.65rem 1rem;
+  margin-top:1rem;
+}
+.demo-controls button.btn{
+  -webkit-appearance:none;appearance:none;font-family:var(--sans);
+}
+.demo-controls .btn{cursor:pointer}
+.demo-controls .btn:disabled{opacity:.45;cursor:default}
+.demo-dots{display:flex;gap:.15rem;list-style:none;margin:0 auto;padding:0}
+.demo-dots button{
+  position:relative;width:2.5rem;height:2.5rem;padding:0;border:0;
+  background:transparent;cursor:pointer;border-radius:8px;
+}
+.demo-dots button::after{
+  content:"";position:absolute;left:50%;top:50%;width:10px;height:10px;
+  margin:-5px 0 0 -5px;border-radius:50%;
+  background:color-mix(in srgb,var(--ocean) 32%,var(--foam));
+}
+.demo-dots button.done::after{background:var(--ocean)}
+.demo-dots button[aria-current="step"]::after{background:var(--deep)}
+@media (min-width:56rem){
+  .demo-layout{
+    grid-template-columns:minmax(12rem,16rem) minmax(0,1fr);
+    gap:2rem 2.5rem;align-items:start;
+  }
+  .demo-aside{position:sticky;top:6rem}
+}
+@media (max-width:40rem){
+  .mock{min-height:0}
+  .mock-topbar{
+    padding:.6rem .7rem;
+    grid-template-columns:1fr;
+    grid-template-areas:"brand" "org" "nav";
+  }
+  .mock-main{padding:.85rem .75rem 1rem}
+  .mock-grid{grid-template-columns:1fr}
+  .mock-org{font-size:.75rem;justify-self:start}
+  .demo-controls{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    justify-content:stretch;
+  }
+  .demo-controls .btn{width:100%}
+  .demo-dots{grid-column:1 / -1;order:-1;margin:0;justify-content:center}
+}
 </style>
 </head>
 <body>
-<a class="skip" href="#why">Skip to content</a>
+<a class="skip" href="#tool">Skip to content</a>
 
 <nav class="nav">
   <div class="wrap nav-inner">
     <a class="brand-lockup" href="/">
       <svg class="mark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="24" height="24" aria-hidden="true"><path d="M 57.1 9.6 A 41 41 0 1 0 90.4 42.9" fill="none" stroke="currentColor" stroke-width="16" stroke-linecap="round"/><circle cx="79" cy="21" r="8.5" fill="#35E0D0"/></svg>
       <span class="brand-text">
-        <span class="brand-name">OpenData</span>
+        <span class="brand-name-row">
+          <span class="brand-name">OpenData</span>
+          <span class="brand-beta">Beta</span>
+        </span>
         <span class="brand-tag">an AI Pricing Model</span>
       </span>
     </a>
     <ul class="nav-links">
+      <li><a href="#tool">The tool</a></li>
+      <li><a href="#demo">Demo</a></li>
       <li><a href="https://github.com/getodapm/getodapm.github.io/blob/main/MANIFESTO.md">Manifesto</a></li>
       <li><a href="https://github.com/getodapm/getodapm.github.io/blob/main/SPEC.md">Spec</a></li>
       <li><a href="https://github.com/getodapm/getodapm.github.io/blob/main/prompts/00-START-HERE.md">Build</a></li>
@@ -518,30 +773,328 @@ h1.brand-lockup .brand-tag{
   <svg class="hero-mark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="512" height="512" aria-hidden="true"><path d="M 57.1 9.6 A 41 41 0 1 0 90.4 42.9" fill="none" stroke="#F2F7F7" stroke-width="16" stroke-linecap="round"/><circle cx="79" cy="21" r="8.5" fill="#35E0D0"/></svg>
   <div class="wrap">
     <div class="hero-inner">
+      <p class="kicker">This is a beta</p>
       <h1 class="brand-lockup">
         <svg class="mark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="72" height="72" aria-hidden="true"><path d="M 57.1 9.6 A 41 41 0 1 0 90.4 42.9" fill="none" stroke="currentColor" stroke-width="16" stroke-linecap="round"/><circle cx="79" cy="21" r="8.5" fill="#35E0D0"/></svg>
         <span class="brand-text">
-          <span class="brand-name">OpenData</span>
+          <span class="brand-name-row">
+            <span class="brand-name">OpenData</span>
+            <span class="brand-beta">Beta</span>
+          </span>
           <span class="brand-tag">an AI Pricing Model</span>
         </span>
       </h1>
-      <p class="hero-lede">Trade work is sold as SKUs. Fair price is public market data plus the markup you disclose, with a basis that shows the work.</p>
+      <p class="hero-lede">OpenData Tool is the shop: customers, jobs, restoration quotes. ODAPM is the open spec it is built to run on.</p>
       <div class="btns">
-        <a class="btn btn-foam" href="/signup/">Sign up</a>
-        <a class="btn btn-ghost" href="https://github.com/getodapm/getodapm.github.io/blob/main/MANIFESTO.md">Read the manifesto</a>
+        <a class="btn btn-foam" href="/signup/">Request beta access</a>
+        <a class="btn btn-ghost" href="#demo">See a demo</a>
       </div>
-      <p class="hero-meta">spec odapm/v1 · free and open source · CC-BY-4.0</p>
+      <p class="hero-meta">beta · spec odapm/v1 · the standard is open</p>
     </div>
   </div>
 </header>
+
+<section class="band" id="tool">
+  <div class="wrap">
+    <h2>OpenData Tool</h2>
+    <p class="lede prose">The hosted shop is live in beta. Sign in with a work email — a one-time code, not a password.</p>
+    <div class="grid">
+      <article class="card">
+        <h3>Customers, properties, jobs</h3>
+        <p>A quote sits on a job. The job sits on a property.</p>
+      </article>
+      <article class="card">
+        <h3>Named SKUs</h3>
+        <p>Restoration work: water, mold, fire. There is no plumber book and no HVAC book in this beta.</p>
+      </article>
+      <article class="card">
+        <h3>Rate book</h3>
+        <p>Overlay prices on the shared catalog. A missing SKU is a Support request in this beta.</p>
+      </article>
+      <article class="card">
+        <h3>PDF</h3>
+        <p>Download a unit-priced quote.</p>
+      </article>
+    </div>
+    <div class="btns now-cta">
+      <a class="btn btn-deep" href="/signup/">Request beta access</a>
+      <a class="btn btn-ghost" href="https://app.odapm.ai/">Sign in</a>
+    </div>
+  </div>
+</section>
+
+<section class="band" id="demo">
+  <div class="wrap">
+    <h2>See it work</h2>
+    <p class="lede prose">Tick a water job, get a priced PDF. This walkthrough does not need an account. The real shop is behind Sign in.</p>
+    <div class="demo-layout">
+      <div class="demo-aside">
+        <p class="demo-caption" id="demo-caption" aria-live="polite">Open on a customer, then start an estimate.</p>
+      </div>
+      <div>
+        <div class="demo-frame" tabindex="0">
+          <div class="mock" role="region" aria-label="OpenData Tool walkthrough">
+            <header class="mock-topbar">
+              <p class="mock-brand">
+                <svg class="mark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="20" height="20" aria-hidden="true"><path d="M 57.1 9.6 A 41 41 0 1 0 90.4 42.9" fill="none" stroke="currentColor" stroke-width="16" stroke-linecap="round"/><circle cx="79" cy="21" r="8.5" fill="#35E0D0"/></svg>
+                <span class="mock-brand-name">OpenData Tool</span>
+                <span class="mock-beta">Beta</span>
+              </p>
+              <p class="mock-org">Oakmere Restoration</p>
+              <nav class="mock-nav" aria-label="Shop">
+                <span data-mock-nav="customers" aria-current="page">Customers</span>
+                <span data-mock-nav="estimate">New estimate</span>
+              </nav>
+            </header>
+            <div class="mock-main">
+              <div data-demo-panel>
+                <h1>Customers</h1>
+                <div class="mock-search">
+                  <input class="mock-input" type="search" value="" placeholder="Search customers by name" readonly tabindex="-1" aria-hidden="true">
+                  <button class="mock-btn" type="button" tabindex="-1" aria-hidden="true">Search</button>
+                </div>
+                <button class="mock-btn" type="button" data-demo-advance>New estimate</button>
+                <button class="mock-row" type="button" data-demo-advance>
+                  <b>Elena Ruiz</b>
+                  <span>1842 Cedar Street · Fort Collins, CO</span>
+                </button>
+              </div>
+              <div data-demo-panel hidden>
+                <div class="mock-progress">
+                  <ol aria-hidden="true"><li class="on"></li><li></li><li></li><li></li></ol>
+                  <span class="lbl">Job Info</span>
+                </div>
+                <h1>Estimate</h1>
+                <div class="mock-panel">
+                  <h2>Job Information</h2>
+                  <div class="mock-grid">
+                    <div class="mock-field span">
+                      <label for="demo-cust">Customer Name</label>
+                      <input class="mock-input" id="demo-cust" value="Elena Ruiz" readonly tabindex="-1">
+                    </div>
+                    <div class="mock-field">
+                      <label for="demo-job">Job Number</label>
+                      <input class="mock-input" id="demo-job" value="26-0142-WTR" readonly tabindex="-1">
+                    </div>
+                    <div class="mock-field">
+                      <label for="demo-zip">ZIP</label>
+                      <input class="mock-input" id="demo-zip" value="80521" readonly tabindex="-1">
+                    </div>
+                    <div class="mock-field">
+                      <label for="demo-tax">Rate %</label>
+                      <input class="mock-input suggested" id="demo-tax" value="7.55" readonly tabindex="-1">
+                      <p class="mock-hint">Suggested for this ZIP.</p>
+                    </div>
+                  </div>
+                </div>
+                <div class="mock-panel">
+                  <h2>Loss Classification</h2>
+                  <p class="mock-label">Loss Type</p>
+                  <div class="mock-pills">
+                    <span class="mock-pill on">Water</span>
+                    <span class="mock-pill">Mold</span>
+                    <span class="mock-pill">Fire</span>
+                  </div>
+                  <p class="mock-label">Category</p>
+                  <div class="mock-pills">
+                    <span class="mock-pill on">Cat 1</span>
+                    <span class="mock-pill">Cat 2</span>
+                    <span class="mock-pill">Cat 3</span>
+                  </div>
+                  <p class="mock-label">Class of water</p>
+                  <div class="mock-pills">
+                    <span class="mock-pill">Class 1</span>
+                    <span class="mock-pill on">Class 2</span>
+                    <span class="mock-pill">Class 3</span>
+                    <span class="mock-pill">Class 4</span>
+                  </div>
+                </div>
+              </div>
+              <div data-demo-panel hidden>
+                <div class="mock-progress">
+                  <ol aria-hidden="true"><li class="done"></li><li class="on"></li><li></li><li></li></ol>
+                  <span class="lbl">Main Charges</span>
+                </div>
+                <h1>Estimate</h1>
+                <div class="mock-panel">
+                  <h2>Setup</h2>
+                  <p class="mock-tick"><span class="mock-box on" aria-hidden="true"></span> Personal Protective Equipment</p>
+                  <div class="mock-grid mock-indent">
+                    <div class="mock-field">
+                      <label for="demo-ppe">EA</label>
+                      <input class="mock-input" id="demo-ppe" value="2" readonly tabindex="-1">
+                    </div>
+                  </div>
+                  <p class="mock-tick"><span class="mock-box on" aria-hidden="true"></span> Floor Protection</p>
+                  <div class="mock-grid mock-indent">
+                    <div class="mock-field span">
+                      <label for="demo-fp">Type</label>
+                      <input class="mock-input" id="demo-fp" value="Cloth, skid-resistant — 24&quot; wide" readonly tabindex="-1">
+                    </div>
+                    <div class="mock-field">
+                      <label for="demo-fplf">LF</label>
+                      <input class="mock-input" id="demo-fplf" value="24" readonly tabindex="-1">
+                    </div>
+                  </div>
+                </div>
+                <div class="mock-panel">
+                  <h2>Equipment</h2>
+                  <div class="mock-eq">
+                    <div class="mock-eq-card">
+                      <p>Dehumidifier — Standard</p>
+                      <div class="mock-eq-fields">
+                        <div class="mock-field">
+                          <label for="demo-dehu-u">Units</label>
+                          <input class="mock-input" id="demo-dehu-u" value="1" readonly tabindex="-1">
+                        </div>
+                        <div class="mock-field">
+                          <label for="demo-dehu-d">Days</label>
+                          <input class="mock-input" id="demo-dehu-d" value="3" readonly tabindex="-1">
+                        </div>
+                      </div>
+                    </div>
+                    <div class="mock-eq-card">
+                      <p>Air Mover — Centrifugal</p>
+                      <div class="mock-eq-fields">
+                        <div class="mock-field">
+                          <label for="demo-am-u">Units</label>
+                          <input class="mock-input" id="demo-am-u" value="3" readonly tabindex="-1">
+                        </div>
+                        <div class="mock-field">
+                          <label for="demo-am-d">Days</label>
+                          <input class="mock-input" id="demo-am-d" value="3" readonly tabindex="-1">
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div data-demo-panel hidden>
+                <div class="mock-progress">
+                  <ol aria-hidden="true"><li class="done"></li><li class="done"></li><li class="on"></li><li></li></ol>
+                  <span class="lbl">Rooms</span>
+                </div>
+                <h1>Estimate</h1>
+                <span class="mock-room">Living room</span>
+                <div class="mock-panel">
+                  <p class="mock-tick"><span class="mock-box on" aria-hidden="true"></span> Water Extraction — Carpet</p>
+                  <div class="mock-grid mock-indent">
+                    <div class="mock-field">
+                      <label for="demo-ex-sf">SF</label>
+                      <input class="mock-input" id="demo-ex-sf" value="280" readonly tabindex="-1">
+                    </div>
+                  </div>
+                  <p class="mock-tick"><span class="mock-box on" aria-hidden="true"></span> Antimicrobial Application</p>
+                  <div class="mock-grid mock-indent">
+                    <div class="mock-field">
+                      <label for="demo-am-sf">SF</label>
+                      <input class="mock-input" id="demo-am-sf" value="280" readonly tabindex="-1">
+                    </div>
+                  </div>
+                  <p class="mock-tick"><span class="mock-box on" aria-hidden="true"></span> Air Mover</p>
+                  <div class="mock-grid mock-indent">
+                    <div class="mock-field">
+                      <label for="demo-am-rm">In this room</label>
+                      <input class="mock-input" id="demo-am-rm" value="3" readonly tabindex="-1">
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div data-demo-panel hidden>
+                <div class="mock-progress">
+                  <ol aria-hidden="true"><li class="done"></li><li class="done"></li><li class="done"></li><li class="on"></li></ol>
+                  <span class="lbl">Estimate</span>
+                </div>
+                <h1>Estimate</h1>
+                <p class="mock-example">Example</p>
+                <p class="mock-hint">Oakmere Restoration rate-book overlay. Not public-data list prices.</p>
+                <div class="mock-tbl-wrap">
+                  <table class="mock-tbl">
+                    <thead>
+                      <tr>
+                        <th class="num">Qty</th>
+                        <th>Description</th>
+                        <th>Unit</th>
+                        <th class="num">Total</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td class="num">2</td>
+                        <td>Personal Protective Equipment</td>
+                        <td>EA</td>
+                        <td class="num">$180.00</td>
+                      </tr>
+                      <tr>
+                        <td class="num">24</td>
+                        <td>Floor Protection — Cloth, skid-resistant — 24&quot; wide</td>
+                        <td>LF</td>
+                        <td class="num">$66.00</td>
+                      </tr>
+                      <tr>
+                        <td class="num">3</td>
+                        <td>Dehumidifier — Standard</td>
+                        <td>DA</td>
+                        <td class="num">$345.00</td>
+                      </tr>
+                      <tr>
+                        <td class="num">9</td>
+                        <td>Air Mover — Centrifugal</td>
+                        <td>DA</td>
+                        <td class="num">$243.00</td>
+                      </tr>
+                      <tr>
+                        <td class="num">280</td>
+                        <td>Water Extraction — Carpet</td>
+                        <td>SF</td>
+                        <td class="num">$182.00</td>
+                      </tr>
+                      <tr>
+                        <td class="num">280</td>
+                        <td>Antimicrobial Application</td>
+                        <td>SF</td>
+                        <td class="num">$106.40</td>
+                      </tr>
+                    </tbody>
+                    <tfoot>
+                      <tr>
+                        <td colspan="3">Total</td>
+                        <td class="num">$1,122.40</td>
+                      </tr>
+                    </tfoot>
+                  </table>
+                </div>
+                <div class="mock-act">
+                  <button class="mock-btn" type="button" id="demo-pdf">Download PDF</button>
+                </div>
+                <p class="mock-note" id="demo-pdf-note" hidden>In the shop this downloads a unit-priced PDF.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="demo-controls">
+          <button class="btn btn-ghost" type="button" id="demo-back">Back</button>
+          <ol class="demo-dots" aria-label="Walkthrough steps">
+            <li><button type="button" data-demo-dot aria-current="step"><span class="demo-sr">Customers</span></button></li>
+            <li><button type="button" data-demo-dot><span class="demo-sr">Job Info</span></button></li>
+            <li><button type="button" data-demo-dot><span class="demo-sr">Main Charges</span></button></li>
+            <li><button type="button" data-demo-dot><span class="demo-sr">Rooms</span></button></li>
+            <li><button type="button" data-demo-dot><span class="demo-sr">Estimate</span></button></li>
+          </ol>
+          <button class="btn btn-deep" type="button" id="demo-next">Next</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
 
 <section id="why">
   <div class="wrap why">
     <h2>Why this exists</h2>
     <div>
-      <p class="lede">If you were a plumber, you’d want standard SKUs for the labor — installing a water heater. Handyman, HVAC, electrical, a GC’s unit prices: same idea. Trade work is sold as SKUs. Most of those prices are a guess, a copied competitor, or a black-box list.</p>
-      <p class="pull">The fix is a priced catalog you can audit: public data sets the cost floor, you set markup and disclose it, every SKU carries a basis that shows the work.</p>
-      <p>AI is how you build that catalog for your trade and territory. That is the product of the standard.</p>
+      <p class="lede">Unit-priced work needs a number you can stand behind.</p>
+      <p class="pull">Most of those numbers are a guess, a copied competitor, or a list you cannot audit. A number without a basis is not a price.</p>
+      <p>The spec is how a price should be built. The beta shop writes restoration quotes on named SKUs.</p>
     </div>
   </div>
 </section>
@@ -549,11 +1102,12 @@ h1.brand-lockup .brand-tag{
 <section class="band" id="principles">
   <div class="wrap">
     <h2>The principles</h2>
+    <p class="prose">These are the standard, not a description of the beta shop.</p>
     <div class="grid">
       <article class="card">
         <p class="num">01</p>
         <h3>Market-derived, not hand&#8209;set</h3>
-        <p>The cost floor comes from citable open inputs: wages, materials, equipment when they apply. The methodology is public. Anyone can audit why a number is what it is.</p>
+        <p>Public market data sets the cost floor — wages, materials, equipment when they apply. The methodology is public. Anyone can audit why a number is what it is.</p>
       </article>
       <article class="card">
         <p class="num">02</p>
@@ -563,7 +1117,7 @@ h1.brand-lockup .brand-tag{
       <article class="card">
         <p class="num">03</p>
         <h3>Standard SKUs for standard work</h3>
-        <p>Name the work, unitize it, reuse it. A water-heater install, hang a door, a framed wall, a dried room. Same work, same SKU.</p>
+        <p>Name the work, unitize it, reuse it. Same work, same SKU.</p>
       </article>
       <article class="card">
         <p class="num">04</p>
@@ -577,24 +1131,24 @@ h1.brand-lockup .brand-tag{
 <section id="what">
   <div class="wrap">
     <h2>What OpenData is</h2>
-    <p class="prose">One open standard for trade SKUs. Two layers, and a separate tax sibling. The brand is OpenData; the spec line is still <code>odapm/v1</code>.</p>
+    <p class="prose">Named SKUs for the work you sell. Prices from public market data, the markup you disclose, and a <code>basis</code> on every number. Tax is a separate layer from price. The brand is OpenData; the spec line is still <code>odapm/v1</code>.</p>
     <div class="layers">
       <article class="layer">
-        <p class="code">Scope</p>
+        <p class="code">SKUs</p>
         <div>
-          <p><b>A vendor-neutral language</b> for the work you sell: what SKUs exist, their units, their options, how a job is structured. Any app can build on it.</p>
+          <p><b>Name the work you sell.</b> Named, unitized, reusable SKUs. Same work, same SKU.</p>
         </div>
       </article>
       <article class="layer">
         <p class="code">Pricing</p>
         <div>
-          <p><b>Auditable unit prices</b> on each SKU. Derived from a public cost model (labor hours × local wage + materials + equipment share + disclosed markup), each non-zero price carrying a <code>basis</code> note, then escalated by public indices.</p>
+          <p><b>Public data, your markup, a basis.</b> Market inputs set the cost floor. You set markup and disclose it. Every non-zero price carries a <code>basis</code> you can audit.</p>
         </div>
       </article>
       <article class="layer">
         <p class="code">Tax</p>
         <div>
-          <p><b>Jurisdiction rates</b> from each state’s published data. Tax applies to materials only; labor is never taxed.</p>
+          <p><b>Tax is a separate layer from price.</b></p>
         </div>
       </article>
     </div>
@@ -603,23 +1157,22 @@ h1.brand-lockup .brand-tag{
 
 <section class="band" id="build">
   <div class="wrap">
-    <h2>Build your model — no coding</h2>
-    <div class="steps">
-      <div class="step">Get the repository (clone it, or download the ZIP from GitHub).</div>
-      <div class="step">Open the folder in an AI assistant that can read and write files.</div>
-      <div class="step">Open <code>prompts/00-START-HERE.md</code> and run the prompts in order — your trade, your territory, your SKUs, your prices.</div>
-      <div class="step">Walk away with <code>model.json</code> and <code>tax.json</code>: a priced catalog you can audit. Yours.</div>
+    <h2>Where it is now</h2>
+    <p class="prose">The spec is <code>odapm/v1</code>. The hosted shop is the beta above. The manifesto and the spec stay on GitHub.</p>
+    <div class="btns now-cta">
+      <a class="btn btn-deep" href="https://github.com/getodapm/getodapm.github.io/blob/main/SPEC.md">View the spec</a>
+      <a class="btn btn-ghost" href="https://github.com/getodapm/getodapm.github.io">GitHub</a>
     </div>
-
   </div>
 </section>
 
 <section class="close" id="owned">
   <div class="wrap">
     <h2>Owned by no one</h2>
-    <p class="prose">The OpenData <b>standard</b> is free and open and owned by no one. Tools are MIT; spec and data are CC-BY-4.0. Zero proprietary pricing data — every number derives from cited open sources. Shops earn on the work. The standard belongs to the field.</p>
+    <p class="prose">The OpenData <b>standard</b> is free, open, and owned by no one. Tools are MIT; spec and data are CC-BY-4.0. Shops earn on the work. The standard belongs to the field.</p>
     <div class="btns" style="margin-top:1.75rem">
-      <a class="btn btn-deep" href="https://github.com/getodapm/getodapm.github.io">View on GitHub</a>
+      <a class="btn btn-deep" href="/signup/">Request beta access</a>
+      <a class="btn btn-ghost" href="https://github.com/getodapm/getodapm.github.io">View the spec on GitHub</a>
     </div>
   </div>
 </section>
@@ -633,8 +1186,9 @@ h1.brand-lockup .brand-tag{
         <span class="brand-tag">an AI Pricing Model</span>
       </span>
     </a>
-    <p>spec <code>odapm/v1</code> · tools MIT · spec &amp; data CC-BY-4.0 · no proprietary pricing data, ever</p>
+    <p>spec <code>odapm/v1</code> · tools MIT · spec &amp; data CC-BY-4.0</p>
   </div>
 </footer>
+<script src="/demo.js" defer></script>
 </body>
 </html>

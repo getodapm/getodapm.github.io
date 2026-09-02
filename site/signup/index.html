@@ -160,6 +160,19 @@ a.signup[aria-current="page"]{pointer-events:none}
   font-weight:400;font-size:.6875rem;line-height:1.2;letter-spacing:0;
   color:var(--foam-72);white-space:nowrap;
 }
+.brand-name-row{
+  display:flex;flex-direction:row;flex-wrap:nowrap;align-items:center;gap:.5rem;
+}
+.brand-beta{
+  display:inline-flex;align-items:center;flex:0 0 auto;
+  padding:.15rem .5rem;
+  border:1px solid rgba(242,247,247,.35);
+  border-radius:999px;
+  background:rgba(242,247,247,.08);
+  color:var(--foam);
+  font-size:.75rem;font-weight:600;letter-spacing:.03em;line-height:1.2;
+  white-space:nowrap;
+}
 h1.brand-lockup{gap:1rem}
 h1.brand-lockup .mark{width:3.75rem;height:3.75rem}
 h1.brand-lockup .brand-name{
@@ -169,6 +182,7 @@ h1.brand-lockup .brand-name{
 h1.brand-lockup .brand-tag{
   font-size:clamp(1rem,2vw,1.2rem);line-height:1.3;
 }
+h1.brand-lockup .brand-beta{font-size:.95rem;padding:.2rem .65rem}
 
 main{flex:1;padding:3.25rem 0 4rem}
 .panel{
@@ -279,11 +293,16 @@ footer{
     <a class="brand-lockup" href="/">
       <svg class="mark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="24" height="24" aria-hidden="true"><path d="M 57.1 9.6 A 41 41 0 1 0 90.4 42.9" fill="none" stroke="currentColor" stroke-width="16" stroke-linecap="round"/><circle cx="79" cy="21" r="8.5" fill="#35E0D0"/></svg>
       <span class="brand-text">
-        <span class="brand-name">OpenData</span>
+        <span class="brand-name-row">
+          <span class="brand-name">OpenData</span>
+          <span class="brand-beta">Beta</span>
+        </span>
         <span class="brand-tag">an AI Pricing Model</span>
       </span>
     </a>
     <ul class="nav-links">
+      <li><a href="/#tool">The tool</a></li>
+      <li><a href="/#demo">Demo</a></li>
       <li><a href="https://github.com/getodapm/getodapm.github.io/blob/main/MANIFESTO.md">Manifesto</a></li>
       <li><a href="https://github.com/getodapm/getodapm.github.io/blob/main/SPEC.md">Spec</a></li>
       <li><a href="https://github.com/getodapm/getodapm.github.io/blob/main/prompts/00-START-HERE.md">Build</a></li>
@@ -304,11 +323,14 @@ footer{
       <h1 class="brand-lockup">
         <svg class="mark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="60" height="60" aria-hidden="true"><path d="M 57.1 9.6 A 41 41 0 1 0 90.4 42.9" fill="none" stroke="currentColor" stroke-width="16" stroke-linecap="round"/><circle cx="79" cy="21" r="8.5" fill="#35E0D0"/></svg>
         <span class="brand-text">
-          <span class="brand-name">OpenData</span>
+          <span class="brand-name-row">
+            <span class="brand-name">OpenData</span>
+            <span class="brand-beta">Beta</span>
+          </span>
           <span class="brand-tag">an AI Pricing Model</span>
         </span>
       </h1>
-      <p class="hero-lede">Shop owners request an account here. We’ll follow up at your work email.</p>
+      <p class="hero-lede">This is a beta. Shop owners request access here. We’ll follow up at the work email. This form does not create an account.</p>
     </div>
   </div>
 </header>
