@@ -102,7 +102,7 @@
                 "number",
                 "null"
               ],
-              "description": "Disclosed burden applied over base wage, as a percentage. A contractor input, not open data."
+              "description": "Labor burden as a percentage of wage, derived from BLS ECEC construction (benefits / wage), not a contractor guess."
             }
           }
         },

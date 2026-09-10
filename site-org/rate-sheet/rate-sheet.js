@@ -4,12 +4,17 @@
     setup: 1, demolition: 1, cleaning: 1, equipment: 1, fixtures: 1, labor: 1, other: 1
   };
   var PRICE_KEYS = ["rem", "rep", "mat"];
+  var ZIP_KEY = /^[0-9]{5}$/;
 
-  var fileInput = document.getElementById("file");
-  var paste = document.getElementById("paste");
+  var fileModel = document.getElementById("file-model");
+  var fileTax = document.getElementById("file-tax");
+  var pasteModel = document.getElementById("paste-model");
+  var pasteTax = document.getElementById("paste-tax");
   var drop = document.getElementById("drop");
-  var statusEl = document.getElementById("status");
+  var statusModel = document.getElementById("status-model");
+  var statusTax = document.getElementById("status-tax");
   var tableWrap = document.getElementById("sheet");
+  var taxWrap = document.getElementById("tax-sheet");
   var exampleBtn = document.getElementById("example");
 
   function priceIsSet(p) {
@@ -150,21 +155,84 @@
     };
   }
 
-  function renderStatus(v) {
-    statusEl.hidden = false;
-    statusEl.className = "status " + (v.ok ? "ok" : "bad");
-    var title = v.ok
-      ? "Conforms to odapm/v1"
-      : "Not conformant";
-    var bits = ["<p class=\"mark\">" + (v.ok ? "✓" : "✗") + "</p>", "<div>", "<p><strong>" + title + "</strong> — " + v.items + " item(s)" + (v.name ? " · " + escapeHtml(v.name) : "") + "</p>"];
-    if (v.errors.length) {
+  function validateTax(tax) {
+    var errors = [];
+    var warnings = [];
+    if (!tax || typeof tax !== "object" || Array.isArray(tax)) {
+      return { ok: false, errors: ["Root must be an object with meta and jurisdictions."], warnings: [], count: 0, rates: [] };
+    }
+    var meta = tax.meta || {};
+    if (meta.schema !== "odapm-tax/v1") {
+      errors.push("meta.schema must be odapm-tax/v1 (got " + JSON.stringify(meta.schema) + ").");
+    }
+    if (meta.tax_applies_to !== "material") {
+      errors.push("meta.tax_applies_to must be material.");
+    }
+    var list = tax.jurisdictions;
+    if (!Array.isArray(list)) {
+      errors.push("jurisdictions must be an array.");
+      list = [];
+    }
+    var rates = [];
+    list.forEach(function (j, i) {
+      var loc = "jurisdictions/" + i + (j && j.id ? " (" + j.id + ")" : "");
+      if (!j || typeof j !== "object") {
+        errors.push(loc + " is not an object.");
+        return;
+      }
+      if (!j.id) errors.push(loc + " missing id.");
+      if (!j.name) errors.push(loc + " missing name.");
+      if (typeof j.rate !== "number" || !isFinite(j.rate) || j.rate < 0) {
+        errors.push(loc + " rate must be a number ≥ 0.");
+      } else {
+        rates.push({ id: j.id || "", name: j.name || "", rate: j.rate });
+      }
+    });
+    var zips = tax.zip_candidates;
+    if (zips != null) {
+      if (typeof zips !== "object" || Array.isArray(zips)) {
+        errors.push("zip_candidates must be an object.");
+      } else {
+        Object.keys(zips).forEach(function (k) {
+          if (k.charAt(0) === "_") return;
+          if (!ZIP_KEY.test(k)) {
+            errors.push("zip_candidates key " + JSON.stringify(k) + " is not a 5-digit ZIP.");
+          }
+        });
+      }
+    }
+    return {
+      ok: errors.length === 0,
+      errors: errors,
+      warnings: warnings,
+      count: list.length,
+      rates: rates,
+      name: meta.state ? String(meta.state) : "tax.json"
+    };
+  }
+
+  function classify(obj) {
+    var schema = obj && obj.meta && obj.meta.schema;
+    if (schema === "odapm-tax/v1") return "tax";
+    if (schema === "odapm/v1") return "model";
+    if (obj && Array.isArray(obj.jurisdictions) && !Array.isArray(obj.items)) return "tax";
+    if (obj && Array.isArray(obj.items)) return "model";
+    return null;
+  }
+
+  function renderStatus(el, v, okTitle, badTitle, countLine) {
+    el.hidden = false;
+    el.className = "status " + (v.ok ? "ok" : "bad");
+    var title = v.ok ? okTitle : badTitle;
+    var bits = ["<p class=\"mark\">" + (v.ok ? "✓" : "✗") + "</p>", "<div>", "<p><strong>" + title + "</strong> — " + countLine + "</p>"];
+    if (v.errors && v.errors.length) {
       bits.push("<ul>" + v.errors.map(function (e) { return "<li>" + escapeHtml(e) + "</li>"; }).join("") + "</ul>");
     }
-    if (v.warnings.length) {
+    if (v.warnings && v.warnings.length) {
       bits.push("<p class=\"warn\">" + v.warnings.map(escapeHtml).join(" ") + "</p>");
     }
     bits.push("</div>");
-    statusEl.innerHTML = bits.join("");
+    el.innerHTML = bits.join("");
   }
 
   function escapeHtml(s) {
@@ -202,35 +270,118 @@
       "<tbody>" + body + "</tbody></table></div>";
   }
 
-  function loadText(text) {
-    var model;
-    try {
-      model = JSON.parse(text);
-    } catch (err) {
-      renderStatus({ ok: false, errors: ["Not JSON: " + err.message], warnings: [], items: 0, name: "" });
-      tableWrap.hidden = true;
-      tableWrap.innerHTML = "";
+  function renderTaxSheet(v) {
+    if (!v.rates || !v.rates.length) {
+      taxWrap.hidden = true;
+      taxWrap.innerHTML = "";
       return;
     }
+    var body = v.rates.map(function (r) {
+      return "<tr>" +
+        "<td><code>" + escapeHtml(r.id) + "</code></td>" +
+        "<td>" + escapeHtml(r.name) + "</td>" +
+        "<td class=\"num\">" + money(r.rate) + "%</td>" +
+        "</tr>";
+    }).join("");
+    taxWrap.hidden = false;
+    taxWrap.innerHTML =
+      "<div class=\"table-scroll\"><table>" +
+      "<thead><tr><th>Id</th><th>Jurisdiction</th><th>Rate</th></tr></thead>" +
+      "<tbody>" + body + "</tbody></table></div>";
+  }
+
+  function failParse(el, table, message) {
+    renderStatus(el, { ok: false, errors: [message], warnings: [] }, "", "Not JSON", "0");
+    table.hidden = true;
+    table.innerHTML = "";
+  }
+
+  function applyModel(model) {
     var v = validate(model);
-    renderStatus(v);
+    var count = v.items + " item(s)" + (v.name ? " · " + escapeHtml(v.name) : "");
+    renderStatus(statusModel, v, "Conforms to odapm/v1", "Not conformant", count);
     renderSheet(model);
   }
 
-  function readFile(file) {
+  function applyTax(tax) {
+    var v = validateTax(tax);
+    var rateBits = v.rates.map(function (r) {
+      return (r.name || r.id) + " " + money(r.rate) + "%";
+    }).join("; ");
+    var count = v.count + " jurisdiction(s)" + (v.name ? " · " + escapeHtml(v.name) : "") +
+      (v.ok && rateBits ? " · " + escapeHtml(rateBits) : "");
+    renderStatus(statusTax, v, "Conforms to odapm-tax/v1", "Not conformant", count);
+    renderTaxSheet(v);
+  }
+
+  function parseText(text, el, table) {
+    try {
+      return JSON.parse(text);
+    } catch (err) {
+      failParse(el, table, "Not JSON: " + err.message);
+      return null;
+    }
+  }
+
+  function loadModelText(text) {
+    var model = parseText(text, statusModel, tableWrap);
+    if (!model) return;
+    applyModel(model);
+  }
+
+  function loadTaxText(text) {
+    var tax = parseText(text, statusTax, taxWrap);
+    if (!tax) return;
+    applyTax(tax);
+  }
+
+  function loadUnknownText(text) {
+    var obj;
+    try {
+      obj = JSON.parse(text);
+    } catch (err) {
+      failParse(statusModel, tableWrap, "Not JSON: " + err.message);
+      return;
+    }
+    var kind = classify(obj);
+    if (kind === "tax") loadTaxText(text);
+    else if (kind === "model") loadModelText(text);
+    else failParse(statusModel, tableWrap, "Not odapm/v1 or odapm-tax/v1.");
+  }
+
+  function readFile(file, kind) {
     var reader = new FileReader();
-    reader.onload = function () { loadText(String(reader.result || "")); };
+    reader.onload = function () {
+      var text = String(reader.result || "");
+      if (kind === "model") loadModelText(text);
+      else if (kind === "tax") loadTaxText(text);
+      else loadUnknownText(text);
+    };
     reader.readAsText(file);
   }
 
-  fileInput.addEventListener("change", function () {
-    if (fileInput.files && fileInput.files[0]) readFile(fileInput.files[0]);
+  fileModel.addEventListener("change", function () {
+    if (fileModel.files && fileModel.files[0]) readFile(fileModel.files[0], "model");
   });
-  document.getElementById("run-paste").addEventListener("click", function () {
-    loadText(paste.value);
+  fileTax.addEventListener("change", function () {
+    if (fileTax.files && fileTax.files[0]) readFile(fileTax.files[0], "tax");
+  });
+  document.getElementById("run-model").addEventListener("click", function () {
+    loadModelText(pasteModel.value);
+  });
+  document.getElementById("run-tax").addEventListener("click", function () {
+    loadTaxText(pasteTax.value);
   });
   exampleBtn.addEventListener("click", function () {
-    fetch("example.json").then(function (r) { return r.text(); }).then(loadText);
+    Promise.all([
+      fetch("example.json").then(function (r) { return r.text(); }),
+      fetch("example-tax.json").then(function (r) { return r.text(); })
+    ]).then(function (pair) {
+      if (pasteModel) pasteModel.value = pair[0];
+      if (pasteTax) pasteTax.value = pair[1];
+      loadModelText(pair[0]);
+      loadTaxText(pair[1]);
+    });
   });
   ;["dragenter", "dragover"].forEach(function (ev) {
     drop.addEventListener(ev, function (e) {
@@ -245,7 +396,13 @@
     });
   });
   drop.addEventListener("drop", function (e) {
-    var f = e.dataTransfer && e.dataTransfer.files && e.dataTransfer.files[0];
-    if (f) readFile(f);
+    var files = e.dataTransfer && e.dataTransfer.files;
+    if (!files || !files.length) return;
+    for (var i = 0; i < files.length; i++) {
+      var f = files[i];
+      var name = (f && f.name ? f.name : "").toLowerCase();
+      var kind = name.indexOf("tax") !== -1 ? "tax" : name.indexOf("model") !== -1 ? "model" : null;
+      readFile(f, kind);
+    }
   });
 })();

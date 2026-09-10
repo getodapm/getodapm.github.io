@@ -39,12 +39,11 @@ Any ODAPM-compatible consumer can read these files. The standard does not depend
 
 ## Quickstart
 
-1. Open this `odapm/` folder in **your** AI — whichever one can read the repo and write `model.json` / `tax.json`.
-2. Open `prompts/00-START-HERE.md` and follow it.
-3. Run the prompts in order. Answer questions about your trade, region, and costs.
-4. Check the file on [odapm.org/rate-sheet/](https://odapm.org/rate-sheet/). Re-run `prompts/06-keep-it-current.md` when the market moves.
+1. Humans: follow [odapm.org/build](https://odapm.org/build/). AIs that read this folder: start at `prompts/00-START-HERE.md`.
+2. Run the prompts in order. Answer questions about your trade, region, and markup. Labor burden is derived (ECEC), not typed.
+3. Check the file on [odapm.org/rate-sheet/](https://odapm.org/rate-sheet/). Re-run `prompts/06-keep-it-current.md` when the market moves.
 
-Start here → [`prompts/00-START-HERE.md`](prompts/00-START-HERE.md)
+Start here → [odapm.org/build](https://odapm.org/build/) · [`prompts/00-START-HERE.md`](prompts/00-START-HERE.md)
 
 ---
 

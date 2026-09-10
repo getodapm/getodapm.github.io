@@ -1,10 +1,16 @@
 # Changelog — ODAPM
 
+## Site / prompts — 2026-09-08
+
+- Human walk is [odapm.org/build](https://odapm.org/build/). Repo `prompts/` are the same steps for AIs that read a folder.
+- Labor burden is derived from BLS ECEC (construction, benefits / wage), not a shop interview field.
+- AI writes `model.json` and `tax.json`. Step 02 keep-or-skip from the administered catalog (no new SKU ids). Rate sheet checks both files.
+
 ## Site / prompts — 2026-09-01
 
 - Spec site is [odapm.org](https://odapm.org/). GitHub Pages (`getodapm.github.io`) redirects there, not to odapm.ai.
 - Prompts and README are **bring your own model** — not Claude-specific. Mileage varies.
-- [odapm.org/rate-sheet/](https://odapm.org/rate-sheet/) checks a `model.json` in the browser.
+- [odapm.org/rate-sheet/](https://odapm.org/rate-sheet/) checks a `model.json` and a `tax.json` in the browser.
 
 ## 0.2.0 — unreleased (methodology audit)
 
@@ -83,10 +89,11 @@ that every number can be traced to a citable source.
   escalation. `escalate.py` refuses to run twice on the same date without `--force`, which
   previously compounded silently.
 
-**Disclosed — the two non-public inputs**
-- `METHODOLOGY.md` now states plainly that `markup_target` and labour burden are contractor
-  decisions rather than open data, and narrows ODAPM's claim accordingly: open data sets the
-  cost floor, and the discretionary inputs are disclosed on the face of the model.
+**Disclosed — the one discretionary input**
+- `METHODOLOGY.md` states that only `markup_target` is the shop's discretionary input.
+  Labor burden is derived from BLS ECEC (construction, benefits as a percent of wages)
+  and disclosed in `basis`, not typed in an interview. Local wage is still OEWS.
+  Open data sets the cost floor; markup is disclosed on the face of the model.
 
 **Added — public docs**
 - `/docs/` — shop-owner page for API keys, Cursor, and Claude Desktop (`mcp-remote`).

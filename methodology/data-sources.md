@@ -14,6 +14,10 @@ ODAPM derives prices only from publicly available data. This file lists the sour
   occupations (construction laborers, etc.) in your metro, to anchor a real local labor rate.
   OEWS uses a **May reference period released the following spring**, so cite it as e.g.
   "OEWS Denver-Aurora-Lakewood, May 2025" — not as a month you happened to download it.
+- **Labor burden** — BLS *Employer Costs for Employee Compensation (ECEC)* for construction:
+  benefits as a percent of wages. Derived, not a contractor interview field. Cite the ECEC
+  vintage in `labor_basis.burden_pct` and in each `basis`. ECEC is national construction; the
+  metro piece is OEWS.
 - Accessible free via the BLS site and the FRED (Federal Reserve Bank of St. Louis) data portal.
 
 ## Materials escalation
@@ -31,7 +35,7 @@ ODAPM derives prices only from publicly available data. This file lists the sour
 ## How to cite in a model
 Each item's `basis` should read like:
 > "rem: 0.25 hr × $66/hr fully-burdened local labour (BLS OEWS Denver-Aurora-Lakewood,
-> May 2025, construction laborers, + 38% disclosed burden) = $16.50; mat: 1 unit × $0.40
+> May 2025, construction laborers, + 38% ECEC construction benefits/wage) = $16.50; mat: 1 unit × $0.40
 > antimicrobial; markup_target 0.25 (= 20% margin). Escalated 2026-06: labour +2.1%
 > (BLS ECI construction 2026Q2), materials +3.7% (BLS PPI inputs to construction, 2026-06)."
 

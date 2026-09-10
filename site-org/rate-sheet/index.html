@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Rate sheet — OpenData</title>
-<meta name="description" content="Load an odapm/v1 model.json. Validate it in the browser. Read the rates. Nothing is uploaded.">
+<meta name="description" content="Load model.json and tax.json from the build walk. Validate both in the browser. Nothing is uploaded.">
 <link rel="canonical" href="https://odapm.org/rate-sheet/">
 <meta name="theme-color" content="#F6F3EC">
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
@@ -54,6 +54,7 @@ h1{font-family:var(--serif);font-size:clamp(2.2rem,5vw,3rem);letter-spacing:-.03
 }
 .drop.hot{background:var(--paper)}
 .drop p{margin-bottom:.75rem}
+.prose-label{font-family:var(--mono);font-size:.7rem;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin:1rem 0 .35rem}
 .row{display:flex;flex-wrap:wrap;gap:.65rem;align-items:center}
 label.file{display:inline-flex;align-items:center;min-height:2.6rem;padding:.55rem 1.05rem;border:1px solid var(--ink);font-weight:600;cursor:pointer}
 label.file:hover{background:var(--ink);color:var(--paper)}
@@ -103,7 +104,7 @@ footer .wrap{width:min(56rem,calc(100% - 2.5rem))}
     <ul class="nav-links">
       <li><a href="https://github.com/getodapm/getodapm.github.io/blob/main/MANIFESTO.md" target="_blank" rel="noopener noreferrer">Manifesto</a></li>
       <li><a href="https://github.com/getodapm/getodapm.github.io/blob/main/SPEC.md" target="_blank" rel="noopener noreferrer">Spec</a></li>
-      <li><a href="https://github.com/getodapm/getodapm.github.io/blob/main/prompts/00-START-HERE.md" target="_blank" rel="noopener noreferrer">Build</a></li>
+      <li><a href="/build/">Build</a></li>
       <li><a href="/rate-sheet/" aria-current="page">Rate sheet</a></li>
     </ul>
     <a class="tool" href="https://odapm.ai/">The tool</a>
@@ -112,27 +113,34 @@ footer .wrap{width:min(56rem,calc(100% - 2.5rem))}
 
 <main>
   <div class="wrap">
-    <p class="kicker">odapm/v1 · in the browser</p>
+    <p class="kicker">odapm/v1 · odapm-tax/v1 · in the browser</p>
     <h1>Test a rate sheet</h1>
-    <p class="lede">Drop a <code>model.json</code> from the prompts, or paste it. This page checks conformance, then lists every SKU and rate. Nothing is sent anywhere. Refresh and it is gone.</p>
+    <p class="lede">Drop <code>model.json</code> and <code>tax.json</code> from the <a href="/build/">build walk</a>, or paste them. This page checks both, then lists SKUs, rates, and tax jurisdictions. Nothing is sent anywhere. Refresh and it is gone.</p>
 
     <div class="drop" id="drop">
-      <p>Load a file, paste JSON, or open the three-item example.</p>
+      <p>Load files, paste JSON, or open the example. Two files: <code>model.json</code> and <code>tax.json</code>. Drop one or both.</p>
       <div class="row">
-        <label class="file">Choose file<input id="file" type="file" accept="application/json,.json"></label>
+        <label class="file">model.json<input id="file-model" type="file" accept="application/json,.json"></label>
+        <label class="file">tax.json<input id="file-tax" type="file" accept="application/json,.json"></label>
         <button type="button" id="example">Load example</button>
       </div>
-      <textarea id="paste" spellcheck="false" placeholder='{"meta":{"schema":"odapm/v1",...},"items":[...]}'></textarea>
-      <button type="button" id="run-paste">Check pasted JSON</button>
+      <p class="prose-label">model.json</p>
+      <textarea id="paste-model" spellcheck="false" placeholder='{"meta":{"schema":"odapm/v1",...},"items":[...]}'></textarea>
+      <button type="button" id="run-model">Check model.json</button>
+      <p class="prose-label">tax.json</p>
+      <textarea id="paste-tax" spellcheck="false" placeholder='{"meta":{"schema":"odapm-tax/v1",...},"jurisdictions":[...]}'></textarea>
+      <button type="button" id="run-tax">Check tax.json</button>
     </div>
 
-    <div id="status" class="status" hidden></div>
+    <div id="status-model" class="status" hidden></div>
+    <div id="status-tax" class="status" hidden></div>
   </div>
   <div class="wide" id="sheet" hidden></div>
+  <div class="wide" id="tax-sheet" hidden></div>
 </main>
 
 <footer>
-  <div class="wrap">spec <code>odapm/v1</code> · the check is structure + basis, in your browser · the tool is at <a href="https://odapm.ai/">odapm.ai</a></div>
+  <div class="wrap">spec <code>odapm/v1</code> + <code>odapm-tax/v1</code> · the check is structure + basis, in your browser · the tool is at <a href="https://odapm.ai/">odapm.ai</a></div>
 </footer>
 <script src="rate-sheet.js"></script>
 </body>

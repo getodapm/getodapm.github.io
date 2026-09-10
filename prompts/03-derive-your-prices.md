@@ -19,11 +19,11 @@ Then prices are escalated over time by public indices (see step 06). Tax is hand
 
 > Help me derive prices for the line items in my `model.json`, using the ODAPM methodology in `methodology/METHODOLOGY.md` and the open sources in `methodology/data-sources.md`. Do NOT use any proprietary price list.
 >
-> For my region (from `meta`), first establish the open-data baselines with me: local labor cost (research the area wage data if I didn't give you a firm number), typical material unit costs, and equipment day-rates. Show me each baseline and its source before using it.
+> Recipe: fb_hourly = labor_basis.rate × (1 + burden_pct/100). cost = labor + material + equipment. markup = cost × markup_target. rem = tear-out labor; rep = install labor (+ equipment share if this SKU is the machine); mat = taxable materials only.
 >
-> Then go group by group. For each item, propose: the labor hours, material quantity + cost, equipment share, and markup that build the unit price — and show the math and the sources. Let me adjust any assumption. Where an item splits into *remove* / *replace* / *material* portions, fill each. Where price varies by category (Cat 1/2/3), derive each tier.
+> Before any SKU, a baseline table I must accept: fb_hourly (OEWS + ECEC B/W, or my wage), consumable unit costs with public source + date, equipment day-rates with rental source + date, production rates (ask me; else assumed and labeled). Hours = work / production_rate. No “market” or proprietary list.
 >
-> Write the resulting numbers into `model.json` against the pricing schema, and keep a short per-item `basis` note (the inputs + sources used) so the number is auditable. After each group, give me the running list of anything still unpriced.
+> Then group by group. Show the math. basis is one line: rem: {h} hr × ${fb}/hr FB (OEWS … + ECEC …) = ${n}; mat: {q} × ${u} (source, date) = ${n}; markup {m} on cost. If you can’t cite it, leave the price null.
 
 ---
 

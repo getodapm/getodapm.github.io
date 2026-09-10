@@ -4,12 +4,13 @@
 Usage:
     python3 tools/validate.py path/to/model.json [path/to/tax.json]
 
-Reports schema errors, unpriced items, and items missing a `basis` note.
+Reports pricing-schema errors, Layer 1 scope-schema errors on each item,
+unpriced items, and items missing a `basis` note.
 
 Exit codes:
     0  Conformant. The schema was checked and passed, and every non-zero-priced
        item carries a basis note.
-    1  NOT conformant: schema errors, or a priced item with no basis.
+    1  NOT conformant: schema errors (pricing or Layer 1 scope), or a priced item with no basis.
     2  UNVERIFIED: the `jsonschema` package is missing, so the schema could not
        be checked. Structural checks may still have passed. This is deliberately
        not 0 -- a gate that cannot validate must not report success.
@@ -81,6 +82,24 @@ def item_price_blocks(it):
     return blocks
 
 
+def check_scope_items(items):
+    """Layer 1: every item against odapm.scope.schema.json. None if jsonschema missing."""
+    try:
+        import jsonschema  # type: ignore
+    except ImportError:
+        return None
+    schema = load(os.path.join(SCHEMA_DIR, "odapm.scope.schema.json"))
+    validator = jsonschema.Draft7Validator(schema)
+    notes = []
+    for i, it in enumerate(items):
+        iid = it.get("id", "?") if isinstance(it, dict) else "?"
+        errs = sorted(validator.iter_errors(it), key=lambda e: list(e.path))
+        for e in errs:
+            path = "/".join(map(str, e.path)) or "(root)"
+            notes.append(f"items/{i} ({iid}) {path}: {e.message}")
+    return notes
+
+
 def check_model(model):
     notes = []
     meta = model.get("meta", {})
@@ -132,6 +151,23 @@ def main():
         failed = True
     else:
         print("  schema: valid ✓")
+    # SPEC Conformance: items validate against the scope schema. The pricing
+    # schema leaves group/unit as unconstrained strings, so this is the check
+    # that actually enforces Layer 1. Skip when jsonschema is missing so we
+    # still exit 2 UNVERIFIED rather than claiming a Layer 1 pass we did not test.
+    if not unverified:
+        scope_errs = check_scope_items(model.get("items") or [])
+        if scope_errs is None:
+            print("  SCHEMA NOT CHECKED — the `jsonschema` package is not installed.")
+            print("    pip install -r requirements.txt")
+            unverified = True
+        elif scope_errs:
+            print("  SCOPE ERRORS (Layer 1):")
+            for e in scope_errs:
+                print("   -", e)
+            failed = True
+        else:
+            print("  scope (Layer 1): valid ✓")
     notes, basis_failed = check_model(model)
     failed = failed or basis_failed
     for n in notes:

@@ -29,17 +29,16 @@ Labor is never taxed; only `mat` feeds tax.
 
 ## The inputs (all public)
 
-- **Local labor rate** — derived from area wage data for the relevant occupation, plus the contractor's real burden, not a guessed number. See `data-sources.md`.
+- **Local labor rate** — BLS OEWS wage floor for the shop's metro and occupation (the federal local wage survey for construction occupations), plus labor burden derived from BLS ECEC construction (benefits as a percent of wages). Not a shop-typed burden %. An optional own crew wage may replace the OEWS floor; burden is still ECEC unless they give a fully-burdened number. See `data-sources.md`.
 - **Material unit costs** — typical regional costs for the consumable involved (antimicrobial, poly, bags, filters, etc.).
 - **Equipment day-rates** — local rental-equivalent day-rates for air movers, dehus, air scrubbers, etc.
-- **Markup target** — the contractor's own.
+- **Markup target** — the contractor's own, disclosed.
 
-**Two of these four inputs are not public**, and ODAPM says so rather than letting a reviewer
-discover it: `markup_target` and the contractor's labour burden are business decisions, not
-open data. The claim ODAPM makes is narrower and stronger than "every number comes from public
-data" — it is that **open data sets the cost floor, and the two discretionary inputs are
-disclosed on the face of the model** rather than buried in an administered list. A reviewer can
-recompute every derived figure once those two are stated.
+**Only `markup_target` is the shop's discretionary input.** Labor burden is derived from ECEC
+(construction) and disclosed in `basis`, not a typed interview field. Local wage is still OEWS.
+Open data sets the cost floor; markup is disclosed on the face of the model rather than buried
+in an administered list. A reviewer can recompute every derived figure once markup is stated
+(and any optional own wage).
 
 Each derived price stores a `basis` note recording the inputs and sources used. That note is the difference between an auditable benchmark and a black box.
 
