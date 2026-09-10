@@ -2,6 +2,9 @@
 
 ## 0.2.0 — unreleased (methodology audit)
 
+**Corrected — prompts are vendor-neutral**
+- The build workflow in `prompts/` runs in any AI assistant that can read this folder and write files. No vendor is required.
+
 Fixes found by auditing the spec, methodology and tools against ODAPM's own core claim:
 that every number can be traced to a citable source.
 
@@ -83,7 +86,7 @@ that every number can be traced to a citable source.
   cost floor, and the discretionary inputs are disclosed on the face of the model.
 
 ## 0.1.0 — 2026-06-02 (initial scaffold, in development)
-- Established ODAPM as a standalone, prompt-driven open project — usable by anyone in Claude, no coding.
+- Established ODAPM as a standalone, prompt-driven open project — usable by anyone with an AI assistant, no coding.
 - Spec line **odapm/v1**: two layers (scope schema + pricing) plus a separate tax sibling.
-- Added: README, MANIFESTO, SPEC, JSON Schemas (scope/pricing/tax), the 7-step Claude build workflow, methodology + open data sources, escalate/validate tools, reference seed scope, tax template, MIT + CC-BY-4.0 licenses.
+- Added: README, MANIFESTO, SPEC, JSON Schemas (scope/pricing/tax), the 7-step build workflow, methodology + open data sources, escalate/validate tools, reference seed scope, tax template, MIT + CC-BY-4.0 licenses.
 - Contains zero proprietary/third-party pricing data by design.

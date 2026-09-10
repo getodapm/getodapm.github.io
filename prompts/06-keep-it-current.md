@@ -4,7 +4,7 @@ A market benchmark is only fair if it stays current. ODAPM prices are **escalate
 
 ---
 
-**Paste this to Claude (on a schedule — quarterly or twice a year):**
+**Paste this (on a schedule — quarterly or twice a year):**
 
 > Re-index my ODAPM `model.json`. Using `tools/escalate.py` and the indices listed in `methodology/data-sources.md`, pull the latest published values, compute the change since my model's last `escalated` date, and apply the per-item weighting (labor portion × labor index change, material portion × material index change). Show me the before/after on a few representative items and the overall percentage move before writing. Update each item and stamp a new `escalated` date in `meta`.
 >

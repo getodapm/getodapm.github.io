@@ -6,7 +6,7 @@ Each item has: a plain name, a unit (SF/LF/EA/HR/day), a group (setup, demolitio
 
 ---
 
-**Paste this to Claude:**
+**Paste this:**
 
 > Help me build my ODAPM scope — the line items I perform. Start from the reference catalog in `seed/model.seed.json` so I don't begin from scratch: walk me through it group by group (setup, demolition, cleaning, equipment, fixtures, labor), and for each item ask whether I (a) keep it, (b) skip it, or (c) need to add something that's missing for my trade.
 >

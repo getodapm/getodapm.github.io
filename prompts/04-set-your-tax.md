@@ -4,7 +4,7 @@ Tax is kept **separate** from pricing (it updates on a different schedule and co
 
 ---
 
-**Paste this to Claude:**
+**Paste this:**
 
 > Help me build my `tax.json` from the ODAPM tax template (`seed/tax.template.json`). I work in these jurisdictions: __________ (list cities/areas, or give me your best read from my region in `meta`).
 >

@@ -7,7 +7,7 @@ ODAPM is two open things in one project:
 1. **A scope schema** — a vendor-neutral way to describe restoration line items (what work exists, its units, how an estimate is structured). This is the shared language.
 2. **A pricing methodology** — a transparent, auditable way to attach *market-derived* prices to those line items using open public data (wage indices, material cost indices, equipment rates), instead of a proprietary list.
 
-You don't need to be a developer. You open this folder in an AI assistant (Claude), run the prompts in order, answer questions about your trade and your region, and walk away with your own complete, defensible pricing model.
+You don't need to be a developer. You open this folder in an AI assistant, run the prompts in order, answer questions about your trade and your region, and walk away with your own complete, defensible pricing model.
 
 ---
 
@@ -37,9 +37,9 @@ Any ODAPM-compatible app can read these files. A reference estimator app is one 
 
 ## Quickstart (no coding)
 
-1. Open this `odapm/` folder in Claude (Cowork).
+1. Open this `odapm/` folder in your AI assistant.
 2. Open `prompts/00-START-HERE.md` and follow it.
-3. Run the prompts in order. Answer Claude's questions about your trade, region, and costs.
+3. Run the prompts in order. Answer the questions about your trade, region, and costs.
 4. You're done — your `model.json` and `tax.json` are built and validated.
 
 Start here → [`prompts/00-START-HERE.md`](prompts/00-START-HERE.md)
@@ -57,7 +57,7 @@ odapm/
   LICENSE-CODE         MIT (tools/scripts)
   LICENSE-DATA         CC-BY-4.0 (spec, schema, methodology, seed)
   schema/              machine-readable JSON Schemas (scope + pricing + tax)
-  prompts/             the Claude-driven build workflow (the heart)
+  prompts/             the AI-driven build workflow (the heart)
   methodology/         the cost model + the open data sources, cited
   tools/               escalate.py (re-index), validate.py (check your model)
   seed/                reference scope + templates to start from
