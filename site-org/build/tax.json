@@ -1,0 +1,17 @@
+{
+  "meta": {
+    "schema": "odapm-tax/v1",
+    "state": "",
+    "sourcing": "destination",
+    "tax_applies_to": "material",
+    "authoritative_source": "",
+    "source_url": "",
+    "lookup_url": "",
+    "updated": "",
+    "note": "Starter. Fill from the state's free DOR rate file. Tax applies to the material portion only. Destination / rooftop of the loss."
+  },
+  "jurisdictions": [],
+  "zip_candidates": {
+    "_note": "Map each service-area ZIP to the jurisdiction ids that can occur within it."
+  }
+}

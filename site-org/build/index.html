@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Build a rate sheet — OpenData</title>
+<meta name="description" content="Your AI writes model.json and tax.json. Test both on the rate sheet. Not an odapm.ai account.">
+<link rel="canonical" href="https://odapm.org/build/">
+<meta name="theme-color" content="#F6F3EC">
+<meta name="color-scheme" content="light">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" href="/favicon-32.png" type="image/png" sizes="32x32">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="manifest" href="/site.webmanifest">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://odapm.org/build/">
+<meta property="og:title" content="Build a rate sheet — OpenData">
+<meta property="og:description" content="Your AI writes model.json and tax.json. Test both on the rate sheet.">
+<meta property="og:image" content="https://odapm.org/brand/opendata-og.png">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="preload" href="/fonts/plex-sans-400.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/fonts/plex-serif-600.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/fonts/plex-mono-400.woff2" as="font" type="font/woff2" crossorigin>
+<style>
+@font-face{font-family:"IBM Plex Sans";src:url("/fonts/plex-sans-400.woff2") format("woff2");font-weight:400;font-style:normal;font-display:swap}
+@font-face{font-family:"IBM Plex Sans";src:url("/fonts/plex-sans-500.woff2") format("woff2");font-weight:500;font-style:normal;font-display:swap}
+@font-face{font-family:"IBM Plex Sans";src:url("/fonts/plex-sans-600.woff2") format("woff2");font-weight:600;font-style:normal;font-display:swap}
+@font-face{font-family:"IBM Plex Serif";src:url("/fonts/plex-serif-600.woff2") format("woff2");font-weight:600;font-style:normal;font-display:swap}
+@font-face{font-family:"IBM Plex Mono";src:url("/fonts/plex-mono-400.woff2") format("woff2");font-weight:400;font-style:normal;font-display:swap}
+@font-face{font-family:"IBM Plex Mono";src:url("/fonts/plex-mono-500.woff2") format("woff2");font-weight:500;font-style:normal;font-display:swap}
+
+:root{
+  --paper:#F6F3EC;
+  --sheet:#FFFCF7;
+  --ink:#141210;
+  --muted:#5C574E;
+  --rule:rgba(20,18,16,.14);
+  --aqua:#35E0D0;
+  --sans:"IBM Plex Sans",ui-sans-serif,system-ui,sans-serif;
+  --serif:"IBM Plex Serif","Iowan Old Style",Georgia,serif;
+  --mono:"IBM Plex Mono",ui-monospace,Menlo,monospace;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{background:var(--paper);scroll-padding-top:6.5rem}
+body{
+  font-family:var(--sans);color:var(--ink);background:var(--paper);
+  line-height:1.6;font-size:1.05rem;
+}
+a{color:var(--ink)}
+a:hover{text-decoration-thickness:2px}
+:focus-visible{outline:2px solid var(--ink);outline-offset:3px}
+.skip{
+  position:absolute;left:-999px;top:0;
+  background:var(--ink);color:var(--paper);padding:.5rem .75rem;
+}
+.skip:focus{left:1rem;top:1rem;z-index:20}
+.wrap{width:min(42rem,calc(100% - 2.5rem));margin-inline:auto}
+.nav .wrap, .toc .wrap, footer .wrap{width:min(56rem,calc(100% - 2.5rem))}
+.nav{
+  position:sticky;top:0;z-index:10;
+  background:color-mix(in srgb,var(--paper) 92%,transparent);
+  backdrop-filter:blur(10px);
+  -webkit-backdrop-filter:blur(10px);
+  border-bottom:1px solid var(--rule);
+}
+.nav-inner{
+  display:flex;align-items:center;gap:.5rem 1.25rem;
+  min-height:3.75rem;flex-wrap:nowrap;
+}
+.nav .brand-lockup{flex:0 0 auto}
+.nav-links{
+  display:flex;align-items:center;gap:.15rem .1rem;
+  margin-left:auto;flex-wrap:wrap;justify-content:flex-end;
+  list-style:none;
+}
+.nav-links a{
+  display:inline-block;padding:.35rem .55rem;
+  font-size:.8125rem;font-weight:500;letter-spacing:.02em;
+  text-decoration:none;color:var(--muted);
+}
+.nav-links a:hover{color:var(--ink)}
+.nav-links a[aria-current="page"]{color:var(--ink);text-decoration:underline;text-underline-offset:4px}
+.nav-auth{flex:0 0 auto}
+.tool{
+  display:inline-flex;align-items:center;
+  padding:.35rem .8rem;border:1px solid var(--ink);
+  font-size:.8125rem;font-weight:600;letter-spacing:.03em;
+  text-decoration:none;color:var(--ink);
+}
+.tool:hover{background:var(--ink);color:var(--paper)}
+
+.brand-lockup{
+  display:flex;flex-direction:row;flex-wrap:nowrap;align-items:center;gap:.65rem;
+  width:auto;margin:0;color:var(--ink);text-decoration:none;
+}
+.brand-lockup .mark{flex:0 0 auto;width:1.35rem;height:1.35rem}
+.brand-text{display:flex;flex-direction:column;gap:.08rem;min-width:0}
+.brand-name{font-weight:600;letter-spacing:-.02em;line-height:1.1;font-size:1rem}
+.brand-tag{
+  font-weight:400;font-size:.625rem;line-height:1.2;
+  color:var(--muted);white-space:nowrap;
+}
+
+.toc{
+  position:sticky;top:3.75rem;z-index:9;
+  background:color-mix(in srgb,var(--paper) 92%,transparent);
+  backdrop-filter:blur(10px);
+  -webkit-backdrop-filter:blur(10px);
+  border-bottom:1px solid var(--rule);
+}
+.toc-list{
+  display:flex;flex-wrap:wrap;align-items:center;gap:.1rem;
+  list-style:none;min-height:2.6rem;padding:.25rem 0;
+}
+.toc-list a{
+  display:inline-block;padding:.3rem .5rem;
+  font-family:var(--mono);font-size:.75rem;font-weight:500;
+  letter-spacing:.04em;text-decoration:none;color:var(--muted);
+}
+.toc-list a:hover{color:var(--ink)}
+
+main{padding:3rem 0 5rem}
+.kicker{
+  font-family:var(--mono);font-size:.75rem;font-weight:500;
+  letter-spacing:.14em;text-transform:uppercase;color:var(--muted);
+  margin-bottom:1.25rem;
+}
+h1{
+  font-family:var(--serif);font-size:clamp(2.4rem,6vw,3.4rem);
+  font-weight:600;letter-spacing:-.03em;line-height:1.05;
+  margin-bottom:1rem;
+}
+.lede{font-size:1.2rem;line-height:1.5;max-width:36rem;margin-bottom:1.5rem}
+.lede a{text-underline-offset:3px}
+
+.rule{
+  border:1px solid var(--ink);background:var(--sheet);
+  padding:1rem 1.15rem;margin:0 0 2.5rem;
+}
+.rule b{font-weight:600}
+
+h2{
+  font-family:var(--serif);font-size:1.45rem;font-weight:600;
+  letter-spacing:-.02em;margin:0 0 .85rem;
+}
+.step{
+  padding:2.25rem 0 0;
+  margin:0 0 1.25rem;
+  border-top:1px solid var(--rule);
+}
+.step:first-of-type{border-top:0;padding-top:0}
+.prose{margin-bottom:1rem;color:var(--ink)}
+.prose a{text-underline-offset:3px}
+code{font-family:var(--mono);font-size:.86em}
+
+.prompt-head{
+  display:flex;align-items:center;justify-content:space-between;
+  gap:.75rem;margin:1.1rem 0 .5rem;
+}
+.prompt-head p{
+  font-family:var(--mono);font-size:.6875rem;font-weight:500;
+  letter-spacing:.12em;text-transform:uppercase;color:var(--muted);
+}
+.copy{
+  display:inline-flex;align-items:center;justify-content:center;
+  min-height:2.2rem;padding:.35rem .85rem;
+  font:inherit;font-size:.8125rem;font-weight:600;
+  border:1px solid var(--ink);background:transparent;color:var(--ink);
+  cursor:pointer;
+}
+.copy:hover{background:var(--ink);color:var(--paper)}
+.prompt{
+  font-family:var(--mono);font-size:.82rem;line-height:1.55;
+  white-space:pre-wrap;overflow-x:auto;
+  background:var(--sheet);border:1px solid var(--ink);
+  padding:1.1rem 1.15rem;margin:0;
+}
+
+footer{
+  border-top:1px solid var(--rule);
+  padding:2rem 0 3rem;
+  font-family:var(--mono);font-size:.75rem;color:var(--muted);
+}
+.foot{
+  display:flex;flex-wrap:wrap;gap:.75rem 1.5rem;
+  align-items:center;justify-content:space-between;
+}
+.foot a{color:var(--muted)}
+.foot .links{display:flex;flex-wrap:wrap;gap:.5rem 1.15rem}
+.foot .brand-lockup, .foot .brand-lockup:hover{color:var(--ink);text-decoration:none}
+.foot .brand-lockup .mark{width:1.2rem;height:1.2rem}
+.foot .brand-lockup .brand-name{font-size:.9rem;font-family:var(--sans)}
+.foot .brand-lockup .brand-tag{font-size:.6rem}
+
+@media (max-width:40rem){
+  html{scroll-padding-top:1rem}
+  .nav-inner{
+    display:grid;
+    grid-template-columns:1fr auto;
+    grid-template-areas:"logo auth" "links links";
+    gap:.35rem .75rem;padding:.65rem 0 .75rem;
+  }
+  .nav .brand-lockup{grid-area:logo}
+  .nav-links{grid-area:links;margin-left:0;justify-content:flex-start}
+  .nav-auth{grid-area:auth}
+  .toc{position:static}
+}
+</style>
+</head>
+<body>
+<a class="skip" href="#start">Skip to the walk</a>
+
+<nav class="nav">
+  <div class="wrap nav-inner">
+    <a class="brand-lockup" href="/">
+      <svg class="mark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="22" height="22" aria-hidden="true"><path d="M 57.1 9.6 A 41 41 0 1 0 90.4 42.9" fill="none" stroke="currentColor" stroke-width="16" stroke-linecap="round"/><circle cx="79" cy="21" r="8.5" fill="#35E0D0"/></svg>
+      <span class="brand-text">
+        <span class="brand-name">OpenData</span>
+        <span class="brand-tag">an AI Pricing Model</span>
+      </span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="https://github.com/getodapm/getodapm.github.io/blob/main/MANIFESTO.md" target="_blank" rel="noopener noreferrer">Manifesto</a></li>
+      <li><a href="https://github.com/getodapm/getodapm.github.io/blob/main/SPEC.md" target="_blank" rel="noopener noreferrer">Spec</a></li>
+      <li><a href="/build/" aria-current="page">Build</a></li>
+      <li><a href="/rate-sheet/">Rate sheet</a></li>
+    </ul>
+    <div class="nav-auth">
+      <a class="tool" href="https://odapm.ai/">The tool</a>
+    </div>
+  </div>
+</nav>
+
+<nav class="toc" aria-label="Steps">
+  <div class="wrap">
+    <ol class="toc-list">
+      <li><a href="#once">Paste once</a></li>
+      <li><a href="#start">Start</a></li>
+      <li><a href="#region">01 region</a></li>
+      <li><a href="#scope">02 scope</a></li>
+      <li><a href="#prices">03 prices</a></li>
+      <li><a href="#tax">04 tax</a></li>
+      <li><a href="#validate">05 validate</a></li>
+      <li><a href="#update">05 update</a></li>
+      <li><a href="#current">06 keep current</a></li>
+    </ol>
+  </div>
+</nav>
+
+<main>
+  <div class="wrap">
+    <p class="kicker">odapm/v1 · your AI</p>
+    <h1>Build a rate sheet</h1>
+    <p class="lede">One prompt. Your AI fetches this page's files: <a href="/build/walk.md">walk.md</a>, <a href="/build/model.json">model.json</a> (hardwired SKUs), and <a href="/build/tax.json">tax.json</a> (starter). It fills them in. Then you test both on the <a href="/rate-sheet/">rate sheet</a> and attach them in OpenData. This is not an <a href="https://odapm.ai/">odapm.ai</a> account.</p>
+
+    <p class="rule"><b>One rule.</b> Never paste a licensed proprietary price list. Your own costs are welcome. A competitor's book is not.</p>
+
+    <section class="step" id="once">
+      <h2>Paste this once</h2>
+      <p class="prose">Copy the block below into <b>your</b> AI. You do not copy the later steps one by one. ChatGPT should open <a href="/build/walk/">the walk</a> and <a href="/build/skus/">the SKU table</a>. If it cannot, paste those pages into the chat.</p>
+      <div class="prompt-head">
+        <p>Paste this</p>
+        <button type="button" class="copy" data-copy="p00">Copy</button>
+      </div>
+<pre class="prompt" id="p00">Use your browser. Open these HTML pages (not the .md — ChatGPT often cannot fetch markdown):
+
+https://odapm.org/build/walk/
+https://odapm.org/build/skus/
+
+JSON twins if you can open them: https://odapm.org/build/model.json and https://odapm.org/build/tax.json
+
+If you cannot open the HTML, say so — do not invent the catalog.
+
+Follow walk.md in order. You may rebuild the JSON. The catalog must be exact: every kept item's id, name, unit, group, and pick option ids copied character-for-character from model.json. Do not add, rename, clean up, or invent SKUs. Skip = omit that object, not a new id.
+
+Fill meta and prices on those SKUs. Fill tax.json jurisdictions; keep schema odapm-tax/v1 and tax_applies_to material.
+
+I never upload a file to you. When a file is ready, emit the full document as a fenced block I can copy. Do not ask "what file?" or "should I generate it?"
+
+Ask me the questions from that walk, one topic at a time. Do not invent my region, markup, or loss types.
+
+ECEC burden_pct is 100 × (benefits share of total compensation) / (wages share of total compensation) — cite both. If I give my own crew wage it replaces OEWS as the unburdened rate.
+
+Never use a licensed proprietary price list.</pre>
+    </section>
+
+    <section class="step" id="start">
+      <h2>Start</h2>
+      <p class="prose">Bring your own model. Mileage varies — some follow the spec, some invent fields, some skip <code>basis</code>. You are the check. When a step finishes, keep the file and move to the next prompt in the same session.</p>
+      <p class="prose">Labor burden is not a question. It is derived from BLS Employer Costs for Employee Compensation (ECEC), construction, benefits as a percent of wages. The wage floor is the federal local wage survey for construction occupations (BLS OEWS) for <em>their</em> metro. Markup is still yours, and it is disclosed.</p>
+    </section>
+
+    <section class="step" id="region">
+      <h2>01 — Region</h2>
+      <p class="prose">What you sell, where you work, which metro sets the wage floor, your markup, your units. Not your burden percentage. Crew wage is optional; otherwise it is derived from OEWS + ECEC.</p>
+      <div class="prompt-head">
+        <p>Paste this</p>
+        <button type="button" class="copy" data-copy="p01">Copy</button>
+      </div>
+<pre class="prompt" id="p01">I'm building an ODAPM pricing model (schema odapm/v1). Help me set the foundation. Ask me, one topic at a time:
+
+- The loss types I handle (e.g. water/Cat 1–3, fire &amp; smoke, mold, storm, contents).
+- My service region (metro / counties) and my home-base city.
+- Which metro to price labor in. Use the federal local wage survey for construction occupations — BLS Occupational Employment and Wage Statistics (OEWS) — for that metro as the wage floor. Name the metro you picked and why it matches my region.
+- My markup target. This is mine, as a fraction: 0.25 means cost × 1.25. Do not ask me for a labor-burden percentage.
+- The unit system I think in (SF, LF, EA, HR, day).
+
+Crew wage: if I give you my own number, use it and note that. Otherwise derive the hourly rate from OEWS for that metro (construction occupations) plus BLS Employer Costs for Employee Compensation (ECEC) for construction — benefits as a percent of wages. Labor burden is derived from ECEC and disclosed in basis. It is not a number I type.
+
+Don't pull in any licensed proprietary price list. When we're done, write a model.json with meta.schema "odapm/v1" covering region, base location, labor_basis (rate, source, burden_pct from ECEC), markup_target, and loss types. Leave items empty — we build those in step 02.</pre>
+    </section>
+
+    <section class="step" id="scope">
+      <h2>02 — Scope</h2>
+      <p class="prose">Fetch <a href="/build/model.json">model.json</a> — the hardwired OpenData SKU list. Copy those items. Keep or skip. Do not add SKU ids. Missing work is a note for Support, not a new <code>id</code>.</p>
+      <div class="prompt-head">
+        <p>Paste this</p>
+        <button type="button" class="copy" data-copy="p02">Copy</button>
+      </div>
+<pre class="prompt" id="p02">Fetch https://odapm.org/build/model.json. You may rebuild the JSON. Catalog fields must be exact: id, name, unit, group, and pick option ids character-for-character. Walk group by group. For each item ask whether I (a) keep it or (b) skip it.
+
+Do not add, rename, clean up, or invent SKU ids. Skip = omit that object. If you cannot fetch, stop and say so. If I perform work that is not on the catalog, record a short note for Support — not a new id.
+
+Leave every price null for now. When a group is done, summarize what we kept and skipped, plus any Support notes.</pre>
+    </section>
+
+    <section class="step" id="prices">
+      <h2>03 — Prices</h2>
+      <p class="prose">Fixed recipe: fully-burdened wage from OEWS + ECEC, named material and rental sources, production rates, then markup on cost. A baseline table first. Every <code>basis</code> is one sentence of math, not “market rate.”</p>
+      <div class="prompt-head">
+        <p>Paste this</p>
+        <button type="button" class="copy" data-copy="p03">Copy</button>
+      </div>
+<pre class="prompt" id="p03">Help me derive prices for the line items in my model.json. Do NOT use any licensed proprietary price list. Do not guess a market rate.
+
+Recipe: fb_hourly = labor_basis.rate × (1 + burden_pct/100). cost = labor + material + equipment. labor = hours × fb_hourly. material = qty × unit_cost. equipment = day_rate × days / units (only if this SKU is the machine). markup = cost × markup_target. unit = cost + markup. 0.25 markup means cost × 1.25, not a 25% margin.
+
+Split: rem = tear-out labor only. rep = install/reset labor (+ equipment share if this SKU is the machine). mat = taxable materials only. Labor is never taxed.
+
+Before any SKU, publish a baseline table and wait for my yes: (1) fb_hourly with OEWS metro + vintage and ECEC B/W math, (2) consumable unit costs each with a public source and date, (3) equipment day-rates with named rental source and date, (4) production rates (SF/hr, LF/hr, min/EA) — ask me once; if I have none, state a conservative assumed rate labeled "assumed — shop may adjust." Hours = work / production_rate.
+
+Then group by group. Show the math. Let me adjust one assumption at a time.
+
+Every non-zero basis is one line: rem: {h} hr × ${fb}/hr FB (OEWS {metro}, {vintage}, {occupation} + ECEC {vintage} {burden_pct}% on wages) = ${n}; rep: …; mat: {q} × ${u} ({source}, {date}) = ${n}; eq: {d} day × ${r}/day ({rental source}, {date}) / {units} = ${n}; markup {m} on cost.
+
+Omit $0 clauses. Never write market, industry standard, around, or a proprietary list. If you can't fill a clause, leave the price null. After each group, list anything still unpriced.</pre>
+    </section>
+
+    <section class="step" id="tax">
+      <h2>04 — Tax</h2>
+      <p class="prose">Tax lives in <code>tax.json</code>, separate from prices. Destination-based: the rooftop of the loss picks the rate later. You do not type a shop-wide tax percent. It hits material only. Fill jurisdictions from the states and cities you cover, from each state's Department of Revenue (or equivalent free rate file). A ZIP can contain more than one rate — list <code>zip_candidates</code>.</p>
+      <div class="prompt-head">
+        <p>Paste this</p>
+        <button type="button" class="copy" data-copy="p04">Copy</button>
+      </div>
+<pre class="prompt" id="p04">Help me build tax.json (schema odapm-tax/v1). Destination-based: the rooftop of the loss picks the rate later; I do not type a shop-wide tax percent. Tax applies to the material portion only (meta.tax_applies_to must be "material"). Labor is never taxed.
+
+I cover this service area: __________ (states / cities / counties — fill jurisdictions from that area). If I already put a region in model.json meta, use that.
+
+For each state I cover, find the free authoritative rate source (the state's Department of Revenue combined rate file or address lookup). Tell me what it is and link it. If I can download that file, use it as the source of truth. Otherwise populate each jurisdiction's combined rate from that source and mark it approximate.
+
+A single ZIP often spans multiple tax jurisdictions, so build a zip_candidates map: keys are 5-digit ZIPs, values are arrays of jurisdiction ids that can occur in that ZIP (don't guess one). Keep a lookup_url to the state's by-address tool. Write tax.json.</pre>
+    </section>
+
+    <section class="step" id="validate">
+      <h2>05 — Validate</h2>
+      <p class="prose">Validate <code>model.json</code> and <code>tax.json</code>, then drop both on the <a href="/rate-sheet/">rate sheet</a>. Nothing is uploaded. This walk is not an account on odapm.ai.</p>
+      <div class="prompt-head">
+        <p>Paste this</p>
+        <button type="button" class="copy" data-copy="p05">Copy</button>
+      </div>
+<pre class="prompt" id="p05">Validate my ODAPM model.json (meta.schema odapm/v1) and tax.json (meta.schema odapm-tax/v1). Report:
+
+- Any missing required fields.
+- tax_applies_to must be material; sourcing destination.
+- Every line item still priced at 0 / null (so I can decide if that's intentional).
+- Any priced item missing a basis note (un-auditable numbers).
+- A quick sanity scan: prices that look implausible high/low vs. their derivation.
+- Jurisdiction count and zip_candidates (5-digit ZIP keys).
+
+Then build me one test estimate that touches several line types and show the math — line item total = (qty × remove) + (qty × replace) + tax, where tax = qty × material × rate. Confirm the totals are internally consistent. Fix any schema issues you find, but never invent a price to fill a gap — flag it for me instead.
+
+When this passes, I will drop both files on https://odapm.org/rate-sheet/. This walk is not an account on odapm.ai.</pre>
+    </section>
+
+    <section class="step" id="update">
+      <h2>05 — Update prompt</h2>
+      <p class="prose">Copy the prompt below into <b>your</b> AI. It must write a text block with six markdown headers as their own lines: <code>## Labor metro</code>, <code>## Markup</code>, <code>## Service area</code>, <code>## Labor method</code>, <code>## Catalog</code>, <code>## Tax</code>. Each section needs a non-empty body. Paste <em>that block</em> into OpenData's "Update prompt" field (signup, or Admin → Rate pack) — not a random chat. OpenData's checker looks for these headers. A copied step-03 prompt will fail.</p>
+      <div class="prompt-head">
+        <p>Paste this</p>
+        <button type="button" class="copy" data-copy="p05u">Copy</button>
+      </div>
+<pre class="prompt" id="p05u">Write one markdown document I will paste into OpenData's "Update prompt" field (signup, or Admin → Rate pack). Not a chat. Not JSON. Not the step-03 price prompt.
+
+OpenData's checker looks for these six headers as their own lines (case-insensitive). Each section needs a non-empty body. A copied step-03 prompt will fail.
+
+Output only that document, headers exactly as written:
+
+## Labor metro
+The BLS OEWS area I price labor in (from this session / model.json meta). Name the metro.
+
+## Markup
+My disclosed markup (meta.markup_target). Do not invent one.
+
+## Service area
+The states / cities / counties I cover.
+
+## Labor method
+BLS ECEC construction, benefits as a percent of wages. Do not invent a burden percentage. Wage floor is BLS OEWS for that metro (federal local wage survey, construction occupations).
+
+## Catalog
+Do not invent SKUs. Overlay existing OpenData ids only.
+
+## Tax
+Destination / rooftop of the loss. Material portion only. Labor is never taxed.
+
+Fill every section from what you already know about this shop. If a fact is missing, ask me once, then write the six-header document.</pre>
+    </section>
+
+    <section class="step" id="current">
+      <h2>06 — Keep current</h2>
+      <p class="prose">Re-index on a schedule instead of rebuilding. Labor follows the wage index, materials the construction PPI, equipment the rental PPI — not CPI, not the wage index for machines.</p>
+      <div class="prompt-head">
+        <p>Paste this</p>
+        <button type="button" class="copy" data-copy="p06">Copy</button>
+      </div>
+<pre class="prompt" id="p06">Re-index my ODAPM model.json. Pull the latest published index values: labor from BLS Employment Cost Index (ECI), wages and salaries, construction; materials from BLS PPI inputs to construction; equipment from BLS PPI for commercial and industrial machinery and equipment rental and leasing — not the wage index.
+
+Compute the change since my model's last escalated date, and apply the per-item weighting (labor portion × labor index change, material portion × material index change, equipment portion × equipment index change). Show me the before/after on a few representative items and the overall percentage move before writing. Update each item and stamp a new escalated date in meta. Cite series and vintage.
+
+Then re-check tax.json against my state's current rate file (rates change too, usually twice a year) and flag any jurisdiction that moved.</pre>
+    </section>
+  </div>
+</main>
+
+<footer>
+  <div class="wrap foot">
+    <a class="brand-lockup" href="/">
+      <svg class="mark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="20" height="20" aria-hidden="true"><path d="M 57.1 9.6 A 41 41 0 1 0 90.4 42.9" fill="none" stroke="currentColor" stroke-width="16" stroke-linecap="round"/><circle cx="79" cy="21" r="8.5" fill="#35E0D0"/></svg>
+      <span class="brand-text">
+        <span class="brand-name">OpenData</span>
+        <span class="brand-tag">an AI Pricing Model</span>
+      </span>
+    </a>
+    <p class="links">
+      <a href="/rate-sheet/">Rate sheet</a>
+      <a href="https://github.com/getodapm/getodapm.github.io/blob/main/SPEC.md" target="_blank" rel="noopener noreferrer">Spec</a>
+      <a href="https://odapm.ai/">The tool</a>
+    </p>
+  </div>
+</footer>
+<script src="build.js"></script>
+</body>
+</html>

@@ -1,0 +1,23 @@
+{
+  "meta": {
+    "schema": "odapm-tax/v1",
+    "state": "CO",
+    "sourcing": "destination",
+    "tax_applies_to": "material",
+    "authoritative_source": "Example DOR combined rate file (invented)",
+    "source_url": "https://example.invalid/dor",
+    "lookup_url": "https://example.invalid/dor/lookup",
+    "updated": "2026-01-01",
+    "note": "Example only. Invented rates, not a shop table."
+  },
+  "jurisdictions": [
+    { "id": "ex_county", "name": "Example County", "rate": 4.0, "verified": false },
+    { "id": "ex_city", "name": "Example City", "rate": 8.1, "verified": false },
+    { "id": "ex_district", "name": "Example Special District", "rate": 8.5, "verified": false }
+  ],
+  "zip_candidates": {
+    "_note": "Invented ZIPs. A ZIP can span more than one rate.",
+    "80000": ["ex_county", "ex_city"],
+    "80001": ["ex_city", "ex_district"]
+  }
+}

@@ -1,0 +1,1454 @@
+{
+  "meta": {
+    "schema": "odapm/v1",
+    "kind": "opendata-catalog",
+    "note": "Administered OpenData restoration SKUs. Shops overlay prices. Do not add ids."
+  },
+  "items": [
+    {
+      "id": "floor_protection",
+      "name": "Floor Protection",
+      "unit": "LF",
+      "group": "setup",
+      "desc": "Protect floors and walkways from the entry to the work area.",
+      "pick": {
+        "id": null,
+        "options": [
+          {
+            "id": "cloth24",
+            "label": "Cloth, skid-resistant — 24\" wide (per LF)"
+          },
+          {
+            "id": "cloth30",
+            "label": "Cloth, skid-resistant — 30\" wide (per LF)"
+          },
+          {
+            "id": "adhesive",
+            "label": "Self-adhesive film (per SF)"
+          }
+        ]
+      }
+    },
+    {
+      "id": "containment",
+      "name": "Containment Barrier",
+      "unit": "SF",
+      "group": "setup",
+      "desc": "Poly barrier to control dust and cross-contamination; choose sheeting thickness.",
+      "pick": {
+        "id": null,
+        "options": [
+          {
+            "id": "4mil",
+            "label": "4-mil"
+          },
+          {
+            "id": "6mil",
+            "label": "6-mil"
+          }
+        ]
+      }
+    },
+    {
+      "id": "cover_plastic",
+      "name": "Cover & Protect with Plastic",
+      "unit": "SF",
+      "group": "setup",
+      "desc": "Mask and cover surfaces, cabinets, or contents with plastic sheeting (distinct from a containment wall)."
+    },
+    {
+      "id": "tension_post",
+      "name": "Tension Posts",
+      "unit": "DA",
+      "group": "setup",
+      "desc": "Spring poles that hold the containment barrier, priced per day."
+    },
+    {
+      "id": "zipper",
+      "name": "Zipper Door",
+      "unit": "EA",
+      "group": "setup",
+      "desc": "Heavy-duty zippered access built into the containment."
+    },
+    {
+      "id": "register_mask",
+      "name": "Register / Vent Mask",
+      "unit": "EA",
+      "group": "setup",
+      "desc": "Cover an HVAC register/return to prevent cross-contamination."
+    },
+    {
+      "id": "ducting",
+      "name": "Lay-Flat Ducting",
+      "unit": "LF",
+      "group": "setup",
+      "desc": "Flexible duct to exhaust the negative-air machine."
+    },
+    {
+      "id": "ppe",
+      "name": "Personal Protective Equipment",
+      "unit": "EA",
+      "group": "setup",
+      "desc": "Heavy-duty PPE set for the crew."
+    },
+    {
+      "id": "gloves",
+      "name": "Gloves",
+      "unit": "PR",
+      "group": "setup",
+      "desc": "Disposable protective gloves."
+    },
+    {
+      "id": "respirator_cartridge",
+      "name": "Respirator Cartridge",
+      "unit": "EA",
+      "group": "setup",
+      "desc": "HEPA / vapor / gas respirator cartridges (per pair)."
+    },
+    {
+      "id": "respirator_full",
+      "name": "Respirator — Full Face",
+      "unit": "EA",
+      "group": "setup",
+      "desc": "Full-face multi-purpose respirator (per day)."
+    },
+    {
+      "id": "flooring",
+      "name": "Flooring",
+      "unit": "SF",
+      "group": "demo",
+      "desc": "Remove and bag non-salvageable floor covering; add another entry for a second material in the same room.",
+      "pick": {
+        "id": null,
+        "options": [
+          {
+            "id": "lvp",
+            "label": "Laminate / LVP"
+          },
+          {
+            "id": "carpet",
+            "label": "Carpet"
+          },
+          {
+            "id": "pad",
+            "label": "Carpet pad"
+          },
+          {
+            "id": "vinyl",
+            "label": "Sheet vinyl"
+          },
+          {
+            "id": "tile",
+            "label": "Floor tile"
+          },
+          {
+            "id": "wood",
+            "label": "Hardwood"
+          },
+          {
+            "id": "under",
+            "label": "Underlayment"
+          },
+          {
+            "id": "backer",
+            "label": "Cement backer board"
+          },
+          {
+            "id": "subfloor",
+            "label": "Subfloor"
+          },
+          {
+            "id": "membrane",
+            "label": "Uncoupling Membrane"
+          }
+        ]
+      }
+    },
+    {
+      "id": "tackless",
+      "name": "Tackless Strip",
+      "unit": "LF",
+      "group": "demo",
+      "desc": "Pull and dispose the carpet tack strip around the perimeter."
+    },
+    {
+      "id": "drywall",
+      "name": "Drywall",
+      "unit": "LF",
+      "group": "demo",
+      "desc": "Cut and remove wet drywall; flood cuts price per linear foot at the chosen height, full tear-out per square foot.",
+      "pick": {
+        "id": null,
+        "options": [
+          {
+            "id": "cut2",
+            "label": "Flood cut 2'",
+            "unit": "LF"
+          },
+          {
+            "id": "cut4",
+            "label": "Flood cut 4'",
+            "unit": "LF"
+          },
+          {
+            "id": "full",
+            "label": "Full removal",
+            "unit": "SF"
+          }
+        ]
+      }
+    },
+    {
+      "id": "ceiling",
+      "name": "Ceiling",
+      "unit": "SF",
+      "group": "demo",
+      "desc": "Remove wet ceiling material and bag for disposal.",
+      "pick": {
+        "id": null,
+        "options": [
+          {
+            "id": "drywall",
+            "label": "Drywall"
+          },
+          {
+            "id": "suspended",
+            "label": "Suspended tile"
+          }
+        ]
+      }
+    },
+    {
+      "id": "wall_tile",
+      "name": "Wall Tile",
+      "unit": "SF",
+      "group": "demo",
+      "desc": "Remove non-salvageable wall tile to expose the substrate."
+    },
+    {
+      "id": "insulation",
+      "name": "Insulation",
+      "unit": "SF",
+      "group": "demo",
+      "desc": "Tear out and bag wet insulation (walls or crawl)."
+    },
+    {
+      "id": "cavity_holes",
+      "name": "Cavity Drying Holes",
+      "unit": "EA",
+      "group": "demo",
+      "desc": "Drill access holes for in-wall cavity drying."
+    },
+    {
+      "id": "shower_surround",
+      "name": "Shower / Tub Tile Surround",
+      "unit": "SF",
+      "group": "demo",
+      "desc": "Remove non-salvageable tile surround to expose the wall."
+    },
+    {
+      "id": "sand_framing",
+      "name": "Sand Exposed Framing",
+      "unit": "SF",
+      "group": "demo",
+      "desc": "Sand exposed framing after demolition.",
+      "pick": {
+        "id": null,
+        "options": [
+          {
+            "id": "floor",
+            "label": "Floor"
+          },
+          {
+            "id": "walls",
+            "label": "Walls"
+          }
+        ]
+      }
+    },
+    {
+      "id": "dryice",
+      "name": "Dry-Ice Blasting",
+      "unit": "SF",
+      "group": "demo",
+      "desc": "Dry-ice blast cleaning of exposed framing.",
+      "pick": {
+        "id": null,
+        "options": [
+          {
+            "id": "standard",
+            "label": "Standard"
+          },
+          {
+            "id": "heavy",
+            "label": "Heavy"
+          }
+        ]
+      }
+    },
+    {
+      "id": "confined_blast",
+      "name": "Confined-Space Blasting — Add-On",
+      "unit": "SF",
+      "group": "demo",
+      "desc": "Add-on for blasting in tight/confined spaces."
+    },
+    {
+      "id": "muckout",
+      "name": "Muck-Out / Bulk Debris",
+      "unit": "SF",
+      "group": "demo",
+      "desc": "Remove standing debris and sludge from a flood loss."
+    },
+    {
+      "id": "toilet",
+      "name": "Toilet",
+      "unit": "EA",
+      "group": "fixtures",
+      "desc": "Disconnect and remove the toilet; reinstall after drying or dispose.",
+      "pick": {
+        "id": null,
+        "options": [
+          {
+            "id": "reinstall",
+            "label": "Remove & Reinstall"
+          },
+          {
+            "id": "only",
+            "label": "Disconnect Only"
+          },
+          {
+            "id": "dispose",
+            "label": "Dispose"
+          }
+        ]
+      }
+    },
+    {
+      "id": "bathtub",
+      "name": "Bathtub",
+      "unit": "EA",
+      "group": "fixtures",
+      "desc": "Tub pulled for access/drying. Basis: cost-model labor anchor — acrylic flat detach $176.20 (reinstall ×1.5); cast iron is much heavier (broken out), priced higher.",
+      "pick": {
+        "id": null,
+        "options": [
+          {
+            "id": "acr_re",
+            "label": "Acrylic/Fiberglass — Remove & Reinstall"
+          },
+          {
+            "id": "acr_only",
+            "label": "Acrylic/Fiberglass — Remove Only"
+          },
+          {
+            "id": "acr_dp",
+            "label": "Acrylic/Fiberglass — Dispose"
+          },
+          {
+            "id": "ci_re",
+            "label": "Cast Iron — Remove & Reinstall"
+          },
+          {
+            "id": "ci_only",
+            "label": "Cast Iron — Remove Only"
+          },
+          {
+            "id": "ci_dp",
+            "label": "Cast Iron — Dispose"
+          }
+        ]
+      }
+    },
+    {
+      "id": "shower_door",
+      "name": "Shower Door / Enclosure",
+      "unit": "EA",
+      "group": "fixtures",
+      "desc": "Glass shower door / enclosure removed; reinstall or dispose.",
+      "pick": {
+        "id": null,
+        "options": [
+          {
+            "id": "glass_re",
+            "label": "Glass door — Remove & Reinstall"
+          },
+          {
+            "id": "glass_only",
+            "label": "Glass door — Remove Only"
+          },
+          {
+            "id": "glass_dp",
+            "label": "Glass door — Dispose"
+          }
+        ]
+      }
+    },
+    {
+      "id": "sink",
+      "name": "Sink",
+      "unit": "EA",
+      "group": "fixtures",
+      "desc": "Disconnect and remove the sink; reinstall or dispose.",
+      "pick": {
+        "id": null,
+        "options": [
+          {
+            "id": "reinstall",
+            "label": "Remove & Reinstall"
+          },
+          {
+            "id": "only",
+            "label": "Disconnect Only"
+          },
+          {
+            "id": "dispose",
+            "label": "Dispose"
+          }
+        ]
+      }
+    },
+    {
+      "id": "vanity",
+      "name": "Vanity",
+      "unit": "LF",
+      "group": "fixtures",
+      "desc": "Vanity cabinet. Basis: accepted-estimate anchor — flat detach $28.39/LF; reinstall = 1.5x.",
+      "pick": {
+        "id": null,
+        "options": [
+          {
+            "id": "reinstall",
+            "label": "Remove & Reinstall"
+          },
+          {
+            "id": "only",
+            "label": "Remove Only"
+          },
+          {
+            "id": "dispose",
+            "label": "Dispose"
+          }
+        ]
+      }
+    },
+    {
+      "id": "cabinets",
+      "name": "Cabinets",
+      "unit": "LF",
+      "group": "fixtures",
+      "desc": "Detach cabinets for drying; reinstall or dispose.",
+      "pick": {
+        "id": null,
+        "options": [
+          {
+            "id": "up_re",
+            "label": "Upper — Remove & Reinstall"
+          },
+          {
+            "id": "up_only",
+            "label": "Upper — Remove Only"
+          },
+          {
+            "id": "up_dp",
+            "label": "Upper — Dispose"
+          },
+          {
+            "id": "lo_re",
+            "label": "Lower — Remove & Reinstall"
+          },
+          {
+            "id": "lo_only",
+            "label": "Lower — Remove Only"
+          },
+          {
+            "id": "lo_dp",
+            "label": "Lower — Dispose"
+          }
+        ]
+      }
+    },
+    {
+      "id": "countertop",
+      "name": "Countertop",
+      "unit": "LF",
+      "group": "fixtures",
+      "desc": "Detach or tear out countertop; tile prices per square foot.",
+      "pick": {
+        "id": null,
+        "options": [
+          {
+            "id": "solid_re",
+            "label": "Solid / Stone — Remove & Reinstall",
+            "unit": "LF"
+          },
+          {
+            "id": "solid_only",
+            "label": "Solid / Stone — Remove Only"
+          },
+          {
+            "id": "solid_dp",
+            "label": "Solid / Stone — Dispose",
+            "unit": "LF"
+          },
+          {
+            "id": "lam_re",
+            "label": "Laminate — Remove & Reinstall",
+            "unit": "LF"
+          },
+          {
+            "id": "lam_only",
+            "label": "Laminate — Remove Only"
+          },
+          {
+            "id": "lam_dp",
+            "label": "Laminate — Dispose",
+            "unit": "LF"
+          },
+          {
+            "id": "tile_dp",
+            "label": "Tile — Dispose",
+            "unit": "SF"
+          }
+        ]
+      }
+    },
+    {
+      "id": "garbage_disposal",
+      "name": "Garbage Disposal",
+      "unit": "EA",
+      "group": "fixtures",
+      "desc": "Disconnect the disposal unit; reinstall or dispose.",
+      "pick": {
+        "id": null,
+        "options": [
+          {
+            "id": "reinstall",
+            "label": "Disconnect & Reinstall"
+          },
+          {
+            "id": "dispose",
+            "label": "Disconnect Only"
+          }
+        ]
+      }
+    },
+    {
+      "id": "dishwasher",
+      "name": "Dishwasher",
+      "unit": "EA",
+      "group": "fixtures",
+      "desc": "Pull and disconnect the dishwasher; reinstall or dispose. Basis: anchored to calibrated utility-detach rate (WTR.UTIL $85); dispose = 50%.",
+      "pick": {
+        "id": null,
+        "options": [
+          {
+            "id": "reinstall",
+            "label": "Disconnect & Reinstall"
+          },
+          {
+            "id": "dispose",
+            "label": "Disconnect Only"
+          }
+        ]
+      }
+    },
+    {
+      "id": "range",
+      "name": "Range / Stove",
+      "unit": "EA",
+      "group": "fixtures",
+      "desc": "Move and disconnect the range; reinstall or dispose. Basis: anchored to calibrated utility-detach rate (WTR.UTIL $85); dispose = 50%.",
+      "pick": {
+        "id": null,
+        "options": [
+          {
+            "id": "elec_re",
+            "label": "Electric — Disconnect & Reinstall"
+          },
+          {
+            "id": "elec_dp",
+            "label": "Electric — Disconnect Only"
+          },
+          {
+            "id": "gas_re",
+            "label": "Gas — Disconnect & Reinstall"
+          },
+          {
+            "id": "gas_dp",
+            "label": "Gas — Disconnect Only"
+          }
+        ]
+      }
+    },
+    {
+      "id": "refrigerator",
+      "name": "Refrigerator",
+      "unit": "EA",
+      "group": "fixtures",
+      "desc": "Move the fridge for access; reinstall in place or dispose. Basis: anchored to calibrated utility-detach rate (WTR.UTIL $85); dispose = 50%.",
+      "pick": {
+        "id": null,
+        "options": [
+          {
+            "id": "reinstall",
+            "label": "Disconnect & Reinstall"
+          },
+          {
+            "id": "dispose",
+            "label": "Disconnect Only"
+          }
+        ]
+      }
+    },
+    {
+      "id": "range_hood",
+      "name": "Range Hood / OTR Microwave",
+      "unit": "EA",
+      "group": "fixtures",
+      "desc": "Remove the vent hood or over-range microwave; reinstall or dispose.",
+      "pick": {
+        "id": null,
+        "options": [
+          {
+            "id": "reinstall",
+            "label": "Disconnect & Reinstall"
+          },
+          {
+            "id": "dispose",
+            "label": "Disconnect Only"
+          }
+        ]
+      }
+    },
+    {
+      "id": "laundry",
+      "name": "Laundry Appliance",
+      "unit": "EA",
+      "group": "fixtures",
+      "desc": "Disconnect and move the washer or dryer; reinstall or dispose. Basis: anchored to calibrated utility-detach rate (WTR.UTIL $85); dispose = 50%.",
+      "pick": {
+        "id": null,
+        "options": [
+          {
+            "id": "wash_re",
+            "label": "Washer — Disconnect & Reinstall"
+          },
+          {
+            "id": "wash_dp",
+            "label": "Washer — Disconnect Only"
+          },
+          {
+            "id": "dry_re",
+            "label": "Dryer — Disconnect & Reinstall"
+          },
+          {
+            "id": "dry_dp",
+            "label": "Dryer — Disconnect Only"
+          }
+        ]
+      }
+    },
+    {
+      "id": "interior_door",
+      "name": "Interior Door",
+      "unit": "EA",
+      "group": "fixtures",
+      "desc": "Remove the door slab for access/drying; rehang or dispose.",
+      "pick": {
+        "id": null,
+        "options": [
+          {
+            "id": "reinstall",
+            "label": "Remove & Reinstall"
+          },
+          {
+            "id": "dispose",
+            "label": "Dispose"
+          },
+          {
+            "id": "remove_only",
+            "label": "Remove Only"
+          }
+        ]
+      }
+    },
+    {
+      "id": "light_fan",
+      "name": "Light Fixture / Ceiling Fan",
+      "unit": "EA",
+      "group": "fixtures",
+      "desc": "Remove the fixture; reinstall or dispose.",
+      "pick": {
+        "id": null,
+        "options": [
+          {
+            "id": "light_re",
+            "label": "Light — Remove & Reinstall"
+          },
+          {
+            "id": "light_dp",
+            "label": "Light — Dispose"
+          },
+          {
+            "id": "fan_re",
+            "label": "Ceiling fan — Remove & Reinstall"
+          },
+          {
+            "id": "fan_dp",
+            "label": "Ceiling fan — Dispose"
+          },
+          {
+            "id": "light_only",
+            "label": "Light — Remove Only"
+          },
+          {
+            "id": "fan_only",
+            "label": "Ceiling fan — Remove Only"
+          }
+        ]
+      }
+    },
+    {
+      "id": "mirror",
+      "name": "Mirror",
+      "unit": "EA",
+      "group": "fixtures",
+      "desc": "Remove the mirror; framed priced each by size, glued per square foot.",
+      "pick": {
+        "id": null,
+        "options": [
+          {
+            "id": "fr_s",
+            "label": "Framed — up to 24\""
+          },
+          {
+            "id": "fr_m",
+            "label": "Framed — 24–48\""
+          },
+          {
+            "id": "fr_l",
+            "label": "Framed — 48\"+"
+          },
+          {
+            "id": "glued",
+            "label": "Glued-on",
+            "unit": "SF"
+          }
+        ]
+      }
+    },
+    {
+      "id": "baseboard",
+      "name": "Baseboard",
+      "unit": "LF",
+      "group": "fixtures",
+      "desc": "Pull the baseboard trim; reinstall or dispose.",
+      "pick": {
+        "id": null,
+        "options": [
+          {
+            "id": "only",
+            "label": "Detach Only"
+          },
+          {
+            "id": "reinstall",
+            "label": "Remove & Reinstall"
+          },
+          {
+            "id": "dispose",
+            "label": "Dispose"
+          }
+        ]
+      }
+    },
+    {
+      "id": "hepa_light",
+      "name": "HEPA Vacuum — Light",
+      "unit": "SF",
+      "group": "cleaning",
+      "desc": "Initial HEPA vacuum pass across demo'd surfaces."
+    },
+    {
+      "id": "surface_clean",
+      "name": "Surface Clean",
+      "unit": "SF",
+      "group": "cleaning",
+      "desc": "Scrub and wipe the affected surface with cleaning agent.",
+      "pick": {
+        "id": null,
+        "options": [
+          {
+            "id": "walls",
+            "label": "Walls"
+          },
+          {
+            "id": "floor",
+            "label": "Floor"
+          },
+          {
+            "id": "ceiling",
+            "label": "Ceiling / joists"
+          }
+        ]
+      }
+    },
+    {
+      "id": "hepa_detailed",
+      "name": "HEPA Vacuum — Detailed",
+      "unit": "SF",
+      "group": "cleaning",
+      "desc": "Final detailed HEPA pass to complete the cleaning sequence."
+    },
+    {
+      "id": "antimicrobial",
+      "name": "Antimicrobial Application",
+      "unit": "SF",
+      "group": "cleaning",
+      "desc": "Apply EPA-registered antimicrobial to affected surfaces."
+    },
+    {
+      "id": "mold_stain",
+      "name": "Mold Stain Treatment",
+      "unit": "SF",
+      "group": "cleaning",
+      "desc": "Treat visible mold/mildew staining where present."
+    },
+    {
+      "id": "dehumidifier",
+      "name": "Dehumidifier",
+      "unit": "DA",
+      "group": "equipment",
+      "desc": "Refrigerant/LGR dehumidifier, priced per day.",
+      "pick": {
+        "id": null,
+        "options": [
+          {
+            "id": "std",
+            "label": "Standard"
+          },
+          {
+            "id": "xl",
+            "label": "XL"
+          }
+        ]
+      }
+    },
+    {
+      "id": "air_mover",
+      "name": "Air Mover",
+      "unit": "DA",
+      "group": "equipment",
+      "desc": "Drying fan, priced per day.",
+      "pick": {
+        "id": null,
+        "options": [
+          {
+            "id": "centrifugal",
+            "label": "Centrifugal"
+          },
+          {
+            "id": "axial",
+            "label": "Axial"
+          }
+        ]
+      }
+    },
+    {
+      "id": "afd",
+      "name": "Air Filtration Device (AFD)",
+      "unit": "DA",
+      "group": "equipment",
+      "desc": "HEPA air filtration device / negative-air machine, per day.",
+      "pick": {
+        "id": null,
+        "options": [
+          {
+            "id": "std",
+            "label": "Standard"
+          },
+          {
+            "id": "large",
+            "label": "Large"
+          }
+        ]
+      }
+    },
+    {
+      "id": "afd_filter",
+      "name": "Negative-Air HEPA Filter",
+      "unit": "EA",
+      "group": "equipment",
+      "desc": "Replacement HEPA filter for the negative-air machine."
+    },
+    {
+      "id": "vac_filter",
+      "name": "Canister / Backpack HEPA Filter",
+      "unit": "EA",
+      "group": "equipment",
+      "desc": "Replacement filter for the HEPA vacuum (Base Charges only)."
+    },
+    {
+      "id": "carbon_filter",
+      "name": "Carbon / Odor Filter",
+      "unit": "EA",
+      "group": "equipment",
+      "desc": "Activated-carbon filter for odor control.",
+      "pick": {
+        "id": null,
+        "options": [
+          {
+            "id": "16",
+            "label": "16\""
+          },
+          {
+            "id": "24",
+            "label": "24\""
+          }
+        ]
+      }
+    },
+    {
+      "id": "cavity_drying",
+      "name": "Wall-Cavity Drying",
+      "unit": "DA",
+      "group": "equipment",
+      "desc": "In-wall injection drying system, per day."
+    },
+    {
+      "id": "floor_mat",
+      "name": "Hardwood Floor Drying Mat",
+      "unit": "DA",
+      "group": "equipment",
+      "desc": "Floor drying mat system for hardwood, per day."
+    },
+    {
+      "id": "extraction",
+      "name": "Water Extraction",
+      "unit": "SF",
+      "group": "extraction",
+      "desc": "Extract standing water, priced by surface; add multiple entries if a room has both.",
+      "pick": {
+        "id": null,
+        "options": [
+          {
+            "id": "carpet",
+            "label": "Carpet"
+          },
+          {
+            "id": "hard",
+            "label": "Hard surface"
+          }
+        ]
+      }
+    },
+    {
+      "id": "emergency_call",
+      "name": "Emergency Service Call",
+      "unit": "EA",
+      "group": "service",
+      "desc": "Emergency response/trip charge.",
+      "pick": {
+        "id": null,
+        "options": [
+          {
+            "id": "during",
+            "label": "During business hours"
+          },
+          {
+            "id": "after",
+            "label": "After hours"
+          }
+        ]
+      }
+    },
+    {
+      "id": "monitoring",
+      "name": "Equipment Setup & Monitoring",
+      "unit": "HR",
+      "group": "service",
+      "desc": "Setup, daily monitoring, and takedown labor."
+    },
+    {
+      "id": "decon",
+      "name": "Equipment Decontamination",
+      "unit": "EA",
+      "group": "service",
+      "desc": "Clean equipment between jobs, per piece."
+    },
+    {
+      "id": "haul",
+      "name": "Haul Debris",
+      "unit": "EA",
+      "group": "service",
+      "desc": "Per pickup-truck load including dump fees."
+    },
+    {
+      "id": "tech_labor",
+      "name": "General Labor",
+      "unit": "HR",
+      "group": "service",
+      "desc": "General field labor, per hour."
+    },
+    {
+      "id": "supervisor",
+      "name": "Supervisor",
+      "unit": "HR",
+      "group": "service",
+      "desc": "Supervisor / project manager, per hour."
+    },
+    {
+      "id": "truck_mount",
+      "name": "Truck-Mount Extraction",
+      "unit": "HR",
+      "group": "service",
+      "desc": "Truck-mounted extraction unit, per hour."
+    },
+    {
+      "id": "contents",
+      "name": "Contents Manipulation",
+      "unit": "HR",
+      "group": "service",
+      "desc": "Moving and protecting contents, per hour."
+    },
+    {
+      "id": "block_pad",
+      "name": "Block & Pad Furniture",
+      "unit": "EA",
+      "group": "service",
+      "desc": "Block and pad furniture, per piece."
+    },
+    {
+      "id": "fire_demo",
+      "name": "Fire Demo — Soot-Contaminated",
+      "unit": "SF",
+      "group": "demo",
+      "desc": "HMR-rate demo of soot-contaminated materials."
+    },
+    {
+      "id": "fire_preclean",
+      "name": "Fire Pre-Clean — Dry Soot / HEPA Source Removal",
+      "unit": "SF",
+      "group": "cleaning",
+      "desc": "Dry-soil removal / HEPA source removal pass."
+    },
+    {
+      "id": "fire_wetclean",
+      "name": "Fire Wet Clean — Degreaser",
+      "unit": "SF",
+      "group": "cleaning",
+      "desc": "Degreaser wet cleaning, multiple passes."
+    },
+    {
+      "id": "fire_mech",
+      "name": "Mechanical Cleaning — Wires/Pipes/Exposed",
+      "unit": "HR",
+      "group": "cleaning",
+      "desc": "Detail cleaning of wires, pipes, exposed items."
+    },
+    {
+      "id": "fire_hmr",
+      "name": "HMR Labor — Soot Premium",
+      "unit": "HR",
+      "group": "service",
+      "desc": "Heavy-materials/soot premium labor rate."
+    },
+    {
+      "id": "deodor_gas",
+      "name": "Gas Deodorization (ProKleen G)",
+      "unit": "DA",
+      "group": "equipment",
+      "desc": "Gas-phase deodorization treatment, per day."
+    },
+    {
+      "id": "hydroxyl",
+      "name": "Hydroxyl Generator",
+      "unit": "DA",
+      "group": "equipment",
+      "desc": "Hydroxyl deodorization, per day (fire/odor)."
+    },
+    {
+      "id": "ozone",
+      "name": "Ozone Generator",
+      "unit": "DA",
+      "group": "equipment",
+      "desc": "Ozone deodorization, per day."
+    },
+    {
+      "id": "closet_shelf",
+      "name": "Closet / Pantry Shelving",
+      "unit": "LF",
+      "group": "fixtures",
+      "desc": "Detach or dispose closet and pantry shelving.",
+      "pick": {
+        "id": null,
+        "options": [
+          {
+            "id": "wire",
+            "label": "Wire shelving"
+          },
+          {
+            "id": "wood",
+            "label": "Wood shelving"
+          }
+        ]
+      }
+    },
+    {
+      "id": "closet_rod",
+      "name": "Closet Rod",
+      "unit": "LF",
+      "group": "fixtures",
+      "desc": "Detach closet hanging rod."
+    },
+    {
+      "id": "thermal_fog",
+      "name": "Thermal Fog Deodorization",
+      "unit": "DA",
+      "group": "equipment",
+      "desc": "Thermal fogging deodorization, per day."
+    },
+    {
+      "id": "fire_scrubber",
+      "name": "Air Scrubber — Fire",
+      "unit": "DA",
+      "group": "equipment",
+      "desc": "Air scrubber for fire/smoke jobs, per day."
+    },
+    {
+      "id": "fire_contents",
+      "name": "Contents Cleaning — Smoke/Soot/Nicotine",
+      "unit": "HR",
+      "group": "cleaning",
+      "desc": "Hand-clean contents, per hour."
+    },
+    {
+      "id": "fire_kitclean",
+      "name": "Kitchen Fire Cleaning",
+      "unit": "EA",
+      "group": "cleaning",
+      "desc": "Full kitchen fire/soot cleaning (lump sum)."
+    },
+    {
+      "id": "fire_bathclean",
+      "name": "Bathroom Fire Cleaning",
+      "unit": "EA",
+      "group": "cleaning",
+      "desc": "Full bathroom fire/soot cleaning (lump sum)."
+    },
+    {
+      "id": "fire_laundryclean",
+      "name": "Laundry Room Fire Cleaning",
+      "unit": "EA",
+      "group": "cleaning",
+      "desc": "Full laundry-room fire/soot cleaning (lump sum)."
+    },
+    {
+      "id": "nicotine",
+      "name": "Nicotine Residue & Odor — Full Process",
+      "unit": "EA",
+      "group": "cleaning",
+      "desc": "Full nicotine residue & odor process (lump sum)."
+    },
+    {
+      "id": "trauma",
+      "name": "Trauma / Crime Scene Cleanup",
+      "unit": "EA",
+      "group": "cleaning",
+      "desc": "Trauma / crime-scene cleanup (lump)."
+    },
+    {
+      "id": "asbestos_test",
+      "name": "Asbestos Sampling + Lab + Inspector",
+      "unit": "EA",
+      "group": "service",
+      "desc": "State-required asbestos testing (sampling, lab, inspector)."
+    },
+    {
+      "id": "mold_pre",
+      "name": "Pre-Remediation Assessment (3rd Party)",
+      "unit": "EA",
+      "group": "service",
+      "desc": "Independent industrial-hygienist pre-assessment."
+    },
+    {
+      "id": "mold_post",
+      "name": "Post-Remediation Verification (3rd Party)",
+      "unit": "EA",
+      "group": "service",
+      "desc": "Independent clearance / post-verification."
+    },
+    {
+      "id": "soot_test",
+      "name": "3rd-Party Soot/Char/Ash Testing",
+      "unit": "EA",
+      "group": "service",
+      "desc": "Independent soot/char/ash lab testing."
+    },
+    {
+      "id": "regulated_waste",
+      "name": "Regulated Waste Disposal Container",
+      "unit": "EA",
+      "group": "service",
+      "desc": "Dumpster / regulated-waste container."
+    },
+    {
+      "id": "lock_box",
+      "name": "Lock Box for Access",
+      "unit": "EA",
+      "group": "setup",
+      "desc": "Lock box placed for crew access."
+    },
+    {
+      "id": "temp_power",
+      "name": "Temporary Power / Lights / HVAC",
+      "unit": "DA",
+      "group": "equipment",
+      "desc": "Temporary utilities, per day."
+    },
+    {
+      "id": "power_box",
+      "name": "Portable Power Distribution Box",
+      "unit": "DA",
+      "group": "equipment",
+      "desc": "Portable power distribution box, per day."
+    },
+    {
+      "id": "exit_chamber",
+      "name": "Exit Chamber / Decon Setup",
+      "unit": "EA",
+      "group": "setup",
+      "desc": "Decon/exit chamber build for containment."
+    },
+    {
+      "id": "photo_doc",
+      "name": "Photo Documentation & Site Inspection",
+      "unit": "HR",
+      "group": "service",
+      "desc": "Documentation/inspection labor, per hour."
+    },
+    {
+      "id": "final_clean",
+      "name": "General Job-Site Final Cleaning",
+      "unit": "HR",
+      "group": "service",
+      "desc": "Final job-site cleaning, per hour."
+    },
+    {
+      "id": "invoice_fee",
+      "name": "Invoice / Lab / 3rd-Party Handling Fee",
+      "unit": "EA",
+      "group": "service",
+      "desc": "Handling fee for lab/3rd-party invoices."
+    },
+    {
+      "id": "heat_drying",
+      "name": "Heat Drying System (E-Tes / FireBird / PDS)",
+      "unit": "DA",
+      "group": "equipment",
+      "desc": "Direct-heat drying system, per day."
+    },
+    {
+      "id": "recessed_light",
+      "name": "Recessed Light / Can",
+      "unit": "EA",
+      "group": "fixtures",
+      "desc": "Recessed can light: detach & reset for drying access, or remove & dispose.",
+      "pick": {
+        "id": null,
+        "options": [
+          {
+            "id": "reinstall",
+            "label": "Remove & Reinstall"
+          },
+          {
+            "id": "remove_only",
+            "label": "Remove Only"
+          }
+        ]
+      }
+    },
+    {
+      "id": "pedestal_sink",
+      "name": "Pedestal Sink",
+      "unit": "EA",
+      "group": "fixtures",
+      "desc": "Two-piece pedestal sink. Basis: ~1.0 hr tech disconnect+reinstall; dispose ~0.45 hr.",
+      "pick": {
+        "id": null,
+        "options": [
+          {
+            "id": "reinstall",
+            "label": "Disconnect & Reinstall"
+          },
+          {
+            "id": "dispose",
+            "label": "Disconnect Only"
+          }
+        ]
+      }
+    },
+    {
+      "id": "supply_line",
+      "name": "Supply Line",
+      "unit": "EA",
+      "group": "fixtures",
+      "desc": "Per supply line. Cap: disconnect, thread-seal tape + cap fitting (~10 min + fitting). Cut & cap: shut off and drain house water, cut and permanently cap (~35 min + fitting).",
+      "pick": {
+        "id": null,
+        "options": [
+          {
+            "id": "cap",
+            "label": "Cap — tape & fitting"
+          },
+          {
+            "id": "cutcap",
+            "label": "Cut & Cap"
+          },
+          {
+            "id": "remove",
+            "label": "Remove Only"
+          }
+        ]
+      }
+    },
+    {
+      "id": "p_trap",
+      "name": "P-Trap",
+      "unit": "EA",
+      "group": "fixtures",
+      "desc": "Sink drain trap disconnected for access or supply-line work.",
+      "pick": {
+        "id": null,
+        "options": [
+          {
+            "id": "reinstall",
+            "label": "Disconnect & Reinstall"
+          },
+          {
+            "id": "only",
+            "label": "Disconnect Only"
+          }
+        ]
+      }
+    },
+    {
+      "id": "shower_bench",
+      "name": "Shower Bench",
+      "unit": "LF",
+      "group": "demo",
+      "desc": "Shower bench demoed to framing. Solid-surface seat top per LF of seat front; tiled face/riser per SF. Demo-only. Basis: cost-model labor, independent of any third-party list.",
+      "pick": {
+        "id": null,
+        "options": [
+          {
+            "id": "top_dp",
+            "label": "Solid-surface seat top — Dispose (per LF)",
+            "unit": "LF"
+          },
+          {
+            "id": "tile_dp",
+            "label": "Tile face / riser — Dispose (per SF)",
+            "unit": "SF"
+          }
+        ]
+      }
+    },
+    {
+      "id": "window_treatment",
+      "name": "Window Treatment",
+      "unit": "EA",
+      "group": "fixtures",
+      "desc": "Blinds/curtains/drapes taken down and set aside. Never disposed; rehung by owner or reconstruction — detach only."
+    },
+    {
+      "id": "shower_pan",
+      "name": "Shower Pan / Base",
+      "unit": "EA",
+      "group": "fixtures",
+      "desc": "Shower pan/base detached for access or demoed out. Basis: cost-model labor anchor like the bathtub — flat detach; reinstall = detach × 1.5. Cast iron is heavier than fiberglass.",
+      "pick": {
+        "id": null,
+        "options": [
+          {
+            "id": "fg_re",
+            "label": "Fiberglass/Acrylic — Remove & Reinstall"
+          },
+          {
+            "id": "fg_only",
+            "label": "Fiberglass/Acrylic — Remove Only"
+          },
+          {
+            "id": "fg_dp",
+            "label": "Fiberglass/Acrylic — Dispose"
+          },
+          {
+            "id": "ci_re",
+            "label": "Cast Iron — Remove & Reinstall"
+          },
+          {
+            "id": "ci_only",
+            "label": "Cast Iron — Remove Only"
+          },
+          {
+            "id": "ci_dp",
+            "label": "Cast Iron — Dispose"
+          }
+        ]
+      }
+    },
+    {
+      "id": "jacuzzi",
+      "name": "Jacuzzi / Whirlpool Tub",
+      "unit": "EA",
+      "group": "fixtures",
+      "desc": "Jetted/whirlpool tub. Jetted unit billed each (extra plumbing + electrical disconnect labor); large tiled deck/platform can be billed by SF when present.",
+      "pick": {
+        "id": null,
+        "options": [
+          {
+            "id": "jet_re",
+            "label": "Jetted tub — Remove & Reinstall"
+          },
+          {
+            "id": "jet_only",
+            "label": "Jetted tub — Remove Only"
+          },
+          {
+            "id": "jet_dp",
+            "label": "Jetted tub — Dispose"
+          },
+          {
+            "id": "deck_dp",
+            "label": "Tiled deck / platform — Dispose (per SF)",
+            "unit": "SF"
+          }
+        ]
+      }
+    },
+    {
+      "id": "shower_panels",
+      "name": "Shower Wall Panels (fiberglass)",
+      "unit": "EA",
+      "group": "fixtures",
+      "desc": "Prefab fiberglass shower wall panels, priced per panel. Basis: cost-model labor (~0.7 hr/panel to score, pry, and scrape adhesive); reinstall = ×1.5.",
+      "pick": {
+        "id": null,
+        "options": [
+          {
+            "id": "fg_re",
+            "label": "Fiberglass panel — Remove & Reinstall"
+          },
+          {
+            "id": "fg_only",
+            "label": "Fiberglass panel — Remove Only"
+          },
+          {
+            "id": "fg_dp",
+            "label": "Fiberglass panel — Dispose"
+          }
+        ]
+      }
+    }
+  ]
+}

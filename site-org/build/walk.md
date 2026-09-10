@@ -1,0 +1,134 @@
+# ODAPM walk — your AI follows this file
+
+You are building an OpenData (ODAPM) rate sheet in this chat. Follow every section below, in order. Ask the human the questions, one topic at a time. Do not invent their region, markup, loss types, or wages.
+
+**Fetch these HTML pages first** (ChatGPT and browsers can read them). JSON twins are optional.
+
+- https://odapm.org/build/walk/ — this walk (HTML)
+- https://odapm.org/build/skus/ — hardwired SKU table (id, name, unit, group, pick ids)
+- https://odapm.org/build/model.json — same catalog as JSON
+- https://odapm.org/build/tax.json — tax starter
+
+If `.md` or `.json` fails, use the `.html` pages. If the fetch fails entirely, stop and say so.
+
+You may **rebuild** the JSON. You may not **approximate** the catalog.
+
+Exact on every kept item: `id`, `name`, `unit`, `group`, and every `pick.options[].id` (and label) — character-for-character from model.json. Do not add, rename, “clean up,” or invent SKUs. Skipping an item means omit that object, not a substitute id. Missing work → Support note, not a new id.
+
+tax.json: keep `meta.schema` `odapm-tax/v1` and `tax_applies_to` `material`. Fill jurisdictions. Do not invent a different tax schema.
+
+## Deliverables
+
+You create three things. The human never uploads a file to you.
+
+1. `model.json` — schema `odapm/v1`
+2. `tax.json` — schema `odapm-tax/v1`
+3. A headed **update prompt** (markdown, not JSON)
+
+When a file is ready, emit the **full** document as a fenced block they can copy (and a download if you can). Do **not** ask “what file?”, “should I generate it?”, or “if you’d like I can generate.” Do not wait for permission. If you lost the JSON, say “paste model.json here” — never “upload a file.”
+
+One rule: never use a licensed proprietary price list. Their own costs are welcome.
+
+## Labor math (do this; do not ask for a burden %)
+
+- Wage floor: BLS OEWS for **their** labor metro, construction and extraction occupations (federal local wage survey). Name the metro and the OEWS vintage.
+- ECEC: look up current BLS Employer Costs for Employee Compensation, **construction**. If benefits are **B% of total compensation** and wages are **W% of total compensation**, then `labor_basis.burden_pct` = `round(100 × B / W, 2)` (burden **on wages**). Cite both: “ECEC construction {vintage} benefits B% of total compensation (= {burden_pct}% on wages).” Do not store B as `burden_pct`.
+- `labor_basis.rate` is the **unburdened** hourly floor. Fully-burdened hourly = `rate × (1 + burden_pct/100)`.
+- If they give their own crew wage: that **replaces** OEWS as `rate`. Annual pay → hourly = annual ÷ productive hours (hours/week × 52 minus paid leave they named as nonproductive). Still apply ECEC unless they said the number is already fully burdened. Do not keep OEWS and their wage as two rates.
+- Markup is theirs, as a fraction: `0.25` means cost × 1.25. If they say `0.75`, confirm once: cost × 1.75, disclosed.
+
+## 01 — Region
+
+Ask, one topic at a time:
+
+- Loss types (water/Cat 1–3, fire & smoke, mold, storm, contents, …)
+- Service region (metro / counties) and home-base city
+- Which metro to price labor in (OEWS area). Name it and why it matches the region
+- Markup target (fraction). Do not ask for a labor-burden percentage
+- Units they think in (SF, LF, EA, HR, Day)
+
+Then emit `model.json`: `meta.schema` `odapm/v1`, region, base_location, labor_basis, markup_target, loss types. `items` are copied **exactly** from the fetched catalog (prices still null). Not an empty array. Not a rewritten list.
+
+## 02 — Scope
+
+You already fetched https://odapm.org/build/model.json. Rebuild is fine; the catalog fields must be exact.
+
+Walk group by group only to **keep** or **skip**. Skipping omits that object. Do not change id/name/unit/group/pick ids. Do not guess SKUs. Work not on the catalog → Support note, not a new id. Prices stay null until step 03.
+
+## 03 — Prices
+
+Do not guess a market rate. Build every dollar from this recipe. If you cannot cite a source, leave the price null and flag it.
+
+**Formula (markup, not margin):**
+
+```
+fb_hourly = labor_basis.rate × (1 + labor_basis.burden_pct/100)
+cost      = labor + material + equipment
+labor     = hours × fb_hourly
+material  = qty × unit_cost
+equipment = day_rate × days / units_on_that_job   (only if the SKU is equipment time)
+markup    = cost × markup_target
+unit      = cost + markup
+```
+
+`0.25` markup = cost × 1.25 (16.7% margin). Do not treat markup as margin.
+
+**Split:** `rem` = tear-out/detach/haul labor only. `rep` = install/reset/service labor (plus equipment share if this SKU is the machine). `mat` = taxable materials only. Labor is never taxed.
+
+**Before any SKU, publish a baseline table and wait for a yes:**
+
+1. `fb_hourly` with OEWS metro + vintage and ECEC B/W math (or their crew wage).
+2. Consumable unit costs you will reuse (poly, bags, tape, antimicrobial, filters, pads): each needs a public source (retail/home-center, manufacturer list, or regional supplier page) and a date. Not “typical.”
+3. Equipment day-rates (air mover, dehumidifier, air scrubber, neg-air): local rental-equivalent, named source + date. Escalate later on rental PPI, not wages.
+4. Production rates (how fast the work goes): SF/hr, LF/hr, or min/EA. Ask them once. If they have no number, state a conservative assumed rate in the table and label it `assumed — shop may adjust`. Hours = (unit of work) / production_rate.
+
+**Then price group by group.** Show the math. Let them adjust one assumption at a time. Do not skip the table.
+
+**Every non-zero price `basis` must look like this (one line, numbers filled in):**
+
+`rem: {h} hr × ${fb}/hr FB (OEWS {metro}, {vintage}, {occupation} + ECEC {vintage} {burden_pct}% on wages) = ${n}; rep: {h} hr × ${fb}/hr = ${n}; mat: {q} × ${u} ({source}, {date}) = ${n}; eq: {d} day × ${r}/day ({rental source}, {date}) / {units} = ${n}; markup {m} on cost.`
+
+Omit rem, mat, or eq clauses that are $0. Never write “market,” “industry standard,” “around,” or a proprietary list. If you can’t fill a clause, price stays null.
+
+Emit the updated `model.json`.
+
+## 04 — Tax
+
+Emit `tax.json`, schema `odapm-tax/v1`. Destination-based: rooftop of the loss picks the rate later. They do not type a shop-wide tax %. `tax_applies_to` must be `material`. Labor is never taxed.
+
+Fill jurisdictions from the states/cities they cover, from each state’s Department of Revenue (or free rate file). A ZIP can have more than one rate — `zip_candidates` keys are 5-digit ZIPs, values are arrays of jurisdiction ids. Keep `lookup_url`.
+
+## 05 — Validate
+
+Check both files: required fields, material-only tax, destination sourcing, unpriced rows, missing `basis`, implausible prices, ZIP keys. One test estimate: line = (qty × rem) + (qty × rep) + tax, tax = qty × mat × rate. Fix schema issues; never invent a price to fill a gap.
+
+They will drop both files on https://odapm.org/rate-sheet/ and attach them in OpenData. This walk is not an odapm.ai account.
+
+## Update prompt
+
+Then emit **only** a markdown document with these six headers as their own lines (case-insensitive). Each section needs a real body (not “(not set)”). This is what they paste into OpenData’s Update prompt field.
+
+## Labor metro
+## Markup
+## Service area
+## Labor method
+## Catalog
+## Tax
+
+Labor method: ECEC construction, benefits share of total compensation converted to burden on wages (B/W). Do not invent a burden %. Wage floor is OEWS for that metro.
+
+Catalog: do not invent SKUs; overlay existing OpenData ids only.
+
+Tax: destination / rooftop; material only; labor never taxed.
+
+## 06 — Keep current (tell them, do not run unless they ask)
+
+Later re-index: labor on BLS ECI (wages and salaries, construction), materials on construction PPI, equipment on rental PPI — not CPI. Re-check tax.json against the state rate file.
+
+## Done
+
+Give them, clearly labeled:
+
+1. `model.json`
+2. `tax.json`
+3. The six-header update prompt
