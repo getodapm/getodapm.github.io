@@ -4,7 +4,8 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Not found — OpenData</title>
-<meta name="theme-color" content="#06343A">
+<meta name="theme-color" content="#EFECE6" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#14120F" media="(prefers-color-scheme: dark)">
 <link rel="icon" href="/favicon.ico" sizes="any">
 <link rel="icon" href="/favicon-32.png" type="image/png" sizes="32x32">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
@@ -14,25 +15,64 @@
 @font-face{font-family:"IBM Plex Sans";src:url("/fonts/plex-sans-500.woff2") format("woff2");font-weight:500;font-style:normal;font-display:swap}
 @font-face{font-family:"IBM Plex Sans";src:url("/fonts/plex-sans-600.woff2") format("woff2");font-weight:600;font-style:normal;font-display:swap}
 @font-face{font-family:"IBM Plex Mono";src:url("/fonts/plex-mono-400.woff2") format("woff2");font-weight:400;font-style:normal;font-display:swap}
+@font-face{font-family:"IBM Plex Serif";src:url("/fonts/plex-serif-600.woff2") format("woff2");font-weight:600;font-style:normal;font-display:swap}
+
+/* Carbon Plate. Light paper is the default; dark is a preference. Brass is graphic only. */
 :root{
-  --abyss:#06343A;--deep:#0A3A40;--ocean:#0E7C86;--aqua:#35E0D0;--foam:#F2F7F7;
-  --ink:#0A3A40;--muted:#4A6A6E;
-  --line:color-mix(in srgb,var(--ocean) 18%,transparent);
-  --foam-72:rgba(242,247,247,.72);
-  --foam-08:rgba(242,247,247,.08);
-  --sans:"IBM Plex Sans",ui-sans-serif,system-ui,sans-serif;
+  color-scheme:light dark;
+  --bg:#EFECE6;
+  --surface:#FAF8F4;
+  --sunk:#E6E2DA;
+  --ink:#161513;
+  --muted:#5C574F;
+  --accent:#2C2926;
+  --accent-hover:#161513;
+  --on-accent:#FAF8F4;
+  --pin:#C4A35A;
+  --line:color-mix(in srgb,#2C2926 14%,transparent);
+  --line-strong:color-mix(in srgb,#2C2926 28%,transparent);
+  --tint:color-mix(in srgb,#2C2926 6%,transparent);
+  --shadow:0 1px 0 rgba(44,41,38,.04), 0 18px 40px -26px rgba(44,41,38,.32);
+  --radius:12px;
+  --wrap:72rem;
+  --prose:40rem;
+  --sans:"IBM Plex Sans",ui-sans-serif,system-ui,-apple-system,sans-serif;
+  --serif:"IBM Plex Serif",Georgia,"Times New Roman",serif;
   --mono:"IBM Plex Mono",ui-monospace,Menlo,monospace;
 }
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --bg:#14120F;--surface:#1F1C17;--sunk:#29251F;
+    --ink:#E8E5DF;--muted:#A39C90;
+    --accent:#E8E5DF;--accent-hover:#FAF8F4;--on-accent:#14120F;
+    --pin:#D8BC7C;
+    --line:color-mix(in srgb,#E8E5DF 14%,transparent);
+    --line-strong:color-mix(in srgb,#E8E5DF 30%,transparent);
+    --tint:color-mix(in srgb,#E8E5DF 8%,transparent);
+    --shadow:0 1px 0 rgba(0,0,0,.4), 0 18px 40px -26px rgba(0,0,0,.7);
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#14120F;--surface:#1F1C17;--sunk:#29251F;
+  --ink:#E8E5DF;--muted:#A39C90;
+  --accent:#E8E5DF;--accent-hover:#FAF8F4;--on-accent:#14120F;
+  --pin:#D8BC7C;
+  --line:color-mix(in srgb,#E8E5DF 14%,transparent);
+  --line-strong:color-mix(in srgb,#E8E5DF 30%,transparent);
+  --tint:color-mix(in srgb,#E8E5DF 8%,transparent);
+  --shadow:0 1px 0 rgba(0,0,0,.4), 0 18px 40px -26px rgba(0,0,0,.7);
+}
+.mark circle{fill:var(--pin)}
 *{box-sizing:border-box;margin:0;padding:0}
-body{font-family:var(--sans);color:var(--ink);background:var(--foam);line-height:1.65;min-height:100vh;display:flex;flex-direction:column}
-a{color:var(--ocean)}
-:focus-visible{outline:3px solid var(--aqua);outline-offset:3px}
+body{font-family:var(--sans);color:var(--ink);background:var(--bg);line-height:1.65;min-height:100vh;display:flex;flex-direction:column}
+a{color:var(--accent)}
+:focus-visible{outline:3px solid var(--accent);outline-offset:3px}
 .nav{
   position:sticky;top:0;z-index:10;
-  background:color-mix(in srgb,var(--abyss) 86%,transparent);
-  backdrop-filter:saturate(1.2) blur(16px);
-  -webkit-backdrop-filter:saturate(1.2) blur(16px);
-  border-bottom:1px solid var(--foam-08);
+  background:color-mix(in srgb,var(--surface) 92%,transparent);
+  backdrop-filter:saturate(1.1) blur(14px);
+  -webkit-backdrop-filter:saturate(1.1) blur(14px);
+  border-bottom:1px solid var(--line);
 }
 .nav .wrap{width:min(72rem,calc(100% - 2.5rem));margin-inline:auto}
 .wrap{width:min(40rem,calc(100% - 2.5rem));margin-inline:auto}
@@ -48,11 +88,11 @@ a{color:var(--ocean)}
   list-style:none;
 }
 .nav-links a, a.signin, a.signup{
-  color:var(--foam);text-decoration:none;
+  color:var(--ink);text-decoration:none;
   font-size:.875rem;font-weight:500;
   padding:.45rem .7rem;border-radius:999px;
 }
-.nav-links a:hover, a.signin:hover{background:rgba(242,247,247,.1);color:#fff}
+.nav-links a:hover, a.signin:hover{background:var(--tint);color:var(--ink)}
 .nav-auth{
   display:flex;align-items:center;gap:.4rem;
   flex:0 0 auto;
@@ -62,85 +102,38 @@ a.signin, a.signup{
   padding:.45rem 1rem;
 }
 a.signin{
-  border:1px solid rgba(242,247,247,.4);
+  border:1px solid var(--line-strong);
 }
-a.signin:hover{background:rgba(242,247,247,.14);border-color:var(--foam);color:#fff}
-a.signup{
-  background:var(--foam);color:var(--deep);font-weight:600;
-}
-a.signup:hover{background:#fff;color:var(--abyss)}
+a.signin:hover{background:var(--tint);border-color:var(--accent);color:var(--ink)}
+a.signup{background:var(--accent);color:var(--on-accent);font-weight:600;}
+a.signup:hover{background:var(--accent-hover);color:var(--on-accent)}
 .hero{
   position:relative;
   overflow:hidden;
   isolation:isolate;
-  color:var(--foam);
-  background-color:var(--abyss);
-  background-image:
-    linear-gradient(90deg,
-      var(--abyss) 0%,
-      color-mix(in srgb,var(--abyss) 65%,transparent) 40%,
-      transparent 68%),
-    radial-gradient(ellipse 90% 55% at 50% -18%,
-      color-mix(in srgb,var(--ocean) 40%,transparent),
-      transparent 58%),
-    linear-gradient(180deg,
-      color-mix(in srgb,var(--ocean) 26%,var(--abyss)) 0%,
-      var(--deep) 40%,
-      var(--abyss) 100%);
+  color:var(--ink);
   padding:4.25rem 0 4.5rem;
-  border-bottom:1px solid var(--foam-08);
-}
-.hero::before{
-  content:"";
-  position:absolute;inset:0;z-index:-1;pointer-events:none;
-  background-image:
-    radial-gradient(ellipse 34% 12% at 58% 0%,rgba(14,124,134,.18),transparent 72%),
-    repeating-linear-gradient(
-      180deg,
-      transparent 0,transparent 2.85rem,
-      rgba(242,247,247,.04) 2.85rem,
-      rgba(242,247,247,.04) calc(2.85rem + 1px)
-    );
-  -webkit-mask-image:linear-gradient(180deg,#000 0%,transparent 80%);
-          mask-image:linear-gradient(180deg,#000 0%,transparent 80%);
-}
-.hero::after{
-  content:"";
-  position:absolute;inset:0;z-index:-1;pointer-events:none;
-  background:radial-gradient(ellipse 85% 75% at 40% 40%,
-    transparent 44%,
-    color-mix(in srgb,var(--abyss) 75%,transparent) 100%);
-}
-.hero-fx{
-  position:absolute;inset:0;z-index:-1;pointer-events:none;
-  background:
-    radial-gradient(ellipse 22% 18% at 88% 8%,
-      rgba(53,224,208,.46) 0%,
-      rgba(53,224,208,.14) 36%,
-      transparent 68%),
-    radial-gradient(ellipse 40% 80% at 80% 20%,
-      rgba(53,224,208,.16) 0%,
-      transparent 64%);
-  mix-blend-mode:screen;
+  border-bottom:1px solid var(--line);
+  background:var(--bg);
 }
 .hero-mark{
   position:absolute;right:-18%;top:10%;
-  width:min(22rem,62vw);opacity:.11;
+  width:min(22rem,62vw);opacity:.06;
   pointer-events:none;z-index:-1;
 }
 .hero .wrap{position:relative;z-index:1}
 h1{font-size:clamp(1.8rem,4vw,2.4rem);font-weight:600;letter-spacing:-.02em;margin-bottom:.5rem}
-.tag{color:rgba(242,247,247,.78);font-size:1.1rem}
+.tag{color:var(--ink);font-size:1.1rem}
 main{flex:1;padding:3rem 0}
 p{margin-bottom:1rem;font-size:1.05rem}
 ul{margin:1.25rem 0 0 1.15rem}
 li{margin-bottom:.5rem}
-code{font-family:var(--mono);font-size:.86em;background:rgba(10,58,64,.06);padding:.1em .35em;border-radius:4px}
+code{font-family:var(--mono);font-size:.86em;background:var(--tint);padding:.1em .35em;border-radius:4px}
 footer{
   padding:2.5rem 0 3rem;
-  background:var(--abyss);
-  color:rgba(242,247,247,.55);
-  border-top:1px solid var(--foam-08);
+  background:var(--surface);
+  color:var(--muted);
+  border-top:1px solid var(--line);
   font-family:var(--mono);font-size:.75rem;
 }
 footer .wrap{width:min(72rem,calc(100% - 2.5rem))}
@@ -148,16 +141,16 @@ footer .wrap{width:min(72rem,calc(100% - 2.5rem))}
   display:flex;flex-wrap:wrap;gap:.75rem 1.5rem;
   align-items:center;justify-content:space-between;
 }
-.foot a{color:rgba(242,247,247,.55);text-decoration:none}
-.foot a:hover{color:var(--foam)}
+.foot a{color:var(--muted);text-decoration:none}
+.foot a:hover{color:var(--ink)}
 .foot .brand-lockup,
-.foot .brand-lockup:hover{font-family:var(--sans);color:var(--foam)}
+.foot .brand-lockup:hover{font-family:var(--sans);color:var(--ink)}
 .foot .brand-lockup .mark{width:1.35rem;height:1.35rem}
 .foot .brand-lockup .brand-name{font-size:.95rem}
-.foot .brand-lockup .brand-tag{font-size:.625rem;color:var(--foam-72)}
+.foot .brand-lockup .brand-tag{font-size:.625rem;color:var(--muted)}
 .foot code{
-  background:rgba(242,247,247,.08);
-  color:rgba(242,247,247,.78);
+  background:var(--tint);
+  color:var(--ink);
 }
 @media (max-width:40rem){
   .nav-inner{
@@ -182,21 +175,11 @@ footer .wrap{width:min(72rem,calc(100% - 2.5rem))}
   .nav-links a{padding:.35rem .45rem .45rem 0;font-size:.8125rem}
   a.signin, a.signup{padding:.4rem .75rem;font-size:.8125rem}
 }
-@media (prefers-reduced-motion:no-preference){
-  .hero-fx{animation:shaft-breathe 14s ease-in-out infinite alternate}
-}
-@media (prefers-reduced-motion:reduce){
-  .hero-fx{animation:none}
-}
-@keyframes shaft-breathe{
-  from{opacity:.84;transform:translate3d(0,0,0)}
-  to{opacity:1;transform:translate3d(-1.4%,1.8%,0)}
-}
 
 .brand-lockup{
   display:flex;flex-direction:row;flex-wrap:nowrap;align-items:center;gap:.65rem;
   width:auto;margin:0;
-  color:var(--foam);text-decoration:none;
+  color:var(--ink);text-decoration:none;
   font-size:inherit;font-weight:inherit;
 }
 .brand-lockup .mark{flex:0 0 auto;width:1.5rem;height:1.5rem}
@@ -206,7 +189,7 @@ footer .wrap{width:min(72rem,calc(100% - 2.5rem))}
 }
 .brand-tag{
   font-weight:400;font-size:.6875rem;line-height:1.2;letter-spacing:0;
-  color:var(--foam-72);white-space:nowrap;
+  color:var(--muted);white-space:nowrap;
 }
 .brand-name-row{
   display:flex;flex-direction:row;flex-wrap:nowrap;align-items:center;gap:.5rem;
@@ -214,22 +197,27 @@ footer .wrap{width:min(72rem,calc(100% - 2.5rem))}
 .brand-beta{
   display:inline-flex;align-items:center;flex:0 0 auto;
   padding:.15rem .5rem;
-  border:1px solid rgba(242,247,247,.35);
+  border:1px solid var(--line-strong);
   border-radius:999px;
-  background:rgba(242,247,247,.08);
-  color:var(--foam);
+  background:var(--tint);
+  color:var(--ink);
   font-size:.75rem;font-weight:600;letter-spacing:.03em;line-height:1.2;
   white-space:nowrap;
 }
 h1.brand-lockup .brand-beta{font-size:.95rem;padding:.2rem .65rem}
 img,svg{display:block;max-width:100%;height:auto}
+
+/* Carbon Plate: headings in Plex Serif, as on the nameplate. */
+h1,h2,.brand-name{font-family:var(--serif)}
+h1 .brand-tag{font-family:var(--sans)}
+.mock h1,.mock h2,.mock h3{font-family:var(--sans)}
 </style>
 </head>
 <body>
 <nav class="nav">
   <div class="wrap nav-inner">
     <a class="brand-lockup" href="/">
-      <svg class="mark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="24" height="24" aria-hidden="true"><path d="M 57.1 9.6 A 41 41 0 1 0 90.4 42.9" fill="none" stroke="currentColor" stroke-width="16" stroke-linecap="round"/><circle cx="79" cy="21" r="8.5" fill="#35E0D0"/></svg>
+      <svg class="mark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="24" height="24" aria-hidden="true"><path d="M 57.1 9.6 A 41 41 0 1 0 90.4 42.9" fill="none" stroke="currentColor" stroke-width="16" stroke-linecap="round"/><circle cx="79" cy="21" r="8.5" fill="#C4A35A"/></svg>
       <span class="brand-text">
         <span class="brand-name-row">
           <span class="brand-name">OpenData</span>
@@ -253,8 +241,7 @@ img,svg{display:block;max-width:100%;height:auto}
   </div>
 </nav>
 <header class="hero">
-  <div class="hero-fx" aria-hidden="true"></div>
-  <svg class="hero-mark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="512" height="512" aria-hidden="true"><path d="M 57.1 9.6 A 41 41 0 1 0 90.4 42.9" fill="none" stroke="#F2F7F7" stroke-width="16" stroke-linecap="round"/><circle cx="79" cy="21" r="8.5" fill="#35E0D0"/></svg>
+    <svg class="hero-mark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="512" height="512" aria-hidden="true"><path d="M 57.1 9.6 A 41 41 0 1 0 90.4 42.9" fill="none" stroke="currentColor" stroke-width="16" stroke-linecap="round"/><circle cx="79" cy="21" r="8.5" fill="#C4A35A"/></svg>
   <div class="wrap">
     <h1>Not found</h1>
     <p class="tag">That page isn’t part of the standard.</p>
@@ -275,7 +262,7 @@ img,svg{display:block;max-width:100%;height:auto}
 <footer>
   <div class="wrap foot">
     <a class="brand-lockup" href="/">
-      <svg class="mark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="22" height="22" aria-hidden="true"><path d="M 57.1 9.6 A 41 41 0 1 0 90.4 42.9" fill="none" stroke="currentColor" stroke-width="16" stroke-linecap="round"/><circle cx="79" cy="21" r="8.5" fill="#35E0D0"/></svg>
+      <svg class="mark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="22" height="22" aria-hidden="true"><path d="M 57.1 9.6 A 41 41 0 1 0 90.4 42.9" fill="none" stroke="currentColor" stroke-width="16" stroke-linecap="round"/><circle cx="79" cy="21" r="8.5" fill="#C4A35A"/></svg>
       <span class="brand-text">
         <span class="brand-name">OpenData</span>
         <span class="brand-tag">an AI Pricing Model</span>
